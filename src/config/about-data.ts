@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, Variants } from "framer-motion";
+import { Variants } from "framer-motion";
 import { Code2, Globe, Cpu, Zap } from "lucide-react";
 
 // --- DATOS DEL CONTENIDO (Fácil de editar) ---
@@ -8,26 +8,26 @@ export const ABOUT_DATA = {
     title: "Sobre mí",
     subtitle: "Más allá del código",
     bio: [
-        "Soy un desarrollador apasionado por la intersección entre diseño y funcionalidad. Mi objetivo no es solo escribir líneas de código, sino construir productos digitales que sean intuitivos y performantes.",
-        "Con una sólida base en Computer Science y una mentalidad autodidacta, me adapto rápidamente a nuevos entornos tecnológicos. Me especializo en el ecosistema React/Next.js, pero siempre elijo la herramienta adecuada para el trabajo.",
+        "Mi trayectoria comenzó en el SENA, donde construí bases sólidas en lógica de programación y POO. Allí pasé de la teoría a la práctica desarrollando aplicaciones de escritorio con Java Swing y arquitecturas web completas, creando APIs desde cero con Node.js y clientes dinámicos con Vanilla JS.",
+        "Posteriormente, mi paso por Rappi transformó mi visión del desarrollo. Trabajando en QA manual y ciclos de pruebas, no solo aprendí a detectar y reportar bugs, sino que entendí la importancia de la calidad del código, la estructura de los endpoints y la colaboración entre equipos. Hoy, combino esa disciplina de testeo con un dominio avanzado del ecosistema moderno (React, Next.js, Nest.js), creando productos digitales que son tan robustos por dentro como intuitivos por fuera."
     ],
     // Estas son las "Bento Cards" que aman los reclutadores
     stats: [
         {
             label: "Años de Experiencia",
-            value: "3+",
+            value: "2+",
             icon: Globe,
             color: "bg-blue-500/10 text-blue-500",
         },
         {
             label: "Proyectos Completados",
-            value: "15+",
+            value: "4+",
             icon: Code2,
             color: "bg-purple-500/10 text-purple-500",
         },
         {
             label: "Tecnologías Dominadas",
-            value: "10+",
+            value: "6+",
             icon: Cpu,
             color: "bg-green-500/10 text-green-500",
         },

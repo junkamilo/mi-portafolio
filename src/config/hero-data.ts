@@ -2,15 +2,14 @@ import { Variants } from "framer-motion";
 
 // Configuración del contenido (Fácil de editar en el futuro)
 export const HERO_CONTENT = {
-    badge: "Disponible para nuevos proyectos",
-    name: "Juan Pérez",
-    role: "Ingeniero de Software Full Stack",
-    description:
-        "Especializado en crear experiencias digitales rápidas, accesibles y visualmente impactantes. Transformo requerimientos complejos en código limpio.",
-    social: {
-        github: "https://github.com/",
-        linkedin: "https://linkedin.com/",
-    },
+  badge: "Disponible para nueva chamba",
+  name: "Juan Beltran",
+  role: "Junior Full Stack Developer",
+  description: "Ingeniero de Software Junior con mentalidad orientada a la calidad. Combino el desarrollo de interfaces modernas con arquitecturas backend sólidas, aplicando buenas prácticas de testing para entregar código fiable y mantenible.",
+  social: {
+    github: "https://github.com/junkamilo",
+    linkedin: "https://linkedin.com/",
+  },
 };
 
 // Configuración de Animaciones (Variants)
@@ -30,9 +29,9 @@ export const itemVariants: Variants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { 
-      duration: 0.8, 
-      ease: [0.2, 0.65, 0.3, 0.9] as const 
-    } 
+    transition: {
+      duration: 0.8,
+      ease: [0.2, 0.65, 0.3, 0.9] as const
+    }
   },
 };

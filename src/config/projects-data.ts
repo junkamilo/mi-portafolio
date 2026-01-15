@@ -1,15 +1,13 @@
 "use client";
 
-import { motion, Variants } from "framer-motion";
-import { ExternalLink, Github, FolderGit2 } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Variants } from "framer-motion";
 
 // --- DATOS ---
 export const PROJECTS = [
     {
-        title: "Sistema de Gestión de Tareas",
+        title: "JunkyMusic",
         description: "Aplicación web full-stack con autenticación, tablero Kanban drag-and-drop y notificaciones en tiempo real vía WebSockets.",
-        tags: ["React", "TypeScript", "Node.js", "Socket.io"],
+        tags: ["Html", "Css", "Node.js", "Js" , "MySql"],
         links: {
             demo: "https://demo.com",
             github: "https://github.com",
@@ -18,27 +16,27 @@ export const PROJECTS = [
         image: "from-blue-500/20 to-cyan-500/20",
     },
     {
-        title: "E-Commerce Dashboard",
+        title: "App Restaurante",
         description: "Panel administrativo con visualización de datos complejos, gestión de inventario y reportes de ventas exportables.",
-        tags: ["Next.js", "Tailwind CSS", "Recharts", "MongoDB"],
+        tags: ["Java"],
         links: {
             github: "https://github.com",
         },
         image: "from-purple-500/20 to-pink-500/20",
     },
     {
-        title: "API REST Financiera",
+        title: "VariedadesLili",
         description: "Backend robusto para transacciones bancarias. Incluye tests E2E, documentación Swagger y arquitectura hexagonal.",
-        tags: ["NestJS", "PostgreSQL", "Docker", "Jest"],
+        tags: ["Html", "Css", "Js", "MySql" , "Node.js" , "Express"],
         links: {
             github: "https://github.com",
         },
         image: "from-emerald-500/20 to-teal-500/20",
     },
     {
-        title: "SaaS Landing Page",
+        title: "VariedadesLili Frontend",
         description: "Landing page de alta conversión optimizada para SEO y performance (Core Web Vitals) con animaciones avanzadas.",
-        tags: ["Astro", "React", "Framer Motion", "Vercel"],
+        tags: ["React", "Tailwind CSS", "Ts"],
         links: {
             demo: "https://demo.com",
             github: "https://github.com",

@@ -15,28 +15,28 @@ export const SKILL_CATEGORIES = [
         label: "Frontend Development",
         icon: Layout,
         description: "Creando interfaces pixel-perfect y experiencias interactivas.",
-        skills: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "HTML5/CSS3"],
+        skills: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Bootstrap", "HTML5/CSS3" , "Js"],
     },
     {
         id: "backend",
         label: "Backend & APIs",
         icon: Server,
         description: "Arquitectura robusta y escalable del lado del servidor.",
-        skills: ["Node.js", "Express", "Python", "Java", "REST APIs", "GraphQL"],
+        skills: ["Node.js","Nest.js", "Express", "Java"],
     },
     {
         id: "database",
         label: "Base de Datos",
         icon: Database,
         description: "Diseño de esquemas y optimización de consultas.",
-        skills: ["PostgreSQL", "MongoDB", "MySQL", "Prisma ORM", "Supabase"],
+        skills: ["PostgreSQL", "MongoDB", "MySQL"],
     },
     {
         id: "tools",
         label: "DevOps & Herramientas",
         icon: Settings,
         description: "Flujos de trabajo, control de versiones y despliegue.",
-        skills: ["Git", "GitHub", "Docker", "VS Code", "Vercel", "CI/CD"],
+        skills: ["Git", "GitHub", "Docker", "VS Code", "Vercel"],
     },
 ];
 
