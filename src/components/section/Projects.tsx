@@ -1,20 +1,20 @@
 "use client"
 
+import Link from "next/link"; // ✅ Import Link for navigation
 import { motion } from "framer-motion";
 import { ExternalLink, FolderGit2, Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { containerVariants } from "@/src/config/hero-data";
-import { PROJECTS } from "@/src/config/projects-data";
+ // Ensure this path points to the unified file
 import { cardVariants } from "@/src/config/skills-data";
-
-
+import { PROJECTS } from "@/src/config/projects-data";
 
 export default function Projects() {
   return (
     <section id="proyectos" className="py-24 bg-secondary/20">
       <div className="container px-4 md:px-6 mx-auto">
 
-        {/* Encabezado */}
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -43,49 +43,75 @@ export default function Projects() {
               variants={cardVariants}
               className="group relative bg-card border border-border rounded-2xl overflow-hidden hover:shadow-2xl hover:shadow-primary/10 transition-all duration-300 flex flex-col h-full"
             >
-              {/* 1. MOCKUP DE IMAGEN (O Gradiente) */}
-              <div className={`h-48 w-full bg-gradient-to-br ${project.image} relative overflow-hidden`}>
-                {/* Overlay oscuro al hacer hover */}
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
+              {/* 1. CARD IMAGE (Clickable Link) */}
+              <Link 
+                href={`/proyectos/${project.slug || '#'}`} 
+                className="block cursor-pointer overflow-hidden"
+              >
+                {/* Note: changed 'project.image' to 'project.cardImage' based on new data structure */}
+                <div className={`h-48 w-full bg-gradient-to-br ${project.cardImage} relative overflow-hidden`}>
+                  {/* Overlay oscuro al hacer hover */}
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
 
-                {/* Icono decorativo flotante */}
-                <FolderGit2 className="absolute bottom-4 right-4 text-primary/20 w-24 h-24 rotate-12 transform translate-y-8 translate-x-8 group-hover:translate-y-4 group-hover:translate-x-4 transition-transform duration-500" />
-              </div>
+                  {/* Icono decorativo flotante */}
+                  <FolderGit2 className="absolute bottom-4 right-4 text-primary/20 w-24 h-24 rotate-12 transform translate-y-8 translate-x-8 group-hover:translate-y-4 group-hover:translate-x-4 transition-transform duration-500" />
+                </div>
+              </Link>
 
               {/* 2. CONTENIDO */}
               <div className="p-6 flex flex-col flex-grow">
                 <div className="flex justify-between items-start mb-4">
-                  <h3 className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors">
-                    {project.title}
-                  </h3>
+                  {/* Title Link */}
+                  <Link href={`/proyectos/${project.slug || '#'}`} className="block">
+                    <h3 className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors cursor-pointer">
+                      {project.title}
+                    </h3>
+                  </Link>
 
-                  {/* Links (Github / Demo) */}
-                  <div className="flex gap-2">
+                  {/* External Links (Github / Demo) - Independent */}
+                  <div className="flex gap-2 z-10">
                     {project.links.github && (
-                      <a href={project.links.github} target="_blank" rel="noreferrer" className="text-muted-foreground hover:text-foreground transition-colors p-1">
+                      <a 
+                        href={project.links.github} 
+                        target="_blank" 
+                        rel="noreferrer" 
+                        className="text-muted-foreground hover:text-foreground transition-colors p-1"
+                        title="Ver Repositorio"
+                      >
                         <Github size={20} />
                       </a>
                     )}
                     {project.links.demo && (
-                      <a href={project.links.demo} target="_blank" rel="noreferrer" className="text-muted-foreground hover:text-foreground transition-colors p-1">
+                      <a 
+                        href={project.links.demo} 
+                        target="_blank" 
+                        rel="noreferrer" 
+                        className="text-muted-foreground hover:text-foreground transition-colors p-1"
+                        title="Ver Demo en vivo"
+                      >
                         <ExternalLink size={20} />
                       </a>
                     )}
                   </div>
                 </div>
 
-                <p className="text-muted-foreground mb-6 line-clamp-3">
-                  {project.description}
-                </p>
+                {/* Description Link */}
+                {/* Note: changed 'project.description' to 'project.shortDescription' */}
+                <Link href={`/proyectos/${project.slug || '#'}`} className="block mb-6">
+                  <p className="text-muted-foreground line-clamp-3 cursor-pointer">
+                    {project.shortDescription}
+                  </p>
+                </Link>
 
-                {/* Tags de Tecnologías (Al final de la tarjeta) */}
-                <div className="mt-auto flex flex-wrap gap-2">
-                  {project.tags.map((tag) => (
+                {/* Technologies Tags */}
+                {/* Note: changed 'project.tags' to 'project.technologies' */}
+                <div className="mt-auto flex flex-wrap gap-2 pointer-events-none">
+                  {project.technologies.map((tech) => (
                     <span
-                      key={tag}
+                      key={tech}
                       className="text-xs font-medium px-2.5 py-1 rounded-md bg-secondary text-secondary-foreground border border-border/50"
                     >
-                      {tag}
+                      {tech}
                     </span>
                   ))}
                 </div>
@@ -100,8 +126,10 @@ export default function Projects() {
           whileInView={{ opacity: 1 }}
           className="mt-16 text-center"
         >
-          <Button variant="outline" size="lg" className="gap-2">
-            <Github className="w-4 h-4" /> Ver repositorio completo
+          <Button variant="outline" size="lg" className="gap-2" asChild>
+             <a href="https://github.com/junkamilo" target="_blank" rel="noreferrer">
+               <Github className="w-4 h-4" /> Ver repositorio completo
+             </a>
           </Button>
         </motion.div>
 

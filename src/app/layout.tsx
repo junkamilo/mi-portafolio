@@ -19,14 +19,11 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Providers>
-
-          <Header />
+          {/* Aquí solo renderizamos children (el contenido de la página) */}
           {children}
-          <Footer/>
 
-          {/* 3. Colocamos los Toasters aquí para que se vean encima de todo */}
+          {/* El Toaster sí debe ir aquí para que funcione en todas partes */}
           <Toaster />
-
         </Providers>
       </body>
     </html>
