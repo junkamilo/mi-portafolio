@@ -31,12 +31,12 @@ export interface Project {
   technologies: string[];
   features?: string[];
   challenges?: string;
-  
+
   // Imágenes
   cardImage: string;
   mainImage: string;
   gallery?: ProjectImage[];
-  
+
   // Enlaces e Infraestructura
   links: ProjectLinks;
   infrastructure?: ProjectInfrastructure; // 👇 CAMPO NUEVO OPCIONAL
@@ -66,7 +66,7 @@ export const PROJECTS: Project[] = [
       "Gestión de bases de datos relacionales con MySQL"
     ],
     challenges: "El mayor reto fue la implementación de WebSockets para las notificaciones en tiempo real sin saturar el servidor, además de asegurar la integridad de los datos al mover tarjetas en el Kanban.",
-    
+
     // 👇 DATOS REALES DE TU DESPLIEGUE
     links: {
       github: "https://github.com/junkamilo/MusicApp.git",
@@ -101,7 +101,6 @@ export const PROJECTS: Project[] = [
     ],
     links: {
       github: "https://github.com/junkamilo/RestauranteApp.git",
-      // Si no tiene demo online, simplemente no pongas el campo demo
     },
     // Si es desktop, no necesita infrastructure web, o puedes poner "Local / On-Premise"
   },
@@ -118,6 +117,7 @@ export const PROJECTS: Project[] = [
     mainImage: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&h=675&fit=crop",
     links: {
       github: "https://github.com",
+      demo: "https://proyectos-5stx.vercel.app"
     },
     infrastructure: {
       backend: "AWS EC2",
