@@ -25,29 +25,44 @@ export const WORK_EXPERIENCE = [
 ];
 
 // --- DATOS: EDUCACIÓN Y CURSOS (Soporte) ---
+// In Experience.tsx
+
 export const EDUCATION = [
   {
     id: 1,
+    slug: "tecnologia-analisis-desarrollo-software", // Matches the first item in experienceData
     title: "Tecnólogo en Análisis y Desarrollo de Software",
     institution: "SENA",
     period: "2022 - 2024",
-    type: "degree", // degree | certificate
+    type: "degree", 
   },
   {
     id: 2,
-    title: "React: De cero a experto",
-    institution: "Udemy / Fernando Herrera",
+    slug: "react-guia-completa", // Matches the third item in experienceData
+    title: "React - La Guía Completa",
+    institution: "Udemy",
     period: "2023",
     type: "certificate",
   },
   {
     id: 3,
-    title: "Backend con Node.js y Express",
+    slug: "javascript-moderno", // Matches the fourth item in experienceData
+    title: "JavaScript Moderno",
     institution: "Platzi",
     period: "2023",
     type: "certificate",
   },
+   {
+    id: 4,
+    slug: "bases-datos-postgresql", // Matches the fifth item in experienceData
+    title: "Bases de Datos con PostgreSQL",
+    institution: "Coursera",
+    period: "2022",
+    type: "certificate",
+  },
 ];
+
+
 
 // --- ANIMACIONES ---
 export const containerVariants: Variants = {
@@ -60,9 +75,9 @@ export const containerVariants: Variants = {
 
 export const itemVariants: Variants = {
   hidden: { opacity: 0, x: -20 },
-  visible: { 
-    opacity: 1, 
-    x: 0, 
-    transition: { duration: 0.5 } 
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.5 }
   },
 };

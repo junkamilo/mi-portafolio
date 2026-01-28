@@ -3,7 +3,8 @@
 import { WORK_EXPERIENCE, EDUCATION } from "@/src/config/experience-data";
 import { containerVariants, itemVariants } from "@/src/config/hero-data";
 import { motion } from "framer-motion";
-import { GraduationCap, Briefcase, Award, MapPin } from "lucide-react";
+import { GraduationCap, Briefcase, Award, MapPin, ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 export default function Experience() {
     return (
@@ -99,7 +100,7 @@ export default function Experience() {
                                     <motion.div
                                         key={edu.id}
                                         variants={itemVariants}
-                                        className="bg-card p-6 rounded-xl border border-border/50 shadow-sm hover:shadow-md transition-shadow"
+                                        className="bg-card p-6 rounded-xl border border-border/50 shadow-sm hover:shadow-md transition-shadow group"
                                     >
                                         <div className="flex items-start justify-between mb-2">
                                             <div className={`p-2 rounded-lg ${edu.type === 'degree' ? 'bg-blue-500/10 text-blue-500' : 'bg-green-500/10 text-green-500'}`}>
@@ -110,12 +111,37 @@ export default function Experience() {
                                             </span>
                                         </div>
 
-                                        <h4 className="font-bold text-foreground mb-1">
-                                            {edu.title}
-                                        </h4>
-                                        <p className="text-sm text-muted-foreground">
+                                        {/* --- TÍTULO CON ENLACE --- */}
+                                        {/* Si tiene slug, ponemos Link. Si no, solo texto. */}
+                                        {edu.slug ? (
+                                            <Link href={`/experience/${edu.slug}`} className="block">
+                                                <h4 className="font-bold text-foreground mb-1 group-hover:text-primary transition-colors flex items-center gap-2">
+                                                    {edu.title}
+                                                    {/* Flecha sutil que aparece al hover */}
+                                                    <ArrowRight size={14} className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
+                                                </h4>
+                                            </Link>
+                                        ) : (
+                                            <h4 className="font-bold text-foreground mb-1">
+                                                {edu.title}
+                                            </h4>
+                                        )}
+
+                                        <p className="text-sm text-muted-foreground mb-3">
                                             {edu.institution}
                                         </p>
+
+                                        {/* --- CTA PARA VER CERTIFICADO --- */}
+                                        {edu.slug && (
+                                            <div className="pt-3 border-t border-border/50">
+                                                <Link href={`/experience/${edu.slug}`}>
+                                                    <span className="text-xs font-semibold text-primary flex items-center gap-1 hover:underline">
+                                                        Ver certificado y detalles <ArrowRight size={12} />
+                                                    </span>
+                                                </Link>
+                                            </div>
+                                        )}
+
                                     </motion.div>
                                 ))}
                             </motion.div>
