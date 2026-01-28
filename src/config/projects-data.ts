@@ -136,7 +136,7 @@ export const PROJECTS: Project[] = [
     cardImage: "from-orange-500/20 to-amber-500/20",
     mainImage: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&h=675&fit=crop",
     links: {
-      demo: "https://demo.com",
+      demo: "https://proyecto-variedades-lili-cliente.vercel.app",
       github: "https://github.com",
     },
     infrastructure: {

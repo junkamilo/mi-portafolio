@@ -26,11 +26,37 @@ export default function About() {
               </p>
             </motion.div>
 
-            <motion.div variants={itemVariants} className="space-y-6 text-muted-foreground text-lg leading-relaxed">
-              {ABOUT_DATA.bio.map((paragraph, index) => (
-                <p key={index}>{paragraph}</p>
+            <div className="space-y-6">
+              {ABOUT_DATA.timeline.map((item, index) => (
+                <motion.div
+                  key={item.id}
+                  variants={itemVariants}
+                  className="relative pl-8 md:pl-0"
+                >
+                  {/* Línea conectora visual (Opcional, para estilo timeline) */}
+                  {index !== ABOUT_DATA.timeline.length - 1 && (
+                    <div className="absolute left-3 top-10 bottom-0 w-0.5 bg-border md:hidden" />
+                  )}
+
+                  <div className="flex gap-4 items-start group">
+                    {/* Icono */}
+                    <div className="shrink-0 w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300 mt-1">
+                      <item.icon size={20} />
+                    </div>
+
+                    {/* Texto */}
+                    <div className="space-y-1">
+                      <h3 className="text-lg font-bold text-foreground">
+                        {item.title}
+                      </h3>
+                      <p className="text-muted-foreground leading-relaxed text-base">
+                        {item.description}
+                      </p>
+                    </div>
+                  </div>
+                </motion.div>
               ))}
-            </motion.div>
+            </div>
 
             {/* Decoración visual (opcional: firma o frase) */}
             <motion.div variants={itemVariants} className="pt-4 border-l-4 border-primary pl-4">
@@ -41,7 +67,7 @@ export default function About() {
           </div>
 
           {/* --- COLUMNA DERECHA: BENTO GRID DE MÉTRICAS --- */}
-          <motion.div 
+          <motion.div
             variants={containerVariants}
             className="grid grid-cols-2 gap-4 md:gap-6"
           >
@@ -56,12 +82,12 @@ export default function About() {
                 <div className={`p-3 rounded-full ${stat.color} mb-2 group-hover:scale-110 transition-transform duration-300`}>
                   <stat.icon size={24} />
                 </div>
-                
+
                 {/* Valor numérico grande */}
                 <h3 className="text-3xl md:text-4xl font-bold text-foreground">
                   {stat.value}
                 </h3>
-                
+
                 {/* Etiqueta */}
                 <p className="text-sm text-muted-foreground font-medium uppercase tracking-wider">
                   {stat.label}

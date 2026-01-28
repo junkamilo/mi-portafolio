@@ -1,16 +1,32 @@
 "use client";
 
 import { Variants } from "framer-motion";
-import { Code2, Globe, Cpu, Zap } from "lucide-react";
+import { Code2, Globe, Cpu, Zap, BookOpen, Rocket } from "lucide-react";
 
 // --- DATOS DEL CONTENIDO (Fácil de editar) ---
 export const ABOUT_DATA = {
     title: "Sobre mí",
     subtitle: "Más allá del código",
-    bio: [
-        "Mi trayectoria comenzó en el SENA, donde construí bases sólidas en lógica de programación y POO. Allí pasé de la teoría a la práctica desarrollando aplicaciones de escritorio con Java Swing y arquitecturas web completas, creando APIs desde cero con Node.js y clientes dinámicos con Vanilla JS.",
-        "Posteriormente, mi paso por Rappi transformó mi visión del desarrollo. Trabajando en QA manual y ciclos de pruebas, no solo aprendí a detectar y reportar bugs, sino que entendí la importancia de la calidad del código, la estructura de los endpoints y la colaboración entre equipos. Hoy, combino esa disciplina de testeo con un dominio avanzado del ecosistema moderno (React, Next.js, Nest.js), creando productos digitales que son tan robustos por dentro como intuitivos por fuera."
-    ],
+    timeline: [
+    {
+      id: 1,
+      title: "Los Inicios (SENA)",
+      description: "Construí mis bases en lógica y POO. Pasé de la teoría a la práctica creando aplicaciones de escritorio con Java y mis primeras APIs con Node.js.",
+      icon: BookOpen,
+    },
+    {
+      id: 2,
+      title: "La Escuela de Calidad (Rappi)",
+      description: "Mi paso por QA transformó mi visión. Aprendí que el código no solo debe funcionar, debe ser robusto. Entendí la importancia de detectar bugs antes de que nazcan.",
+      icon: Rocket,
+    },
+    {
+      id: 3,
+      title: "El Desarrollador Hoy",
+      description: "Combino esa disciplina de testeo con el dominio del ecosistema moderno (Next.js, NestJS), creando productos digitales sólidos y escalables.",
+      icon: Code2,
+    },
+  ],
     // Estas son las "Bento Cards" que aman los reclutadores
     stats: [
         {
