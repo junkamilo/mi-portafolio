@@ -2,14 +2,16 @@ import { Variants } from "framer-motion";
 
 // Configuración del contenido (Fácil de editar en el futuro)
 export const HERO_CONTENT = {
-  badge: "Disponible para nueva chamba",
+  badge: "Disponible para trabajar",
   name: "Juan Beltran",
-  role: "Junior Full Stack Developer",
-  description: "Ingeniero de Software Junior con mentalidad orientada a la calidad. Combino el desarrollo de interfaces modernas con arquitecturas backend sólidas, aplicando buenas prácticas de testing para entregar código fiable y mantenible.",
+  role: "Software Developer | Frontend & QA Testing",
+  description: "Desarrollador de Software especializado en el ecosistema JavaScript (React, TypeScript, Node.js). Combino el desarrollo de interfaces modernas con arquitecturas backend sólidas, aplicando estrategias de testing y código limpio para entregar soluciones escalables y fiables.",
   social: {
     github: "https://github.com/junkamilo",
-    linkedin: "https://linkedin.com/",
+    linkedin: "https://www.linkedin.com/in/juan-camilo-beltr%C3%A1n-campo-4aa1b3202/?trk=public-profile-join-page",
+    email: "mailto:juancamilo.campobarrios@gmail.com",
   },
+  image: "/fotoPerfilHojaVida.png"
 };
 
 // Configuración de Animaciones (Variants)

@@ -6,37 +6,47 @@ import {
     Layout,
     Settings,
     Server,
+    Terminal,
+    ShieldCheck,
 } from "lucide-react";
 
 // --- DATOS ---
 export const SKILL_CATEGORIES = [
     {
         id: "frontend",
-        label: "Frontend Development",
+        label: "Frontend",
         icon: Layout,
-        description: "Creando interfaces pixel-perfect y experiencias interactivas.",
-        skills: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Bootstrap", "HTML5/CSS3" , "Js"],
+        description: "Experiencias de usuario rápidas, reactivas y accesibles.",
+        skills: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"], 
     },
     {
         id: "backend",
-        label: "Backend & APIs",
+        label: "Backend",
         icon: Server,
-        description: "Arquitectura robusta y escalable del lado del servidor.",
-        skills: ["Node.js","Nest.js", "Express", "Java"],
+        description: "Servidores escalables con lógica de negocio sólida.",
+        skills: ["NestJS", "Node.js", "Express", "Java (POO)"], 
+    },
+    {
+        // Tu punto fuerte (QA) queda en el centro visual de la segunda fila
+        id: "qa",
+        label: "QA Testing",
+        icon: ShieldCheck, 
+        description: "Mentalidad 'Bug-Free'. Desde pruebas manuales hasta automatización.",
+        skills: ["Vitest", "Jest", "Jira", "Test Cases", "Debugging"], 
     },
     {
         id: "database",
-        label: "Base de Datos",
+        label: "Base de datos & ORMs",
         icon: Database,
-        description: "Diseño de esquemas y optimización de consultas.",
-        skills: ["PostgreSQL", "MongoDB", "MySQL"],
+        description: "Gestión eficiente de datos y optimización de consultas.",
+        skills: ["PostgreSQL", "MySQL", "MongoDB", "Prisma ORM"], 
     },
     {
-        id: "tools",
-        label: "DevOps & Herramientas",
-        icon: Settings,
-        description: "Flujos de trabajo, control de versiones y despliegue.",
-        skills: ["Git", "GitHub", "Docker", "VS Code", "Vercel"],
+        id: "workflow",
+        label: "DevOps & AI Workflow",
+        icon: Terminal,
+        description: "Herramientas que aceleran el ciclo de desarrollo.",
+        skills: ["Git/GitHub", "Docker", "Postman", "Vercel", "AI Assisted Coding"],
     },
 ];
 

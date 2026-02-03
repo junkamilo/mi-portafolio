@@ -1,9 +1,15 @@
-"use client"
+"use client";
 
 import { Button } from "@/components/ui/button";
 import { SOCIAL_LINKS } from "@/src/config/contact-data";
-import { NAV_LINKS } from "@/src/config/navigation-data";
-import { ArrowUp } from "lucide-react";
+import { ArrowUp, Heart } from "lucide-react";
+
+const NAV_LINKS = [
+  { href: "#inicio", label: "Inicio" },
+  { href: "#proyectos", label: "Proyectos" },
+  { href: "#experiencia", label: "Experiencia" },
+  { href: "#sobre-mi", label: "Sobre mí" },
+];
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -13,33 +19,49 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-foreground text-background py-12 border-t border-border/10 relative overflow-hidden">
+    // CAMBIO CLAVE: bg-zinc-950 (Fondo muy oscuro) y texto claro para contraste total
+    <footer className="bg-[#0a0a0a] text-zinc-400 pt-16 pb-8 border-t border-white/10 relative overflow-hidden">
 
-      {/* Decoración de fondo */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-1 bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
+      {/* --- 1. FONDO TÉCNICO OSCURO --- */}
+      {/* Grid pattern ajustado para verse sobre fondo oscuro */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+      
+      {/* Luz ambiental sutil (Glow) */}
+      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[120px] pointer-events-none opacity-30" />
+      
+      {/* Línea de luz superior brillante para separar del contenido blanco */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80%] h-[1px] bg-gradient-to-r from-transparent via-primary/60 to-transparent shadow-[0_0_15px_rgba(var(--primary),0.5)]" />
 
-      <div className="container px-4 md:px-6 mx-auto">
-        <div className="grid md:grid-cols-4 gap-8 mb-12">
+      <div className="container px-4 md:px-6 mx-auto relative z-10">
+        <div className="grid md:grid-cols-4 gap-10 mb-16">
 
           {/* 1. BRAND & MISION */}
-          <div className="col-span-1 md:col-span-2">
-            <a href="#inicio" className="text-2xl font-bold mb-4 inline-block tracking-tight">
-              <span className="text-primary">Dev</span>Portfolio
+          <div className="col-span-1 md:col-span-2 space-y-4">
+            
+            {/* LOGO (Texto blanco para resaltar) */}
+            <a href="#inicio" className="flex items-center gap-2 group w-fit">
+              <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-purple-600 text-white shadow-lg transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
+                 <span className="font-bold text-sm">D</span>
+              </div>
+              <span className="text-xl font-bold tracking-tight text-zinc-100">
+                DevJuan
+              </span>
             </a>
-            <p className="text-background/70 text-sm leading-relaxed max-w-sm">
-              Construyendo experiencias digitales que combinan diseño elegante con arquitectura de software robusta. Enfocado en escalabilidad y rendimiento.
+
+            <p className="text-zinc-500 text-sm leading-relaxed max-w-sm">
+              Construyendo experiencias digitales que combinan diseño elegante con arquitectura de software robusta. Enfocado en escalabilidad, rendimiento y accesibilidad.
             </p>
           </div>
 
           {/* 2. ENLACES RÁPIDOS */}
           <div>
-            <h4 className="font-semibold mb-4 text-primary">Navegación</h4>
-            <ul className="space-y-2">
+            <h4 className="font-semibold mb-6 text-zinc-100">Navegación</h4>
+            <ul className="space-y-3">
               {NAV_LINKS.map((link) => (
                 <li key={link.href}>
                   <a
                     href={link.href}
-                    className="text-sm text-background/70 hover:text-primary hover:translate-x-1 transition-all inline-block"
+                    className="text-sm text-zinc-500 hover:text-primary hover:translate-x-1 transition-all inline-flex items-center gap-1"
                   >
                     {link.label}
                   </a>
@@ -50,43 +72,22 @@ export default function Footer() {
 
           {/* 3. SOCIAL */}
           <div>
-            <h4 className="font-semibold mb-4 text-primary">Conecta</h4>
+            <h4 className="font-semibold mb-6 text-zinc-100">Conecta</h4>
             <div className="flex gap-3">
               {SOCIAL_LINKS.map((link) => (
                 <a
-                  key={link.label}
+                  key={link.label || link.name}
                   href={link.href}
                   target="_blank"
                   rel="noreferrer"
-                  className="w-10 h-10 rounded-full bg-background/10 flex items-center justify-center hover:bg-primary hover:text-foreground transition-all duration-300"
-                  aria-label={link.label}
+                  // Botones ajustados para fondo oscuro
+                  className="group relative flex h-10 w-10 items-center justify-center rounded-full bg-white/5 border border-white/10 transition-all duration-300 hover:border-primary hover:text-primary hover:bg-white/10 hover:shadow-lg hover:shadow-primary/20"
+                  aria-label={link.label || link.name}
                 >
-                  <link.icon size={18} />
+                  <link.icon size={18} className="transition-transform duration-300 group-hover:scale-110" />
                 </a>
               ))}
             </div>
-          </div>
-        </div>
-
-        {/* BARRA INFERIOR */}
-        <div className="pt-8 border-t border-background/10 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-background/50">
-            © {currentYear} Juan Pérez. Código libre bajo licencia MIT.
-          </p>
-
-          <div className="flex items-center gap-4">
-            <p className="text-xs text-background/50">
-              Hecho con Next.js & Tailwind
-            </p>
-            {/* Botón Scroll Top */}
-            <Button
-              onClick={scrollToTop}
-              size="icon"
-              variant="outline"
-              className="h-8 w-8 rounded-full bg-background/5 border-background/20 hover:bg-primary hover:text-foreground hover:border-primary transition-colors"
-            >
-              <ArrowUp size={14} />
-            </Button>
           </div>
         </div>
       </div>

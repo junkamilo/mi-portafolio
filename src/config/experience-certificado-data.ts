@@ -59,38 +59,56 @@ El programa incluyó múltiples proyectos prácticos que me permitieron aplicar 
         certificateUrl: "https://certificados.sena.edu.co/verificar/123456"
     },
     {
-        slug: "desarrollador-software-practica",
-        type: "work",
-        title: "Desarrollador de Software - Práctica",
-        organization: "Empresa XYZ",
-        period: "2024",
+        slug: "nextjs-fullstack-guide",
+        type: "course", // 👈 Lo definimos como curso/certificación
+        title: "Next.js: El Framework de React para Producción",
+        organization: "Udemy", // O la plataforma que corresponda
+        period: "2025",
+
         shortDescription:
-            "Desarrollo de aplicaciones web con React y Node.js. Colaboración en equipo utilizando metodologías ágiles y control de versiones con Git.",
-        fullDescription: `Mi etapa productiva como desarrollador de software me permitió aplicar todos los conocimientos adquiridos en un entorno laboral real.
-Principales responsabilidades:
-- Desarrollo de nuevas funcionalidades para aplicaciones web existentes
-- Corrección de bugs y optimización de código
-- Participación en reuniones diarias de Scrum
-- Revisión de código de compañeros
-- Documentación técnica de las funcionalidades desarrolladas
-Durante este periodo, trabajé principalmente con React para el frontend y Node.js con Express para el backend. Utilicé PostgreSQL como base de datos y Docker para la containerización de las aplicaciones.
-Esta experiencia me enseñó la importancia del trabajo en equipo, la comunicación efectiva y las buenas prácticas de desarrollo en un entorno profesional.`,
-        certificateImage: "https://images.unsplash.com/photo-1521791136064-7986c2920216?w=800&h=600&fit=crop",
-        skills: ["React", "Node.js", "Express", "PostgreSQL", "Docker", "Git", "Jira", "Scrum"],
+            "Especialización en desarrollo Full Stack moderno: App Router, Server Actions, SSR y conexión a bases de datos.",
+
+        fullDescription: `Curso avanzado enfocado en la arquitectura de última generación de Next.js. Aprendí a construir aplicaciones robustas eliminando la necesidad de una API externa separada, utilizando las capacidades Full Stack del framework.
+
+Temas dominados:
+- App Router & File-system Routing
+- React Server Components (RSC) vs Client Components
+- Server Actions (Mutaciones de datos sin API endpoints)
+- Optimización de fuentes e imágenes (Next/Image)
+- SEO y Metadatos dinámicos
+- Autenticación (NextAuth.js / Auth.js)
+- Manejo de base de datos con Prisma ORM
+- Despliegue y CI/CD en Vercel`,
+
+        certificateImage: "/certificado_Next_js.jpg",
+
+        // Skills potentes para 2025
+        skills: ["Next.js 14", "App Router", "Server Actions", "Prisma ORM", "TypeScript", "Tailwind CSS"],
+
         projects: [
             {
-                title: "Módulo de Reportes",
-                description: "Desarrollo de un módulo completo de generación de reportes con gráficos interactivos.",
-                repoUrl: "https://github.com/usuario/modulo-reportes"
+                title: "First Steps",
+                // Enfocado en la estructura base: App Router y Layouts
+                description: "Fundamentos de arquitectura. Implementación del App Router, manejo de rutas anidadas, Layouts persistentes y diferenciación entre Server/Client Components.",
+                repoUrl: "https://github.com/junkamilo/Next.js/tree/main/Next/first-steps"
+            },
+            {
+                title: "Dashboard UI",
+                // Enfocado en datos y UI: Fetching y Componentes
+                description: "Panel de administración modular. Práctica intensiva de Data Fetching con la API de Pokemon",
+                repoUrl: "https://github.com/junkamilo/Next.js/tree/main/Next/my-dashboard"
             }
-        ]
+        ],
+
+        repoUrl: "https://github.com/junkamilo/Next.js",
+        certificateUrl: "https://onedrive.live.com/?viewid=fc565c85%2D4b41%2D411f%2D92b8%2D8ef7fd0499ee&id=%2Fpersonal%2F35e72f33017a264d%2FDocuments%2FHoja%20De%20Vida%2FCertificaciones%20Cursos%20Udemy%2Fcertificado%5FNext%5Fjs%2Ejpg&parent=%2Fpersonal%2F35e72f33017a264d%2FDocuments%2FHoja%20De%20Vida%2FCertificaciones%20Cursos%20Udemy"
     },
     {
         slug: "react-guia-completa",
         type: "course",
         title: "React - La Guía Completa",
         organization: "Udemy",
-        period: "2023",
+        period: "2025",
         shortDescription:
             "Curso avanzado de React incluyendo Hooks, Context API, Redux y testing.",
         fullDescription: `Este curso intensivo de React me permitió profundizar en el ecosistema de esta biblioteca y dominar las técnicas modernas de desarrollo frontend.
@@ -105,30 +123,31 @@ Contenido del curso:
 - Optimización de rendimiento
 - Patrones de diseño en React
 El curso incluyó múltiples proyectos prácticos que me ayudaron a consolidar cada concepto aprendido.`,
-        certificateImage: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&h=600&fit=crop",
+        certificateImage: "/certificado_React.jpg",
         skills: ["React", "Redux", "Context API", "React Router", "Jest", "TypeScript"],
         projects: [
             {
-                title: "E-commerce App",
-                description: "Tienda online completa con carrito de compras, autenticación y pasarela de pagos.",
-                repoUrl: "https://github.com/usuario/react-ecommerce",
-                demoUrl: "https://react-ecommerce-demo.vercel.app"
+                title: "Artista App",
+                // "Ejercicio práctico" baja la expectativa de "Producto Real" pero mantiene el valor técnico.
+                description: "Ejercicio de introducción a React. Interfaz sencilla para visualizar un catálogo de artistas, enfocada en la estructura de componentes.",
+                repoUrl: "https://github.com/junkamilo/AprendiendoReact.js/tree/main/proyectosReact/ArtistasApp/ArtistaApp",
             },
             {
-                title: "Task Manager",
-                description: "Aplicación de gestión de tareas con Redux para manejo de estado.",
-                repoUrl: "https://github.com/usuario/react-tasks"
+                title: "React Calendar",
+                // "Lógica de renderizado" suena bien técnicamente, sin prometer un Google Calendar.
+                description: "Práctica de lógica de programación. Implementación manual de una grilla de fechas para reforzar el manejo de props y renderizado de listas.",
+                repoUrl: "https://github.com/junkamilo/AprendiendoReact.js/tree/main/proyectosReact/calendar/Calendar"
             }
         ],
-        repoUrl: "https://github.com/usuario/react-course-exercises",
-        certificateUrl: "https://udemy.com/certificate/123456"
+        repoUrl: "https://github.com/junkamilo/AprendiendoReact.js",
+        certificateUrl: "https://onedrive.live.com/?viewid=fc565c85%2D4b41%2D411f%2D92b8%2D8ef7fd0499ee&id=%2Fpersonal%2F35e72f33017a264d%2FDocuments%2FHoja%20De%20Vida%2FCertificaciones%20Cursos%20Udemy%2Fcertificado%20React%2Ejpg&parent=%2Fpersonal%2F35e72f33017a264d%2FDocuments%2FHoja%20De%20Vida%2FCertificaciones%20Cursos%20Udemy"
     },
     {
         slug: "javascript-moderno",
         type: "course",
         title: "JavaScript Moderno",
-        organization: "Platzi",
-        period: "2023",
+        organization: "Udemy",
+        period: "2025",
         shortDescription:
             "Fundamentos avanzados de JavaScript ES6+, programación asíncrona y patrones de diseño.",
         fullDescription: `Este curso me proporcionó una base sólida en JavaScript moderno, cubriendo todas las características de ES6+ y las mejores prácticas de desarrollo.
@@ -145,61 +164,59 @@ Temas cubiertos:
 - Patrones de diseño (Module, Factory, Observer, etc.)
 - Programación funcional
 Cada tema incluyó ejercicios prácticos y proyectos que me permitieron aplicar los conceptos inmediatamente.`,
-        certificateImage: "https://images.unsplash.com/photo-1579468118864-1b9ea3c0db4a?w=800&h=600&fit=crop",
+        certificateImage: "/javaScript.jpg",
         skills: ["JavaScript", "ES6+", "Async/Await", "Fetch API", "Patrones de Diseño"],
         projects: [
             {
-                title: "API Consumer",
-                description: "Aplicación que consume múltiples APIs públicas con manejo de errores y loading states.",
-                repoUrl: "https://github.com/usuario/js-api-consumer",
-                demoUrl: "https://js-api-consumer.netlify.app"
+                title: "Proverbios Gen", // Le agregué "Gen" para que suene a herramienta
+                description: "Generador de citas aleatorias. Ejercicio básico de manipulación del DOM y manejo de arrays con JavaScript Vanilla.",
+                repoUrl: "https://github.com/junkamilo/AprendiendoJs/tree/main/Proyectos/Proverbios",
             },
             {
-                title: "Mini Framework MVC",
-                description: "Implementación de un mini framework siguiendo el patrón MVC.",
-                repoUrl: "https://github.com/usuario/mini-mvc"
-            }
+                title: "Vanilla JS CRUD",
+                // "Persistencia de datos" y "Ciclo CRUD" son los términos técnicos correctos.
+                description: "Implementación del ciclo de vida de datos (Crear, Leer, Actualizar, Eliminar). Práctica enfocada en la persistencia con LocalStorage y lógica de estado en el cliente.",
+                repoUrl: "https://github.com/junkamilo/AprendiendoJs/tree/main/NivelPro",
+            },
+
         ],
-        repoUrl: "https://github.com/usuario/platzi-js-exercises",
-        certificateUrl: "https://platzi.com/p/usuario/curso/javascript-moderno/diploma/"
+        repoUrl: "https://github.com/junkamilo/AprendiendoJs",
+        certificateUrl: "https://onedrive.live.com/?viewid=fc565c85%2D4b41%2D411f%2D92b8%2D8ef7fd0499ee&id=%2Fpersonal%2F35e72f33017a264d%2FDocuments%2FHoja%20De%20Vida%2FCertificaciones%20Cursos%20Udemy%2FjavaScript%2Ejpg&parent=%2Fpersonal%2F35e72f33017a264d%2FDocuments%2FHoja%20De%20Vida%2FCertificaciones%20Cursos%20Udemy"
     },
     {
-        slug: "bases-datos-postgresql",
-        type: "course",
-        title: "Bases de Datos con PostgreSQL",
-        organization: "Coursera",
-        period: "2022",
+        slug: "qa-testing-fundamentals",
+        type: "course", // Mantiene consistencia con el de JS
+        title: "Software Testing & Quality Assurance",
+        organization: "Udemy",
+        period: "2024",
         shortDescription:
-            "Diseño de bases de datos relacionales, SQL avanzado y optimización de consultas.",
-        fullDescription: `Este curso especializado en PostgreSQL me proporcionó conocimientos profundos sobre diseño y administración de bases de datos relacionales.
-Contenido principal:
-- Fundamentos del modelo relacional
-- Diseño de esquemas y normalización
-- DDL: CREATE, ALTER, DROP
-- DML: SELECT, INSERT, UPDATE, DELETE
-- Consultas avanzadas (JOINs, subqueries, CTEs)
-- Funciones y procedimientos almacenados
-- Triggers y eventos
-- Índices y optimización de consultas
-- Transacciones y ACID
-- Backup y recuperación
-- Seguridad y roles de usuario
-El curso incluyó un proyecto final donde diseñé e implementé una base de datos completa para un sistema de gestión empresarial.`,
-        certificateImage: "https://images.unsplash.com/photo-1544383835-bda2bc66a55d?w=800&h=600&fit=crop",
-        skills: ["PostgreSQL", "SQL", "Diseño de BD", "Normalización", "Optimización"],
+            "Dominio de metodologías de prueba (Manual/Automated), ciclo de vida del defecto y automatización con Cypress y Jest.",
+        fullDescription: `Curso integral enfocado en garantizar la fiabilidad del software mediante estrategias de prueba modernas. Aprendí a diferenciar y aplicar distintos niveles de testing dentro del ciclo de desarrollo.
+
+Temas cubiertos:
+- Fundamentos de QA (Caja Negra vs Caja Blanca)
+- Ciclo de vida del Bug y Reporte de incidencias
+- Diseño y ejecución de Casos de Prueba (Test Cases)
+- Pruebas Unitarias (Unit Testing) con Jest
+- Pruebas de Integración
+- Automatización End-to-End (E2E) con Cypress
+- Introducción a TDD (Test Driven Development)
+- Validación de selectores y aserciones en el DOM`,
+
+        certificateImage: "/testing.jpg",
+
+        skills: ["QA Manual", "Cypress", "Jest", "E2E Testing", "Test Cases", "Bug Tracking"],
+
         projects: [
             {
-                title: "Sistema de Inventario - BD",
-                description: "Diseño completo de base de datos para sistema de inventario con triggers y procedimientos.",
-                repoUrl: "https://github.com/usuario/inventario-db"
+                title: "QA Case Study: Rappi", // Suena mucho más analítico y profesional
+                // Palabras clave: "Documentación visual", "Matrices de prueba", "Lógica de negocio"
+                description: "Plataforma web desarrollada para documentar y visualizar estrategias de QA. Presentación interactiva de matrices de prueba y flujos de error basados en la lógica de negocio de Rappi.",
+                repoUrl: "https://github.com/junkamilo/Proyectos/tree/main/CasosPruebasRappi/CasosPruebasRappi",
             },
-            {
-                title: "Ejercicios SQL Avanzado",
-                description: "Colección de ejercicios resueltos de SQL avanzado con explicaciones.",
-                repoUrl: "https://github.com/usuario/sql-exercises"
-            }
         ],
-        repoUrl: "https://github.com/usuario/postgresql-course",
-        certificateUrl: "https://coursera.org/verify/123456"
-    }
+
+        repoUrl: "https://github.com/junkamilo/Proyectos/tree/main/CasosPruebasRappi/CasosPruebasRappi",
+        certificateUrl: "https://onedrive.live.com/?viewid=fc565c85%2D4b41%2D411f%2D92b8%2D8ef7fd0499ee&id=%2Fpersonal%2F35e72f33017a264d%2FDocuments%2FHoja%20De%20Vida%2FCertificaciones%20Cursos%20Udemy%2Ftesting%2Ejpg&parent=%2Fpersonal%2F35e72f33017a264d%2FDocuments%2FHoja%20De%20Vida%2FCertificaciones%20Cursos%20Udemy"
+    },
 ];

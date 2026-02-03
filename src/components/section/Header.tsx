@@ -1,138 +1,140 @@
 "use client";
 
 import { useState } from "react";
-import { Menu, X, FileDown } from "lucide-react"; // Importamos icono para CV
-import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X, FileDown, Sparkles } from "lucide-react";
+import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
+import { Button } from "@/components/ui/button";
 
-import { Button } from "@/components/ui/button"; // Asumiendo que usas shadcn/ui, si no, usa un <button> normal con clases
-import { useScroll } from "@/src/hooks/use-scroll";
-
-// Datos estáticos fuera del componente
 const navLinks = [
   { href: "#inicio", label: "Inicio" },
-  { href: "#sobre-mi", label: "Sobre mí" },
-  { href: "#skills", label: "Skills" },
   { href: "#proyectos", label: "Proyectos" },
+  { href: "#sobre-mi", label: "Sobre mí" },
   { href: "#experiencia", label: "Experiencia" },
 ];
 
 export default function Header() {
-  // 1. Usamos nuestro Hook personalizado (Lógica separada)
-  const isScrolled = useScroll(20);
-  
-  // 2. Estado local solo para UI (Menú móvil)
+  const { scrollY } = useScroll();
+  const [scrolled, setScrolled] = useState(false);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  return (
-    <motion.header
-      // Animación inicial del header al cargar la página
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-background/80 backdrop-blur-md shadow-md border-b border-border/40 py-2"
-          : "bg-transparent py-4"
-      }`}
-    >
-      <div className="container mx-auto px-4 md:px-6">
-        <nav className="flex items-center justify-between">
-          
-          {/* LOGO: Diseño limpio y moderno */}
-          <a
-            href="#inicio"
-            className="text-2xl font-bold tracking-tight text-foreground flex items-center gap-1 group"
-          >
-            <span className="bg-primary/10 text-primary px-2 py-1 rounded-md group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
-              Dev
-            </span>
-            JuanKa
-          </a>
+  // Lógica simplificada: Solo detectamos si bajamos un poco para activar el modo "Cápsula"
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    if (latest > 20) {
+      setScrolled(true);
+    } else {
+      setScrolled(false);
+    }
+  });
 
-          {/* DESKTOP NAVIGATION: Oculto en móviles */}
-          <ul className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
+  return (
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 flex justify-center transition-all duration-300 ${scrolled ? "py-4" : "py-6"
+        }`}
+    >
+      <div
+        className={`relative flex items-center justify-between transition-all duration-500 ease-in-out ${scrolled
+            ? "w-[90%] md:w-[85%] lg:w-[70%] bg-background/70 backdrop-blur-xl border border-white/10 shadow-lg rounded-full px-6 py-2" // Modo Cápsula
+            : "w-full container px-4 md:px-6 bg-transparent border-transparent" // Modo Full
+          }`}
+      >
+
+        {/* LOGO MEJORADO: Limpio y legible */}
+        <a href="#inicio" className="flex items-center gap-2 group z-10">
+          {/* Caja de la 'D' con gradiente y efecto hover sutil */}
+          <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-purple-600 text-white shadow-lg transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
+            <span className="font-bold text-sm">D</span>
+          </div>
+          <span className={`font-bold tracking-tight transition-colors ${scrolled ? "text-foreground" : "text-foreground"}`}>
+            Dev<span className="text-primary">Juan</span>
+          </span>
+        </a>
+
+        {/* DESKTOP NAV */}
+        <nav className="hidden md:block relative z-10">
+          <ul className="flex items-center gap-1">
+            {navLinks.map((link, index) => (
               <li key={link.href}>
                 <a
                   href={link.href}
-                  className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors relative group"
+                  onMouseEnter={() => setHoveredIndex(index)}
+                  onMouseLeave={() => setHoveredIndex(null)}
+                  className="relative px-4 py-2 text-sm font-medium transition-colors text-foreground/80 hover:text-primary"
                 >
-                  {link.label}
-                  {/* Pequeña línea animada al hacer hover */}
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                  <span className="relative z-10">{link.label}</span>
+                  {hoveredIndex === index && (
+                    <motion.span
+                      layoutId="nav-pill"
+                      className="absolute inset-0 bg-primary/10 rounded-full -z-0"
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.8 }}
+                      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                    />
+                  )}
                 </a>
               </li>
             ))}
           </ul>
-
-          {/* ACCIONES: Botón de contacto/CV y Menú Hamburgesa */}
-          <div className="flex items-center gap-4">
-            
-            {/* Botón CTA (Visible siempre o solo desktop según prefieras) */}
-            <a href="#contacto" className="hidden sm:block">
-              <Button variant="default" size="sm" className="font-semibold shadow-lg shadow-primary/20">
-                Hablemos
-              </Button>
-            </a>
-
-            {/* Botón Mobile Toggle */}
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden p-2 text-foreground hover:bg-accent rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-primary"
-              aria-label="Toggle menu"
-            >
-              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          </div>
         </nav>
 
-        {/* MOBILE NAVIGATION: Animación profesional */}
-        <AnimatePresence>
-          {isMobileMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="md:hidden overflow-hidden bg-background/95 backdrop-blur-xl border-t border-border mt-2 rounded-b-2xl shadow-2xl"
-            >
-              <ul className="flex flex-col p-6 space-y-4 items-center">
-                {navLinks.map((link, index) => (
-                  <motion.li 
-                    key={link.href}
-                    initial={{ x: -20, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    transition={{ delay: index * 0.1 }} // Efecto cascada
-                    className="w-full"
-                  >
-                    <a
-                      href={link.href}
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      className="block w-full text-center py-3 text-lg font-medium text-foreground hover:bg-accent hover:text-primary rounded-xl transition-all"
-                    >
-                      {link.label}
-                    </a>
-                  </motion.li>
-                ))}
-                
-                {/* Botón extra en móvil por si se ocultó arriba */}
-                <motion.li 
-                   initial={{ y: 20, opacity: 0 }}
-                   animate={{ y: 0, opacity: 1 }}
-                   transition={{ delay: 0.5 }}
-                   className="w-full pt-4"
-                >
-                  <a href="/tu-cv.pdf" target="_blank" className="w-full flex justify-center">
-                    <Button variant="outline" className="w-full gap-2">
-                      <FileDown size={18} /> Descargar CV
-                    </Button>
-                  </a>
-                </motion.li>
-              </ul>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {/* ACCIONES */}
+        <div className="flex items-center gap-3 z-10">
+          {/**Agregar PDF Hoja de vida */}
+          <a
+            href="/cv-juan-beltran.pdf" // 1. El nombre exacto de tu archivo en la carpeta public
+            download="CV-Juan-Beltran.pdf" // 2. Esto fuerza la descarga y le pone nombre al archivo bajado
+            className="hidden sm:flex"
+          >
+            <Button variant="ghost" size="sm" className="rounded-full gap-2 text-muted-foreground hover:text-foreground">
+              <FileDown size={16} /> <span className="hidden lg:inline">CV</span>
+            </Button>
+          </a>
+
+          <a href="#contacto">
+            <Button size="sm" className={`rounded-full font-semibold shadow-md ${scrolled ? "" : "shadow-primary/20"}`}>
+              Hablemos
+            </Button>
+          </a>
+
+          {/* Botón Mobile */}
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="md:hidden p-2 text-foreground hover:bg-accent rounded-full transition-colors"
+          >
+            {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
+
       </div>
-    </motion.header>
+
+      {/* MOBILE MENU */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="absolute top-full left-0 right-0 mx-4 mt-2 p-4 bg-background/90 backdrop-blur-2xl border border-border rounded-2xl shadow-2xl md:hidden flex flex-col gap-2"
+          >
+            {navLinks.map((link, idx) => (
+              <motion.a
+                key={link.href}
+                href={link.href}
+                onClick={() => setIsMobileMenuOpen(false)}
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: idx * 0.05 }}
+                className="flex items-center justify-between p-3 rounded-xl hover:bg-accent group"
+              >
+                <span className="font-medium text-muted-foreground group-hover:text-primary transition-colors">{link.label}</span>
+                {/* Aquí sí dejamos el Sparkle porque sirve como indicador de selección visual */}
+                <Sparkles size={16} className="opacity-0 group-hover:opacity-100 text-primary transition-opacity" />
+              </motion.a>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </header>
   );
 }

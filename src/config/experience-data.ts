@@ -6,21 +6,26 @@ import { Variants } from "framer-motion";
 export const WORK_EXPERIENCE = [
   {
     id: 1,
-    role: "Desarrollador Full Stack Jr.",
-    company: "Tech Solutions Inc.",
-    location: "Remoto / Colombia",
-    period: "2024 - Presente",
-    description: "Desarrollo de interfaces de usuario dinámicas con React y Next.js. Optimización de endpoints en Node.js reduciendo el tiempo de respuesta en un 30%.",
-    skills: ["Next.js", "TypeScript", "Tailwind", "PostgreSQL"],
+    // 🏆 RAPPI PRIMERO: Tu carta de presentación más fuerte.
+    role: "QA Analyst & Frontend Testing",
+    company: "Rappi", // Unicornio Tech
+    location: "Remoto",
+    period: "2025 - 2026",
+    // Descripción técnica enfocada en calidad y colaboración con Devs
+    description: "Aseguramiento de calidad en flujos críticos de la vertical de Restaurantes. Colaboración directa con equipos de Ingeniería para la detección temprana de bugs en componentes React, reduciendo la deuda técnica y mejorando la estabilidad del release.",
+    skills: ["Jira", "React", "Testing Manual", "Scrum", "Git Flow"],
   },
   {
     id: 2,
-    role: "Desarrollador Frontend (Prácticas)",
-    company: "Agencia Digital Creativa",
-    location: "Bucaramanga, Santander",
-    period: "2023 - 2024",
-    description: "Colaboración en la maquetación de sitios web corporativos. Implementación de diseños pixel-perfect desde Figma y consumo de APIs REST.",
-    skills: ["React", "CSS3", "Git", "Scrum"],
+    // 💻 TUS PROYECTOS: Demuestran que sabes programar de principio a fin.
+    // "Portafolio Profesional" es honesto y técnico.
+    role: "Desarrollador Full Stack (Portafolio)",
+    company: "Proyectos Personales", 
+    location: "Remoto",
+    period: "2024 - Presente",
+    // Descripción enfocada en ARQUITECTURA y DESPLIEGUE (lo que no hiciste en Rappi)
+    description: "Diseño y desarrollo de aplicaciones web end-to-end simulando entornos de producción. Implementación de arquitecturas escalables, integración de APIs y optimización de rendimiento (SEO/Core Web Vitals).",
+    skills: ["Next.js", "TypeScript", "Tailwind CSS"],
   },
 ];
 
@@ -30,7 +35,7 @@ export const WORK_EXPERIENCE = [
 export const EDUCATION = [
   {
     id: 1,
-    slug: "tecnologia-analisis-desarrollo-software", // Matches the first item in experienceData
+    slug: "tecnologia-analisis-desarrollo-software",
     title: "Tecnólogo en Análisis y Desarrollo de Software",
     institution: "SENA",
     period: "2022 - 2024",
@@ -38,7 +43,7 @@ export const EDUCATION = [
   },
   {
     id: 2,
-    slug: "react-guia-completa", // Matches the third item in experienceData
+    slug: "react-guia-completa",
     title: "React - La Guía Completa",
     institution: "Udemy",
     period: "2023",
@@ -46,20 +51,29 @@ export const EDUCATION = [
   },
   {
     id: 3,
-    slug: "javascript-moderno", // Matches the fourth item in experienceData
+    slug: "javascript-moderno", 
     title: "JavaScript Moderno",
-    institution: "Platzi",
+    institution: "Udemy",
     period: "2023",
     type: "certificate",
   },
    {
     id: 4,
-    slug: "bases-datos-postgresql", // Matches the fifth item in experienceData
-    title: "Bases de Datos con PostgreSQL",
-    institution: "Coursera",
-    period: "2022",
+    slug: "qa-testing-fundamentals",
+    title: "Software Testing & Quality Assurance", // Título internacional y profesional
+    institution: "Udemy", // 👈 Edita esto con la plataforma real
+    period: "2024",
     type: "certificate",
-  },
+ },
+ {
+    id: 5,
+    slug: "nextjs-fullstack-guide",
+    title: "Next.js", // Título internacional y profesional
+    institution: "Udemy", // 👈 Edita esto con la plataforma real
+    period: "2025",
+    type: "certificate",
+ },
+
 ];
 
 

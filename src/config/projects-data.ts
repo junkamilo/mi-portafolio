@@ -17,6 +17,9 @@ export interface ProjectInfrastructure {
   database?: string; // Ej: "TiDB Cloud"
   backend?: string;  // Ej: "Render Web Service"
   frontend?: string; // Ej: "Vercel"
+  payment?:string;
+  current?: string;
+  future?:string;
 }
 
 export interface Project {
@@ -40,107 +43,238 @@ export interface Project {
   // Enlaces e Infraestructura
   links: ProjectLinks;
   infrastructure?: ProjectInfrastructure; // 👇 CAMPO NUEVO OPCIONAL
+
+  demoNote?: string;
 }
 
 // --- DATOS DE PROYECTOS ---
 
 export const PROJECTS: Project[] = [
   {
-    slug: "junky-music",
-    title: "JunkyMusic",
-    shortDescription: "Aplicación web full-stack con autenticación, tablero Kanban drag-and-drop y notificaciones en tiempo real vía WebSockets.",
-    fullDescription: `JunkyMusic es una plataforma integral diseñada para músicos y productores. Nació de la necesidad de gestionar proyectos musicales colaborativos de forma eficiente.
-    
-    El sistema permite a los usuarios gestionar sus tareas mediante un tablero interactivo, subir maquetas y recibir feedback instantáneo gracias a la integración de WebSockets. La arquitectura separa claramente el frontend del backend para asegurar escalabilidad.`,
-    category: "Full Stack Web App",
-    date: "Enero 2024",
-    role: "Desarrollador Full Stack",
-    duration: "3 meses",
-    technologies: ["Html", "Css", "Node.js", "JavaScript", "MySql", "Socket.io"],
-    cardImage: "from-blue-500/20 to-cyan-500/20",
-    mainImage: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=1200&h=675&fit=crop",
-    features: [
-      "Sistema de autenticación y roles de usuario",
-      "Tablero Kanban con drag-and-drop nativo",
-      "Notificaciones en tiempo real (Socket.io)",
-      "Gestión de bases de datos relacionales con MySQL"
-    ],
-    challenges: "El mayor reto fue la implementación de WebSockets para las notificaciones en tiempo real sin saturar el servidor, además de asegurar la integridad de los datos al mover tarjetas en el Kanban.",
+    slug: "music-streaming-platform",
+    title: "Music Streaming & Publishing",
+    shortDescription: "Plataforma de streaming y publicación de audio. Gestión de roles y arquitectura MVC con Vanilla JS.",
 
-    // 👇 DATOS REALES DE TU DESPLIEGUE
+    fullDescription: `Una plataforma integral de distribución musical desarrollada inicialmente como proyecto de grado. El objetivo técnico fue implementar una arquitectura MVC robusta utilizando JavaScript puro (Vanilla), sin depender de frameworks frontend.
+    
+    El sistema permite a los usuarios consumir contenido, crear playlists y convertirse en 'Artistas' para subir sus propios álbumes. Actualmente, el proyecto se encuentra en una fase de refactorización y mejora continua, optimizando la persistencia de datos y la experiencia de usuario.`,
+
+    category: "Full Stack / Vanilla JS",
+
+
+    date: "Enero 2025 - Presente",
+    role: "Full Stack Developer",
+    duration: "En desarrollo continuo",
+
+    technologies: ["Vanilla JS (MVC)", "Node.js", "Express", "MySQL", "CSS3", "Multer", "TiDB Cloud", "Render"],
+
+    cardImage: "/portada_music.png",
+    mainImage: "/Portada_Web_Music.png",
+
+    features: [
+      "Arquitectura MVC implementada manualmente en el Frontend",
+      "Sistema de Roles (Usuario vs. Artista)",
+      "Upload y streaming de archivos de audio",
+      "Despliegue en la nube (Render + TiDB)"
+    ],
+
+    challenges: "El mayor reto actual es la orquestación de servicios en la nube gratuita. Se implementó una arquitectura resiliente que maneja la latencia de los servicios 'serverless' en sus capas gratuitas.",
+
     links: {
       github: "https://github.com/junkamilo/MusicApp.git",
-      demo: "https://music-app-ecru-nine-86.vercel.app" // 👈 COLOCA AQUÍ TU LINK DE VERCEL
+      demo: "https://music-app-ecru-nine-86.vercel.app"
     },
+
+    // CAMBIO IMPORTANTE: Agregamos este campo para la advertencia
+    demoNote: "Nota de Infraestructura: El backend y la base de datos están alojados en planes gratuitos (Render / TiDB). Estos servicios entran en suspensión por inactividad (Cold Start). Si la demo no carga datos inmediatamente, por favor espera unos 30-60 segundos mientras el servidor se reactiva.",
+
     infrastructure: {
-      database: "TiDB Cloud (MySQL Serverless)",
-      backend: "Render (Node.js Web Service)",
-      frontend: "Vercel (Vite SPA)"
-    },
-    gallery: [
-      { url: "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=800&q=80", caption: "Panel Principal" },
-      { url: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800&q=80", caption: "Editor de pistas" }
-    ]
+      database: "TiDB Cloud (MySQL Compatible)",
+      backend: "Render (Node.js)",
+      frontend: "Vercel (Static)"
+    }
   },
   {
-    slug: "app-restaurante",
-    title: "App Restaurante",
-    shortDescription: "Panel administrativo con visualización de datos complejos, gestión de inventario y reportes de ventas exportables.",
-    fullDescription: `Una solución administrativa robusta para el sector gastronómico. Esta aplicación permite a los gerentes de restaurantes visualizar el flujo de caja, controlar el inventario de insumos y gestionar los pedidos en tiempo real.`,
-    category: "Desktop / Web App",
-    date: "Noviembre 2023",
-    role: "Desarrollador Backend / Java",
-    duration: "4 meses",
-    technologies: ["Java", "Swing", "SQL", "JasperReports"],
-    cardImage: "from-purple-500/20 to-pink-500/20",
-    mainImage: "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=1200&h=675&fit=crop",
-    features: [
-      "Dashboard con métricas financieras",
-      "Control de stock e inventario en tiempo real",
-      "Exportación de reportes a PDF y Excel"
-    ],
-    links: {
-      github: "https://github.com/junkamilo/RestauranteApp.git",
-    },
-    // Si es desktop, no necesita infrastructure web, o puedes poner "Local / On-Premise"
-  },
-  {
-    slug: "variedades-lili-backend",
-    title: "VariedadesLili (Backend)",
-    shortDescription: "Backend robusto para transacciones bancarias. Incluye tests E2E, documentación Swagger y arquitectura hexagonal.",
-    fullDescription: `El núcleo transaccional de VariedadesLili. Este backend fue diseñado siguiendo la arquitectura hexagonal.`,
-    category: "Backend API",
+    slug: "variedades-lili-admin",
+    title: "Variedades lili E-commerce Admin Dashboard", // Título profesional
+
+    // Descripción corta: Directa al grano (Gestión + Arquitectura)
+    shortDescription: "Panel administrativo integral para la gestión de inventario, pedidos y usuarios. Arquitectura en capas sin dependencia de frameworks frontend.",
+
+    // Descripción larga: Vendemos la estructura MVC y la lógica de negocio
+    fullDescription: `Una solución Full Stack personalizada para la administración operativa del e-commerce 'Variedades Lili'. Diseñada para que los administradores gestionen el ciclo de vida completo de los productos y pedidos.
+    
+    En el Frontend, implementé una arquitectura MVC con JavaScript Vanilla y Tailwind CSS para una UI rápida y responsiva. En el Backend, utilicé una arquitectura por capas (Rutas -> Controladores -> Servicios -> Modelos) para asegurar un código mantenible y escalable, manejando subida de imágenes con Multer y consultas complejas a MySQL.`,
+
+    category: "Full Stack / Admin Tool",
     date: "Septiembre 2023",
-    role: "Backend Developer",
-    technologies: ["Node.js", "Express", "MySql", "Jest", "Swagger"],
-    cardImage: "from-emerald-500/20 to-teal-500/20",
-    mainImage: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&h=675&fit=crop",
+    role: "Full Stack Developer",
+
+    // 🚀 TAGS CORREGIDOS: Muestran tu stack real pero con nombres técnicos
+    technologies: ["Vanilla JS (MVC)", "Node.js", "Express", "Tailwind CSS", "MySQL", "Multer"],
+
+    cardImage: "/portada_lili_Admin.png", // Verde = Negocio/Dinero
+    mainImage: "/banner_lili_Admin.jpg", // Imagen tipo Dashboard
+
+    features: [
+      "CRUD completo de productos con gestión de imágenes (Multer)",
+      "Gestión de estados de pedidos (Enviados/Recibidos)",
+      "Arquitectura Backend por Capas (Controller-Service-Model)",
+      "Interfaz responsiva construida con Tailwind CSS y Vanilla JS"
+    ],
+
     links: {
-      github: "https://github.com",
-      demo: "https://proyectos-5stx.vercel.app"
+      github: "https://github.com/junkamilo/Proyectos/tree/main/variedadesLili",
+      demo: "https://proyectos-5stx.vercel.app/"
     },
+
+    demoNote: "Nota de Infraestructura: El backend y la base de datos están alojados en planes gratuitos (Render / TiDB). Estos servicios entran en suspensión por inactividad (Cold Start). Si la demo no carga datos inmediatamente, por favor espera unos 30-60 segundos mientras el servidor se reactiva.",
+
     infrastructure: {
-      backend: "AWS EC2",
-      database: "AWS RDS (PostgreSQL)"
+      frontend: "Vercel",
+      backend: "Render",
+      database: "MySQL"
     }
   },
   {
     slug: "variedades-lili-frontend",
-    title: "VariedadesLili (Frontend)",
-    shortDescription: "Landing page de alta conversión optimizada para SEO y performance.",
-    fullDescription: `La cara visible de la plataforma VariedadesLili.`,
-    category: "Frontend",
+    title: "Variedades Lili: E-commerce Client", // Título claro y parejo al del Admin
+    
+    // Descripción corta: Destaca el Stack moderno y la UX
+    shortDescription: "Experiencia de compra completa (SPA). Gestión de estado asíncrono con TanStack Query y carrito global persistente.",
+
+    // Descripción larga: Aquí vendemos la complejidad de la lógica del lado del cliente
+    fullDescription: `La interfaz pública del ecosistema 'Variedades Lili', diseñada para ofrecer una experiencia de compra fluida y segura. Desarrollada como una Single Page Application (SPA) utilizando React y TypeScript.
+    
+    El proyecto destaca por su gestión eficiente del estado: implementé **TanStack Query** para la sincronización de datos con el servidor (caching, revalidación de productos y pedidos) y **Zustand** para el manejo global del carrito de compras. Se integra con el mismo Backend monolítico del panel administrativo, permitiendo a los usuarios registrarse, gestionar su historial de pedidos y realizar compras en tiempo real.`,
+
+    category: "Frontend / React SPA",
     date: "Agosto 2023",
-    role: "Frontend Developer",
-    technologies: ["React", "Tailwind CSS", "TypeScript", "Vite"],
-    cardImage: "from-orange-500/20 to-amber-500/20",
-    mainImage: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&h=675&fit=crop",
+    role: "Frontend Developer", // O "Full Stack Developer" si prefieres unificar
+
+    // 🚀 TAGS TÉCNICOS:
+    // "TanStack Query" es un gran plus para mostrar manejo de datos avanzado.
+    technologies: ["React", "TypeScript", "Tailwind CSS", "TanStack Query", "Zustand", "React Router"],
+
+    // Asegúrate de que esta imagen sea distinta a la del Admin (quizás una captura del Home o del Carrito)
+    cardImage: "/portada_lili_Cliente.png", 
+    mainImage: "/banner_lili_cliente.jpg",
+
+    features: [
+      "Ciclo completo de compra (Carrito -> Checkout -> Pedido)",
+      "Gestión de Estado de Servidor (Server State) con TanStack Query",
+      "Panel de Usuario: Historial de pedidos y gestión de perfil",
+      "UI Componentizada y Tipado estricto con TypeScript"
+    ],
+
     links: {
-      demo: "https://proyecto-variedades-lili-cliente.vercel.app",
-      github: "https://github.com",
+      github: "https://github.com/junkamilo/Proyectos/tree/main/VariedadesLiliCLientes/VariedadeLiliClientes_Frontend", // Asegúrate de que este link sea el correcto
+      demo: "https://proyecto-variedades-lili-cliente.vercel.app"
     },
+
+    // ⚠️ CRUCIAL: La misma nota, ya que consumen la misma API
+    demoNote: "Nota de Infraestructura: Esta aplicación consume una API alojada en servicios gratuitos (Render). Si los productos o el inicio de sesión no cargan de inmediato, es debido al 'Cold Start' del servidor. Por favor espera 30-60 segundos a que la API despierte.",
+
     infrastructure: {
-      frontend: "Netlify"
+      frontend: "Vercel",
+      backend: "Render (Shared API)",
+      database: "MySQL (TiDB)"
+    }
+  },
+  {
+    slug: "app-restaurante",
+    title: "Restaurant Management System", // Título sólido
+    
+    // Descripción corta: Mencionamos el origen (Java) y el destino (Web)
+    shortDescription: "Sistema de gestión de comandas y roles (Cocina/Meseros). Prototipo Java Desktop en proceso de migración a arquitectura Web (React + Laravel).",
+
+    // Descripción larga: Explicamos la lógica de negocio (que ya funciona) y el plan futuro
+    fullDescription: `Un sistema integral para la gestión operativa de restaurantes, desarrollado inicialmente como proyecto de grado (SENA) en Java. La aplicación orquesta el flujo de trabajo en tiempo real entre distintos roles:
+    
+    1. **Meseros:** Toma de pedidos y envío digital a cocina.
+    2. **Cocina:** Interfaz de visualización y despacho de comandas.
+    3. **Admin:** Control financiero, inventarios y gestión de empleados.
+    
+    **Estado Actual (Refactorización):** Aunque el núcleo lógico funciona perfectamente en escritorio (Java Swing + MySQL), actualmente estoy liderando la **migración del sistema** hacia una arquitectura Web moderna (SPA) utilizando **React/Vite** en el frontend y **Laravel** en el backend, para permitir el uso desde tablets y móviles en el local.`,
+
+    category: "Desktop / Migration", // Categoría honesta
+    date: "Noviembre 2023 - Presente", // "Presente" porque sigues trabajando en la migración
+    role: "System Architect", // Suena mejor porque estás rediseñando el sistema
+    
+    // 🚀 TAGS: Mezcla lo que hiciste (Java) con lo que estás haciendo (Migration)
+    technologies: ["Java", "Swing", "MySQL", "JasperReports", "POO", "System Migration"],
+
+    cardImage: "/portada_app_restaurante.png", // Asegúrate de tener una imagen (puede ser un screenshot del Java Swing)
+    mainImage: "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=1200&h=675&fit=crop", // Foto genérica de restaurante elegante
+
+    features: [
+      "Sistema multi-rol (Admin, Cocinero, Mesero, Auxiliar)",
+      "Sincronización de pedidos (Mesa ➔ Cocina ➔ Entrega)",
+      "Reportes contables automáticos en PDF (JasperReports)",
+      "🚧 En progreso: Migración a React + Laravel (Web)"
+    ],
+
+    challenges: "El mayor desafío de la versión original fue manejar la concurrencia de datos en MySQL para que el Cocinero viera los pedidos de los Meseros en tiempo real sin conflictos.",
+
+    links: {
+      github: "https://github.com/junkamilo/RestauranteApp/tree/main/Restaurante_app",
+      // ALERTA: No ponemos demo porque es local.
+      // El código del botón "Ver Demo" no se renderizará si este campo no existe, así que perfecto.
+    },
+
+    infrastructure: {
+      current: "Java Desktop (Local)",
+      database: "MySQL (Local)",
+      future: "Vite + Laravel (Cloud)" // Muestra tu visión
+    }
+  },
+  {
+    slug: "urban-shop-clothing",
+    title: "Urban Shop | Full Stack E-commerce",
+    
+    // Descripción Corta: Directa y técnica
+    shortDescription: "Plataforma de comercio electrónico con pasarela de pagos (PayPal) y panel de administración. Construida con Next.js, Prisma y PostgreSQL.",
+
+    // Descripción Larga: Vendemos el flujo completo y la tecnología
+    fullDescription: `Una tienda de ropa urbana moderna diseñada bajo una arquitectura Full Stack con Next.js. El proyecto abarca dos experiencias de usuario:
+    
+    1. **Cliente:** Navegación fluida, carrito de compras dinámico y checkout integrado con la API de PayPal (Entorno Sandbox) para simular transacciones reales.
+    2. **Administrador:** Un dashboard protegido para la gestión de inventario (CRUD de productos), control de stock y visualización de pedidos pagados.
+    
+    El manejo de datos se realiza a través de **Prisma ORM** conectado a una base de datos en la nube. *Nota: Los recursos gráficos de la tienda fueron generados mediante IA (Gemini).*`,
+
+    category: "E-commerce / Next.js",
+    date: "En desarrollo continuo", // Muestra que el proyecto está vivo
+    role: "Full Stack Developer",
+    
+    // 🚀 TAGS: "PayPal API" y "Prisma" son palabras clave fuertes
+    technologies: ["Next.js", "TypeScript", "Prisma ORM", "PayPal API", "Tailwind CSS", "PostgreSQL"],
+
+    cardImage: "/portada_ecommer.png", // Asegúrate de tener esta imagen
+    mainImage: "/banner_commer_cloting.jpg",
+
+    features: [
+      "Pasarela de Pagos funcional (PayPal Developer Sandbox)",
+      "Dashboard Administrativo para gestión de productos",
+      "Persistencia de datos con Prisma y TiDB/Postgres",
+      "Diseño UI/UX responsivo generado con Tailwind CSS"
+    ],
+
+    challenges: "Integrar la API de PayPal y manejar los webhooks para confirmar el pago en la base de datos de forma asíncrona fue el reto principal.",
+
+    links: {
+      github: "https://github.com/junkamilo/urban-shop-repo", // PON AQUÍ TU LINK REAL
+      demo: "https://urban-shop-demo.vercel.app" // PON AQUÍ TU LINK REAL
+    },
+
+    // ⚠️ LA NOTA DE INFRAESTRUCTURA (Crucial por TiDB/Render)
+    demoNote: "Nota de Infraestructura: La base de datos está alojada en un servicio gratuito (TiDB/Render). Si los productos tardan en cargar o el inicio de sesión es lento, es debido al 'Cold Start'. Por favor espera unos segundos.",
+
+    infrastructure: {
+      frontend: "Next.js (App Router)",
+      backend: "Render (Node.js)",
+      database: "TiDB(SQL)",
+      payment: "PayPal Sandbox"
     }
   },
 ];

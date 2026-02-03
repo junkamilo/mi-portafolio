@@ -1,59 +1,69 @@
 "use client";
 
 import { Variants } from "framer-motion";
-import { Code2, Globe, Cpu, Zap, BookOpen, Rocket } from "lucide-react";
+import { Code2, Globe, Cpu, Zap, BookOpen, Rocket, Bot } from "lucide-react";
 
-// --- DATOS DEL CONTENIDO (Fácil de editar) ---
 export const ABOUT_DATA = {
-    title: "Sobre mí",
-    subtitle: "Más allá del código",
+    title: "Trayectoria Profesional",
+    subtitle: "De la Lógica al Producto Escalable",
     timeline: [
-    {
-      id: 1,
-      title: "Los Inicios (SENA)",
-      description: "Construí mis bases en lógica y POO. Pasé de la teoría a la práctica creando aplicaciones de escritorio con Java y mis primeras APIs con Node.js.",
-      icon: BookOpen,
-    },
-    {
-      id: 2,
-      title: "La Escuela de Calidad (Rappi)",
-      description: "Mi paso por QA transformó mi visión. Aprendí que el código no solo debe funcionar, debe ser robusto. Entendí la importancia de detectar bugs antes de que nazcan.",
-      icon: Rocket,
-    },
-    {
-      id: 3,
-      title: "El Desarrollador Hoy",
-      description: "Combino esa disciplina de testeo con el dominio del ecosistema moderno (Next.js, NestJS), creando productos digitales sólidos y escalables.",
-      icon: Code2,
-    },
-  ],
-    // Estas son las "Bento Cards" que aman los reclutadores
-    stats: [
         {
-            label: "Años de Experiencia",
-            value: "2+",
-            icon: Globe,
-            color: "bg-blue-500/10 text-blue-500",
+            id: 1,
+            title: "Técnologo en Análisis y Desarrollo de Software (SENA)",
+            description: "Fundamentos sólidos en Java (POO) y bases de datos. Transición al desarrollo web moderno creando APIs RESTful.",
+            icon: BookOpen,
         },
         {
-            label: "Proyectos Completados",
-            value: "4+",
+            id: 2,
+            title: "QA & Testing en Rappi",
+            description: "Inmersión en ciclos ágiles de alto nivel. Reporte de bugs críticos,testing y análisis de arquitectura de componentes de React en producción.",
+            icon: Rocket,
+        },
+        {
+            id: 3,
+            title: "Especialización Full Stack Moderno",
+            description: "Dominio del stack Next.js/TypeScript y NestJS. Enfoque en Clean Architecture, Testing y Experiencia de Usuario.",
             icon: Code2,
-            color: "bg-purple-500/10 text-purple-500",
-        },
-        {
-            label: "Tecnologías Dominadas",
-            value: "6+",
-            icon: Cpu,
-            color: "bg-green-500/10 text-green-500",
-        },
-        {
-            label: "Commitment",
-            value: "100%",
-            icon: Zap,
-            color: "bg-amber-500/10 text-amber-500",
         },
     ],
+    stats: [
+        {
+            label: "Perfil Técnico",
+            value: "Full Stack",
+            icon: Code2,
+            color: "text-blue-500",
+            bg: "bg-blue-500/10",
+            border: "group-hover:border-blue-500/50"
+        },
+        {
+            label: "Proyectos",
+            value: "3 Apps",
+            icon: Globe,
+            color: "text-purple-500",
+            bg: "bg-purple-500/10",
+            border: "group-hover:border-purple-500/50"
+        },
+        {
+            label: "Enfoque",
+            value: "AI Driven",
+            icon: Bot,
+            color: "text-pink-500",
+            bg: "bg-pink-500/10",
+            border: "group-hover:border-pink-500/50"
+        },
+        {
+            label: "Stack",
+            value: "MERN+",
+            icon: Cpu,
+            color: "text-green-500",
+            bg: "bg-green-500/10",
+            border: "group-hover:border-green-500/50"
+        },
+    ],
+    conclusion: {
+        cmd: "echo $PROPUESTA_VALOR",
+        output: "Código limpio, lógica sólida y enfoque en calidad. Listo para aportar valor real desde el primer commit."
+    }
 };
 
 // --- ANIMACIONES (Variants para Framer Motion) ---

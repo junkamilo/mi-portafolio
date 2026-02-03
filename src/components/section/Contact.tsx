@@ -1,72 +1,35 @@
 "use client";
 
-import { useContactForm } from "@/src/hooks/use-contact-form";
-import { motion, Variants } from "framer-motion";
-import { ContactInfo } from "../contact/ContactInfo";
-import { ContactForm } from "../contact/ContactForm";
-
-export const containerVariants: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.2 },
-  },
-};
-
-export const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5 }
-  },
-};
+import { motion } from "framer-motion";
+import { ContactSection } from "../contact/ContactSection";
+import { Sparkles } from "lucide-react";
 
 export default function Contact() {
-  // 1. Usamos el Hook (Separation of Logic)
-  const {
-    formData,
-    isSubmitting,
-    hasCopied,
-    handleChange,
-    handleSubmit,
-    copyEmail
-  } = useContactForm();
-
   return (
     <section id="contacto" className="py-24 bg-background relative overflow-hidden">
+      
+      {/* --- 1. FONDO CONSISTENTE (Restaurado) --- */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+      {/* Glow inferior centrado */}
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-primary/10 rounded-full blur-[100px] opacity-40 pointer-events-none" />
 
-      {/* Background Decorativo */}
-      <div className="absolute top-0 right-0 -z-10 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl opacity-40 translate-x-1/3 -translate-y-1/4" />
+      <div className="container px-4 md:px-6 mx-auto relative z-10">
+        
 
-      <div className="container px-4 md:px-6 mx-auto">
+        {/* --- 3. SOLO CONTACT SECTION (Centrado) --- */}
         <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          className="grid lg:grid-cols-2 gap-12 lg:gap-24 items-start"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="w-full max-w-3xl mx-auto"
         >
-
-          {/* 2. Renderizamos los componentes "tontos" (Presentational Components) */}
-
-          {/* Columna Izquierda */}
-          <ContactInfo
-            hasCopied={hasCopied}
-            onCopy={copyEmail}
-          />
-
-          {/* Columna Derecha */}
-          <motion.div variants={itemVariants}>
-            <ContactForm
-              formData={formData}
-              isSubmitting={isSubmitting}
-              onChange={handleChange}
-              onSubmit={handleSubmit}
-            />
-          </motion.div>
-
+           {/* Contenedor con efecto Glassmorphism para el formulario */}
+           <div className="rounded-3xl border border-border/50 bg-card/30 backdrop-blur-xl p-6 md:p-10 shadow-2xl shadow-primary/5">
+              <ContactSection />
+           </div>
         </motion.div>
+
       </div>
     </section>
   );

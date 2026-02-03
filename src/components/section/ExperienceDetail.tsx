@@ -297,14 +297,6 @@ const ExperienceDetail = () => {
                                     </a>
                                 </Button>
                             )}
-                             {/* Botón de descarga (simulado o real si tienes el PDF) */}
-                             {experience.certificateUrl && (
-                                 <Button variant="ghost" className="w-full text-muted-foreground hover:text-foreground" size="sm" asChild>
-                                    <a href={experience.certificateUrl} download target="_blank" rel="noreferrer">
-                                        <Download className="mr-2 h-4 w-4" /> Descargar Copia
-                                    </a>
-                                </Button>
-                             )}
                         </div>
                     </motion.div>
 
