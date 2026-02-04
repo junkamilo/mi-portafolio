@@ -24,16 +24,14 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 flex justify-center transition-all duration-300 ${
-        scrolled ? "py-4" : "py-6"
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 flex justify-center transition-all duration-300 ${scrolled ? "py-4" : "py-6"
+        }`}
     >
       <div
-        className={`relative flex items-center justify-between transition-all duration-300 ${
-          scrolled
+        className={`relative flex items-center justify-between transition-all duration-300 ${scrolled
             ? "w-[95%] md:w-[85%] lg:w-[70%] bg-white/90 backdrop-blur-md border border-gray-200 shadow-md rounded-full px-6 py-2" // Fondo blanco explícito
             : "w-full container px-4 md:px-6 bg-transparent"
-        }`}
+          }`}
       >
 
         {/* LOGO */}
@@ -64,27 +62,29 @@ export default function Header() {
 
         {/* ACCIONES (Botones corregidos) */}
         <div className="flex items-center gap-3 z-10">
-          
+
           {/* Botón CV: Cambiado de 'ghost' a 'outline' para que tenga borde visible */}
           <a
-            href="/cv-juan-beltran.pdf"
-            download="CV-Juan-Beltran.pdf"
+            href="/cv-juan.pdf"
+            download="Juan_Beltran_CV.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
             className="hidden sm:flex"
           >
-            <Button 
-              variant="outline" 
-              size="sm" 
+            <Button
+              variant="outline"
+              size="sm"
               className="rounded-full gap-2 border-gray-300 text-gray-700 hover:bg-gray-100 hover:text-black"
             >
-              <FileDown size={16} /> 
+              <FileDown size={16} />
               <span className="hidden lg:inline">CV</span>
             </Button>
           </a>
 
           {/* Botón Hablemos: Negro sólido siempre */}
           <a href="#contacto">
-            <Button 
-              size="sm" 
+            <Button
+              size="sm"
               className="rounded-full font-semibold bg-black text-white hover:bg-gray-800 shadow-sm border-0"
             >
               Hablemos
