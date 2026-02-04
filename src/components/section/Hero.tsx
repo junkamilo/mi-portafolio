@@ -23,11 +23,10 @@ export default function Hero() {
   return (
     <section
       id="inicio"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background pt-20 pb-10"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-white pt-20 pb-10"
     >
-      {/* --- FONDO --- */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
-      <div className="absolute right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-primary/20 opacity-20 blur-[100px]"></div>
+      {/* --- FONDO SIMPLE (Gris muy suave para dar textura sin romper nada) --- */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:24px_24px]"></div>
 
       <div className="container px-4 md:px-6 relative z-10">
         <motion.div
@@ -39,64 +38,67 @@ export default function Hero() {
           {/* COLUMNA 1: TEXTO */}
           <div className="flex flex-col items-center lg:items-start text-center lg:text-left order-2 lg:order-1">
 
-            {/* --- INNOVACIÓN 1: BADGE COPIABLE --- */}
+            {/* --- BADGE COPIABLE (Sin efectos de transparencia complejos) --- */}
             <motion.div
               variants={itemVariants}
               className="mb-6 cursor-pointer group"
               onClick={handleCopyEmail}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
             >
-              <span className={`inline-flex items-center gap-2 px-3 py-1 rounded-full border transition-all duration-300 ${isCopied ? "border-green-500/50 bg-green-500/10 text-green-500" : "border-primary/20 bg-primary/5 text-primary group-hover:bg-primary/10"} text-xs font-medium backdrop-blur-sm`}>
+              <span className={`inline-flex items-center gap-2 px-3 py-1 rounded-full border transition-all duration-300 ${
+                isCopied 
+                  ? "border-green-200 bg-green-50 text-green-700" 
+                  : "border-gray-200 bg-gray-50 text-gray-600 hover:border-gray-400 hover:text-black"
+              } text-xs font-medium`}>
                 <span className="relative flex h-2 w-2">
-                  <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${isCopied ? "bg-green-400" : "bg-green-400"}`}></span>
                   <span className={`relative inline-flex rounded-full h-2 w-2 ${isCopied ? "bg-green-500" : "bg-green-500"}`}></span>
                 </span>
                 {isCopied ? "¡Email Copiado!" : HERO_CONTENT.badge}
-                {isCopied ? <Check size={12} /> : <Copy size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />}
+                {isCopied ? <Check size={12} /> : <Copy size={12} className="opacity-50 group-hover:opacity-100" />}
               </span>
             </motion.div>
 
-            {/* --- INNOVACIÓN 2: TÍTULO ANIMADO (GRADIENT-X) --- */}
+            {/* --- TÍTULO SÓLIDO (Sin gradientes que fallan) --- */}
             <motion.h1
               variants={itemVariants}
-              className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight text-foreground mb-6"
+              className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight text-black mb-6"
             >
               Hola, soy{" "}
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary via-purple-500 to-primary bg-[length:200%_auto] animate-gradient-x">
+              {/* Color morado sólido en lugar de gradiente clip */}
+              <span className="text-purple-600">
                 {HERO_CONTENT.name}
               </span>
               <br />
-              <span className="text-foreground/80 text-2xl sm:text-4xl md:text-5xl block mt-2">
+              <span className="text-gray-700 text-2xl sm:text-4xl md:text-5xl block mt-2 font-semibold">
                 {HERO_CONTENT.role}
               </span>
             </motion.h1>
 
             <motion.p
               variants={itemVariants}
-              className="text-lg sm:text-xl text-muted-foreground max-w-xl mb-10 leading-relaxed"
+              className="text-lg sm:text-xl text-gray-600 max-w-xl mb-10 leading-relaxed"
             >
               {HERO_CONTENT.description}
             </motion.p>
 
-            {/* BOTONES */}
+            {/* BOTONES (Colores explícitos) */}
             <motion.div
               variants={itemVariants}
               className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto"
             >
-              {/* --- INNOVACIÓN 3: BOTÓN SHINY --- */}
+              {/* --- BOTÓN VER PROYECTOS (Negro sólido) --- */}
               <Button
                 size="lg"
-                className="relative overflow-hidden group w-full sm:w-auto font-semibold shadow-lg shadow-primary/25"
+                className="w-full sm:w-auto font-semibold bg-black text-white hover:bg-gray-800 shadow-md transition-all rounded-lg h-12 px-8"
                 onClick={scrollToProjects}
               >
-                <div className="absolute inset-0 -translate-x-[150%] skew-x-12 bg-white/30 group-hover:animate-shine" />
-                <span className="relative flex items-center">
-                  Ver Proyectos <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                <span className="flex items-center">
+                  Ver Proyectos <ArrowRight className="ml-2 h-4 w-4" />
                 </span>
               </Button>
 
-              {/* --- INNOVACIÓN 4: ICONOS SOCIALES MAGNÉTICOS (Simulados) --- */}
+              {/* --- ICONOS SOCIALES (Bordes visibles) --- */}
               <div className="flex gap-3 w-full sm:w-auto justify-center sm:justify-start">
                 <SocialButton href="#contacto" icon={<Mail className="h-5 w-5" />} label="Email" />
                 <SocialButton href={HERO_CONTENT.social.linkedin} icon={<Linkedin className="h-5 w-5" />} label="LinkedIn" />
@@ -116,13 +118,13 @@ export default function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2, duration: 1 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 cursor-pointer hidden md:block"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 cursor-pointer hidden md:block text-gray-400 hover:text-black transition-colors"
         onClick={scrollToProjects}
       >
         <motion.div
           animate={{ y: [0, 8, 0] }}
           transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-          className="flex flex-col items-center gap-2 text-muted-foreground/50 hover:text-primary transition-colors"
+          className="flex flex-col items-center gap-2"
         >
           <span className="text-xs uppercase tracking-widest font-light">Scroll</span>
           <ChevronDown size={20} />
@@ -133,26 +135,23 @@ export default function Hero() {
 }
 
 function SocialButton({ href, icon, label }: { href: string; icon: React.ReactNode; label: string }) {
-
   const isInternal = href.startsWith("#");
 
   return (
     <motion.div whileHover={{ y: -3 }} whileTap={{ scale: 0.9 }}>
+      {/* Botón con borde gris explícito y texto gris oscuro */}
       <Button
         variant="outline"
         size="icon"
-        className="rounded-full h-11 w-11 border-primary/20 hover:border-primary hover:bg-primary/10 transition-colors"
+        className="rounded-full h-11 w-11 border-gray-300 text-gray-700 hover:border-black hover:bg-black hover:text-white transition-all bg-white"
         asChild
       >
         <a
           href={href}
-          // Si es interno usa "_self" (misma página), si no "_blank" (nueva pestaña)
           target={isInternal ? "_self" : "_blank"}
-          // Solo añadimos seguridad rel para enlaces externos
           rel={isInternal ? undefined : "noopener noreferrer"}
           aria-label={label}
           onClick={(e) => {
-            // Opcional: Forzar scroll suave si CSS no lo hace automáticamente
             if (isInternal) {
               e.preventDefault();
               const element = document.querySelector(href);

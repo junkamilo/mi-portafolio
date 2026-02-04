@@ -10,13 +10,13 @@ import { ProjectCard } from "./ProjectCard";
 export default function Projects() {
   return (
     <section id="proyectos" className="py-24 bg-background relative overflow-hidden">
-      
+
       {/* --- FONDO PERSONALIZADO --- */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
       <div className="absolute right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-primary/20 opacity-20 blur-[100px]"></div>
 
       <div className="container px-4 md:px-6 mx-auto relative z-10">
-        
+
         {/* Header de Sección */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -53,18 +53,26 @@ export default function Projects() {
           transition={{ delay: 0.2 }}
           className="mt-20 text-center"
         >
-          <div className="p-8 rounded-2xl bg-secondary/30 border border-border/50 max-w-2xl mx-auto backdrop-blur-sm">
-             <p className="text-foreground font-medium mb-4 text-lg">¿Te interesa ver cómo escribo código?</p>
-             <p className="text-muted-foreground mb-6 text-sm">
-               Explora mis repositorios para ver mis proyectos personales.
-             </p>
-             <Button variant="default" size="lg" className="gap-2 group shadow-lg shadow-primary/20" asChild>
-                <a href="https://github.com/junkamilo" target="_blank" rel="noreferrer">
-                  <Github className="w-4 h-4" /> 
-                  Explorar GitHub 
-                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                </a>
-             </Button>
+          <div className="p-8 rounded-2xl bg-gray-50 border border-gray-200 max-w-2xl mx-auto shadow-sm">
+            <p className="text-gray-900 font-bold mb-4 text-lg">
+              ¿Te interesa ver cómo escribo código?
+            </p>
+            <p className="text-gray-600 mb-6 text-sm">
+              Explora mis repositorios para ver mis proyectos personales.
+            </p>
+
+            {/* CAMBIO CLAVE: Botón con colores explícitos (Negro sólido) */}
+            <Button
+              size="lg"
+              className="gap-2 group shadow-md bg-black text-white hover:bg-gray-800 transition-all border-0"
+              asChild
+            >
+              <a href="https://github.com/junkamilo" target="_blank" rel="noreferrer">
+                <Github className="w-4 h-4" />
+                Explorar GitHub
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </a>
+            </Button>
           </div>
         </motion.div>
 
