@@ -17,9 +17,13 @@ export default function About() {
   const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   return (
-    <section id="sobre-mi" className="py-24 relative overflow-hidden bg-white">
-      {/* Fondo sutil (Gris muy suave) */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:32px_32px]"></div>
+    <section 
+      id="sobre-mi" 
+      // CAMBIO 1: Fondo adaptable (Blanco en día, Negro Zinc en noche)
+      className="py-24 relative overflow-hidden bg-white dark:bg-zinc-950 transition-colors duration-300"
+    >
+      {/* Fondo sutil (Grid cambia de color en dark mode) */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-[size:32px_32px]"></div>
 
       <div className="container px-4 md:px-6 mx-auto relative z-10">
         <motion.div
@@ -35,11 +39,11 @@ export default function About() {
             
             {/* Header */}
             <motion.div variants={itemVariants} className="space-y-3">
-              <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-black">
+              <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-black dark:text-white">
                 {ABOUT_DATA.title}
               </h2>
-              {/* CAMBIO 1: Color sólido Morado Oscuro para lectura perfecta */}
-              <p className="text-xl font-semibold text-purple-700">
+              {/* Subtítulo Morado (Visible en ambos modos) */}
+              <p className="text-xl font-semibold text-purple-700 dark:text-purple-400">
                 {ABOUT_DATA.subtitle}
               </p>
             </motion.div>
@@ -47,13 +51,13 @@ export default function About() {
             {/* Timeline Vertical Animado */}
             <div className="relative pl-8 md:pl-10 space-y-12">
               
-              {/* Línea Guía Gris */}
-              <div className="absolute left-[9px] top-2 bottom-0 w-[2px] bg-gray-200" />
+              {/* Línea Guía Gris (Adaptable) */}
+              <div className="absolute left-[9px] top-2 bottom-0 w-[2px] bg-gray-200 dark:bg-gray-800" />
               
               {/* Línea de Color Animada */}
               <motion.div 
                 style={{ height: lineHeight }}
-                className="absolute left-[9px] top-2 w-[2px] bg-purple-600 origin-top"
+                className="absolute left-[9px] top-2 w-[2px] bg-purple-600 dark:bg-purple-500 origin-top"
               />
 
               {ABOUT_DATA.timeline.map((item, index) => (
@@ -62,19 +66,19 @@ export default function About() {
                   variants={itemVariants}
                   className="relative group"
                 >
-                  {/* Icono Flotante (Fondo blanco y borde visible) */}
-                  <div className="absolute -left-[49px] md:-left-[51px] top-0 bg-white p-1.5 rounded-full border border-gray-300 z-10 shadow-sm">
-                    <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 group-hover:text-purple-600 group-hover:bg-purple-50 transition-all duration-300">
+                  {/* Icono Flotante */}
+                  <div className="absolute -left-[49px] md:-left-[51px] top-0 bg-white dark:bg-zinc-950 p-1.5 rounded-full border border-gray-300 dark:border-gray-700 z-10 shadow-sm">
+                    <div className="w-8 h-8 rounded-full bg-gray-100 dark:bg-zinc-900 flex items-center justify-center text-gray-600 dark:text-gray-400 group-hover:text-purple-600 dark:group-hover:text-purple-400 group-hover:bg-purple-50 dark:group-hover:bg-purple-900/20 transition-all duration-300">
                       <item.icon size={16} />
                     </div>
                   </div>
 
                   {/* Texto */}
                   <div className="space-y-2">
-                    <h3 className="text-xl font-bold text-gray-900 flex items-center gap-2">
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 flex items-center gap-2">
                       {item.title}
                     </h3>
-                    <p className="text-gray-600 leading-relaxed text-base">
+                    <p className="text-gray-600 dark:text-gray-400 leading-relaxed text-base">
                       {item.description}
                     </p>
                   </div>
@@ -82,7 +86,7 @@ export default function About() {
               ))}
             </div>
 
-            {/* Terminal (Colores sólidos oscuros) */}
+            {/* Terminal (Ya era oscuro, pero aseguramos bordes) */}
             <motion.div
               variants={itemVariants}
               className="mt-8 rounded-xl overflow-hidden border border-gray-800 bg-[#1a1b26] shadow-2xl"
@@ -120,25 +124,27 @@ export default function About() {
                    key={index}
                    variants={itemVariants}
                    whileHover={{ y: -5 }}
-                   // CAMBIO 2: Cards con Borde Gris Sólido, Fondo Blanco y Sombra
+                   // CAMBIO 3: Cards Adaptables (Blanco día / Zinc-900 noche)
                    className={`
                       group relative p-6 rounded-2xl 
-                      bg-white border border-gray-200 shadow-sm
-                      hover:shadow-md hover:border-purple-300 
+                      bg-white dark:bg-zinc-900 
+                      border border-gray-200 dark:border-zinc-800 
+                      shadow-sm dark:shadow-none
+                      hover:shadow-md hover:border-purple-300 dark:hover:border-purple-500/50
                       transition-all duration-300 overflow-hidden
                    `}
                  >
                    <div className="relative z-10 flex flex-col items-center text-center space-y-4">
-                     {/* Icono en caja gris clara */}
-                     <div className="p-3 rounded-xl bg-gray-50 border border-gray-100 text-gray-700 group-hover:text-purple-600 transition-colors duration-300">
+                     {/* Icono en caja gris clara / oscura */}
+                     <div className="p-3 rounded-xl bg-gray-50 dark:bg-zinc-800 border border-gray-100 dark:border-zinc-700 text-gray-700 dark:text-gray-300 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors duration-300">
                        <stat.icon size={28} strokeWidth={1.5} />
                      </div>
                      
                      <div>
-                       <h4 className="text-3xl font-bold tracking-tight text-gray-900">
+                       <h4 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
                          {stat.value}
                        </h4>
-                       <p className="text-xs font-semibold text-gray-500 uppercase tracking-widest mt-1">
+                       <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-widest mt-1">
                          {stat.label}
                        </p>
                      </div>

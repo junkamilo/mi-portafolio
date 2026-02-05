@@ -2,15 +2,15 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Providers from "../components/section/Providers";
 import { Toaster } from "@/components/ui/sonner";
+import { ThemeProvider } from "../components/themeProvider/theme-provider";
 
 export const metadata: Metadata = {
   title: "Dev Juan Beltran",
   description: "Portafolio profesional de Desarrollo Full Stack",
-  // 👇 AQUÍ AGREGAS LOS ICONOS
   icons: {
-    icon: "/fotoPerfilHojaVida.png",        // Favicon estándar (navegadores)
-    apple: "/fotoPerfilHojaVida.png",       // Icono para iPhone/iPad (Apple Touch Icon)
-    shortcut: "/fotoPerfilHojaVida.png",    // Acceso directo (opcional)
+    icon: "/fotoPerfilHojaVida.png",
+    apple: "/fotoPerfilHojaVida.png",
+    shortcut: "/fotoPerfilHojaVida.png",
   },
 };
 
@@ -20,15 +20,25 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    // 👇 CAMBIO IMPORTANTE: Agrega suppressHydrationWarning aquí
+    <html lang="en" suppressHydrationWarning>
       <body>
-        <Providers>
-          {/* Aquí solo renderizamos children (el contenido de la página) */}
-          {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Providers>
+            {/* Aquí solo renderizamos children (el contenido de la página) */}
+            {children}
 
-          {/* El Toaster sí debe ir aquí para que funcione en todas partes */}
-          <Toaster />
-        </Providers>
+            {/* El Toaster sí debe ir aquí para que funcione en todas partes */}
+            <Toaster />
+          </Providers>
+
+        </ThemeProvider>
+
       </body>
     </html>
   );

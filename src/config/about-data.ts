@@ -37,7 +37,7 @@ export const ABOUT_DATA = {
         },
         {
             label: "Proyectos",
-            value: "3 Apps",
+            value: "3+ Apps",
             icon: Globe,
             color: "text-purple-500",
             bg: "bg-purple-500/10",

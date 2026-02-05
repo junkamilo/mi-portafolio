@@ -23,10 +23,12 @@ export default function Hero() {
   return (
     <section
       id="inicio"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-white pt-20 pb-10"
+      // CAMBIO 1: Soporte Dark Mode en el fondo principal
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-white dark:bg-zinc-950 pt-20 pb-10 transition-colors duration-300"
     >
-      {/* --- FONDO SIMPLE (Gris muy suave para dar textura sin romper nada) --- */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+      {/* --- FONDO SIMPLE --- */}
+      {/* CAMBIO 2: Grid sutil que cambia de color en modo oscuro */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-[size:24px_24px]"></div>
 
       <div className="container px-4 md:px-6 relative z-10">
         <motion.div
@@ -38,7 +40,7 @@ export default function Hero() {
           {/* COLUMNA 1: TEXTO */}
           <div className="flex flex-col items-center lg:items-start text-center lg:text-left order-2 lg:order-1">
 
-            {/* --- BADGE COPIABLE (Sin efectos de transparencia complejos) --- */}
+            {/* --- BADGE COPIABLE --- */}
             <motion.div
               variants={itemVariants}
               className="mb-6 cursor-pointer group"
@@ -46,11 +48,11 @@ export default function Hero() {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              <span className={`inline-flex items-center gap-2 px-3 py-1 rounded-full border transition-all duration-300 ${
-                isCopied 
-                  ? "border-green-200 bg-green-50 text-green-700" 
-                  : "border-gray-200 bg-gray-50 text-gray-600 hover:border-gray-400 hover:text-black"
-              } text-xs font-medium`}>
+              {/* CAMBIO 3: Badge adaptable (Gris claro en día, Gris oscuro en noche) */}
+              <span className={`inline-flex items-center gap-2 px-3 py-1 rounded-full border transition-all duration-300 ${isCopied
+                  ? "border-green-200 bg-green-50 text-green-700 dark:bg-green-900/20 dark:text-green-400 dark:border-green-800"
+                  : "border-gray-200 bg-gray-50 text-gray-600 hover:border-gray-400 hover:text-black dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-400 dark:hover:text-white dark:hover:border-zinc-600"
+                } text-xs font-medium`}>
                 <span className="relative flex h-2 w-2">
                   <span className={`relative inline-flex rounded-full h-2 w-2 ${isCopied ? "bg-green-500" : "bg-green-500"}`}></span>
                 </span>
@@ -59,38 +61,44 @@ export default function Hero() {
               </span>
             </motion.div>
 
-            {/* --- TÍTULO SÓLIDO (Sin gradientes que fallan) --- */}
+            {/* --- TÍTULO --- */}
             <motion.h1
               variants={itemVariants}
-              className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight text-black mb-6"
+              // CAMBIO 4: Texto adaptable (Negro día / Blanco noche)
+              className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight text-black dark:text-white mb-6"
             >
               Hola, soy{" "}
-              {/* Color morado sólido en lugar de gradiente clip */}
-              <span className="text-purple-600">
+              {/* Morado en ambos modos para resaltar */}
+              <span className="text-purple-600 dark:text-purple-400">
                 {HERO_CONTENT.name}
               </span>
               <br />
-              <span className="text-gray-700 text-2xl sm:text-4xl md:text-5xl block mt-2 font-semibold">
+              {/* Subtítulo adaptable */}
+              <span className="text-gray-700 dark:text-gray-300 text-2xl sm:text-4xl md:text-5xl block mt-2 font-semibold">
                 {HERO_CONTENT.role}
               </span>
             </motion.h1>
 
+            {/* --- DESCRIPCIÓN --- */}
             <motion.p
               variants={itemVariants}
-              className="text-lg sm:text-xl text-gray-600 max-w-xl mb-10 leading-relaxed"
+              className="text-lg sm:text-xl text-gray-600 dark:text-gray-400 max-w-xl mb-10 leading-relaxed"
             >
               {HERO_CONTENT.description}
             </motion.p>
 
-            {/* BOTONES (Colores explícitos) */}
+            {/* BOTONES */}
             <motion.div
               variants={itemVariants}
               className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto"
             >
-              {/* --- BOTÓN VER PROYECTOS (Negro sólido) --- */}
+              {/* --- BOTÓN VER PROYECTOS --- */}
               <Button
                 size="lg"
-                className="w-full sm:w-auto font-semibold bg-black text-white hover:bg-gray-800 shadow-md transition-all rounded-lg h-12 px-8"
+                // CAMBIO 5: Inversión de colores inteligente
+                // Día: Negro fondo / Blanco texto
+                // Noche: Blanco fondo / Negro texto (para resaltar)
+                className="w-full sm:w-auto font-semibold bg-black text-white hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200 shadow-md transition-all rounded-lg h-12 px-8"
                 onClick={scrollToProjects}
               >
                 <span className="flex items-center">
@@ -98,7 +106,7 @@ export default function Hero() {
                 </span>
               </Button>
 
-              {/* --- ICONOS SOCIALES (Bordes visibles) --- */}
+              {/* --- ICONOS SOCIALES --- */}
               <div className="flex gap-3 w-full sm:w-auto justify-center sm:justify-start">
                 <SocialButton href="#contacto" icon={<Mail className="h-5 w-5" />} label="Email" />
                 <SocialButton href={HERO_CONTENT.social.linkedin} icon={<Linkedin className="h-5 w-5" />} label="LinkedIn" />
@@ -118,7 +126,7 @@ export default function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2, duration: 1 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 cursor-pointer hidden md:block text-gray-400 hover:text-black transition-colors"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 cursor-pointer hidden md:block text-gray-400 hover:text-black dark:hover:text-white transition-colors"
         onClick={scrollToProjects}
       >
         <motion.div
@@ -139,11 +147,11 @@ function SocialButton({ href, icon, label }: { href: string; icon: React.ReactNo
 
   return (
     <motion.div whileHover={{ y: -3 }} whileTap={{ scale: 0.9 }}>
-      {/* Botón con borde gris explícito y texto gris oscuro */}
+      {/* CAMBIO 6: Botones sociales adaptables */}
       <Button
         variant="outline"
         size="icon"
-        className="rounded-full h-11 w-11 border-gray-300 text-gray-700 hover:border-black hover:bg-black hover:text-white transition-all bg-white"
+        className="rounded-full h-11 w-11 border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 bg-white dark:bg-zinc-900 hover:border-black dark:hover:border-white hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black transition-all"
         asChild
       >
         <a

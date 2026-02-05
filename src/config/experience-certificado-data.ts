@@ -29,7 +29,7 @@ export const experienceData: ExperienceItem[] = [
         type: "education",
         title: "Tecnólogo en Análisis y Desarrollo de Software",
         organization: "SENA",
-        period: "2022 - 2024",
+        period: "2024 - 2026",
         shortDescription:
             "Formación integral en desarrollo de software, bases de datos, metodologías ágiles y buenas prácticas de programación.",
         fullDescription: `El programa de Tecnología en Análisis y Desarrollo de Software del SENA me proporcionó una formación completa y práctica en el desarrollo de aplicaciones.
@@ -45,18 +45,18 @@ El programa incluyó múltiples proyectos prácticos que me permitieron aplicar 
         skills: ["Java", "JavaScript", "Python", "PostgreSQL", "MySQL", "Git", "Scrum", "HTML/CSS"],
         projects: [
             {
-                title: "Sistema de Gestión Académica",
-                description: "Aplicación web para gestionar estudiantes, cursos y calificaciones. Desarrollado como proyecto integrador.",
-                repoUrl: "https://github.com/usuario/gestion-academica"
-            },
-            {
-                title: "API REST de Biblioteca",
-                description: "Backend completo para sistema de biblioteca con autenticación y CRUD de libros.",
-                repoUrl: "https://github.com/usuario/biblioteca-api"
-            }
+            title: "Music Streaming App",
+            description: "Plataforma de distribución de audio con arquitectura MVC. Gestión de roles (Artista/Oyente), creación de playlists y reproducción multimedia.",
+            repoUrl: "https://github.com/junkamilo/MusicApp"
+        },
+        {
+            title: "Restaurant Management System",
+            description: "Sistema integral de escritorio (Java Swing + MySQL) para el control de pedidos, despacho de comandas a cocina y facturación.",
+            repoUrl: "https://github.com/junkamilo/RestauranteApp"
+        }
         ],
-        repoUrl: "https://github.com/usuario/sena-projects",
-        certificateUrl: "https://certificados.sena.edu.co/verificar/123456"
+        repoUrl: "https://github.com/junkamilo",
+        //certificateUrl: "https://certificados.sena.edu.co/verificar/123456"
     },
     {
         slug: "nextjs-fullstack-guide",
@@ -188,7 +188,7 @@ Cada tema incluyó ejercicios prácticos y proyectos que me permitieron aplicar 
         type: "course", // Mantiene consistencia con el de JS
         title: "Software Testing & Quality Assurance",
         organization: "Udemy",
-        period: "2024",
+        period: "2025",
         shortDescription:
             "Dominio de metodologías de prueba (Manual/Automated), ciclo de vida del defecto y automatización con Cypress y Jest.",
         fullDescription: `Curso integral enfocado en garantizar la fiabilidad del software mediante estrategias de prueba modernas. Aprendí a diferenciar y aplicar distintos niveles de testing dentro del ciclo de desarrollo.

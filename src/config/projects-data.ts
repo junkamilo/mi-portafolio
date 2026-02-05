@@ -62,7 +62,7 @@ export const PROJECTS: Project[] = [
     category: "Full Stack / Vanilla JS",
 
 
-    date: "Enero 2025 - Presente",
+    date: "En desarrollo continuo",
     role: "Full Stack Developer",
     duration: "En desarrollo continuo",
 
@@ -77,8 +77,6 @@ export const PROJECTS: Project[] = [
       "Upload y streaming de archivos de audio",
       "Despliegue en la nube (Render + TiDB)"
     ],
-
-    challenges: "El mayor reto actual es la orquestación de servicios en la nube gratuita. Se implementó una arquitectura resiliente que maneja la latencia de los servicios 'serverless' en sus capas gratuitas.",
 
     links: {
       github: "https://github.com/junkamilo/MusicApp.git",
@@ -107,7 +105,7 @@ export const PROJECTS: Project[] = [
     En el Frontend, implementé una arquitectura MVC con JavaScript Vanilla y Tailwind CSS para una UI rápida y responsiva. En el Backend, utilicé una arquitectura por capas (Rutas -> Controladores -> Servicios -> Modelos) para asegurar un código mantenible y escalable, manejando subida de imágenes con Multer y consultas complejas a MySQL.`,
 
     category: "Full Stack / Admin Tool",
-    date: "Septiembre 2023",
+    date: "En desarrollo continuo",
     role: "Full Stack Developer",
 
     // 🚀 TAGS CORREGIDOS: Muestran tu stack real pero con nombres técnicos
@@ -149,7 +147,7 @@ export const PROJECTS: Project[] = [
     El proyecto destaca por su gestión eficiente del estado: implementé **TanStack Query** para la sincronización de datos con el servidor (caching, revalidación de productos y pedidos) y **Zustand** para el manejo global del carrito de compras. Se integra con el mismo Backend monolítico del panel administrativo, permitiendo a los usuarios registrarse, gestionar su historial de pedidos y realizar compras en tiempo real.`,
 
     category: "Frontend / React SPA",
-    date: "Agosto 2023",
+    date: "En desarrollo continuo",
     role: "Frontend Developer", // O "Full Stack Developer" si prefieres unificar
 
     // 🚀 TAGS TÉCNICOS:
@@ -198,7 +196,7 @@ export const PROJECTS: Project[] = [
     **Estado Actual (Refactorización):** Aunque el núcleo lógico funciona perfectamente en escritorio (Java Swing + MySQL), actualmente estoy liderando la **migración del sistema** hacia una arquitectura Web moderna (SPA) utilizando **React/Vite** en el frontend y **Laravel** en el backend, para permitir el uso desde tablets y móviles en el local.`,
 
     category: "Desktop / Migration", // Categoría honesta
-    date: "Noviembre 2023 - Presente", // "Presente" porque sigues trabajando en la migración
+    date: "En desarrollo continuo", // "Presente" porque sigues trabajando en la migración
     role: "System Architect", // Suena mejor porque estás rediseñando el sistema
     
     // 🚀 TAGS: Mezcla lo que hiciste (Java) con lo que estás haciendo (Migration)
@@ -211,10 +209,8 @@ export const PROJECTS: Project[] = [
       "Sistema multi-rol (Admin, Cocinero, Mesero, Auxiliar)",
       "Sincronización de pedidos (Mesa ➔ Cocina ➔ Entrega)",
       "Reportes contables automáticos en PDF (JasperReports)",
-      "🚧 En progreso: Migración a React + Laravel (Web)"
+      "En progreso: Migración a React + Laravel (Web)"
     ],
-
-    challenges: "El mayor desafío de la versión original fue manejar la concurrencia de datos en MySQL para que el Cocinero viera los pedidos de los Meseros en tiempo real sin conflictos.",
 
     links: {
       github: "https://github.com/junkamilo/RestauranteApp/tree/main/Restaurante_app",
@@ -259,8 +255,6 @@ export const PROJECTS: Project[] = [
       "Persistencia de datos con Prisma y TiDB/Postgres",
       "Diseño UI/UX responsivo generado con Tailwind CSS"
     ],
-
-    challenges: "Integrar la API de PayPal y manejar los webhooks para confirmar el pago en la base de datos de forma asíncrona fue el reto principal.",
 
     links: {
       github: "https://github.com/junkamilo/urban-shop-repo", // PON AQUÍ TU LINK REAL

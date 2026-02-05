@@ -1,5 +1,5 @@
-// Ajusta la ruta si es necesario
-import ExperienceDetail from "@/src/components/section/ExperienceDetail";
+import ExperienceDetail from "@/src/components/experience-detail/page";
+
 
 type Props = {
     params: Promise<{ slug: string }>;

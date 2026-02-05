@@ -111,6 +111,7 @@ export default function Experience() {
                     </div>
 
                     {/* --- COLUMNA DERECHA (5/12): EDUCACIÓN (Sticky & ScrollArea) --- */}
+                    {/* --- COLUMNA DERECHA (5/12): EDUCACIÓN --- */}
                     <div className="lg:col-span-5 relative">
                         <div className="sticky top-24">
 
@@ -126,14 +127,13 @@ export default function Experience() {
                                 <h3 className="text-2xl font-bold">Educación & Certificaciones</h3>
                             </motion.div>
 
-                            {/* CONTENEDOR DECORATIVO DE LA LISTA */}
+                            {/* CONTENEDOR DECORATIVO */}
                             <div className="relative rounded-2xl border border-border/50 bg-background/50 backdrop-blur-sm shadow-sm overflow-hidden">
 
-                                {/* Gradientes para indicar scroll (opcional, visualmente agradable) */}
+                                {/* Gradientes decorativos */}
                                 <div className="absolute top-0 left-0 right-0 h-6 bg-gradient-to-b from-background to-transparent z-10 pointer-events-none" />
                                 <div className="absolute bottom-0 left-0 right-0 h-6 bg-gradient-to-t from-background to-transparent z-10 pointer-events-none" />
 
-                                {/* --- 2. USO DE SCROLLAREA DE SHADCN --- */}
                                 <ScrollArea className="h-[600px] w-full px-4 py-4">
                                     <motion.div
                                         variants={containerVariants}
@@ -142,19 +142,23 @@ export default function Experience() {
                                         viewport={{ once: true }}
                                         className="space-y-3 pr-3 pb-2 pt-2"
                                     >
-                                        {EDUCATION.map((edu) => (
-                                            <motion.div
-                                                key={edu.id}
-                                                variants={itemVariants}
-                                                className={`
-                            group relative overflow-hidden rounded-xl border bg-card p-4 transition-all hover:shadow-md hover:-translate-y-0.5
-                            ${edu.type === 'degree'
-                                                        ? 'border-l-4 border-l-blue-500 border-y-border/50 border-r-border/50 bg-blue-50/5 dark:bg-blue-900/10'
-                                                        : 'border-border/50 hover:border-green-500/30'}
-                          `}
-                                            >
-                                                <div className="flex justify-between items-start gap-4">
-                                                    <div className="space-y-1.5">
+                                        {EDUCATION.map((edu) => {
+
+                                            // 1. Definimos las clases comunes para ambos casos (Link y Div)
+                                            const cardClasses = `
+                group relative flex justify-between items-start gap-4 overflow-hidden rounded-xl border bg-card p-4 transition-all 
+                hover:shadow-md hover:-translate-y-0.5 
+                ${edu.slug ? 'cursor-pointer' : ''} 
+                ${edu.type === 'degree'
+                                                    ? 'border-l-4 border-l-blue-500 border-y-border/50 border-r-border/50 bg-blue-50/5 dark:bg-blue-900/10'
+                                                    : 'border-border/50 hover:border-green-500/30'
+                                                }
+            `;
+
+                                            // 2. Definimos el contenido interno para no repetirlo
+                                            const CardContent = (
+                                                <>
+                                                    <div className="space-y-1.5 flex-1">
                                                         <div className="flex items-center gap-2 mb-1">
                                                             {edu.type === 'degree'
                                                                 ? <span className="text-[10px] font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 bg-blue-100 dark:bg-blue-900/30 px-2 py-0.5 rounded-sm">Grado</span>
@@ -163,7 +167,7 @@ export default function Experience() {
                                                             <span className="text-[11px] text-muted-foreground font-mono">{edu.period}</span>
                                                         </div>
 
-                                                        <h4 className="font-bold text-foreground text-sm leading-tight group-hover:text-primary transition-colors">
+                                                        <h4 className="font-bold text-foreground text-sm leading-tight group-hover:text-black transition-colors">
                                                             {edu.title}
                                                         </h4>
 
@@ -172,21 +176,39 @@ export default function Experience() {
                                                         </p>
                                                     </div>
 
-                                                    {/* Botón de acción */}
+                                                    {/* Flecha con colores forzados para arreglar el bug de producción */}
                                                     {edu.slug && (
-                                                        <Link href={`/experience/${edu.slug}`} className="shrink-0 mt-1">
-                                                            <div className="h-8 w-8 rounded-full bg-secondary flex items-center justify-center text-muted-foreground group-hover:bg-primary group-hover:text-primary-foreground transition-all shadow-sm">
+                                                        <div className="shrink-0 mt-1">
+                                                            <div className="h-8 w-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 group-hover:bg-black group-hover:text-white transition-all shadow-sm">
                                                                 <ChevronRight size={16} />
                                                             </div>
-                                                        </Link>
+                                                        </div>
                                                     )}
-                                                </div>
-                                            </motion.div>
-                                        ))}
+                                                </>
+                                            );
+
+                                            // 3. Renderizado Condicional Seguro (Adiós error de TS)
+                                            if (edu.slug) {
+                                                return (
+                                                    <motion.div key={edu.id} variants={itemVariants}>
+                                                        <Link href={`/experience/${edu.slug}`} className={cardClasses}>
+                                                            {CardContent}
+                                                        </Link>
+                                                    </motion.div>
+                                                );
+                                            }
+
+                                            return (
+                                                <motion.div key={edu.id} variants={itemVariants}>
+                                                    <div className={cardClasses}>
+                                                        {CardContent}
+                                                    </div>
+                                                </motion.div>
+                                            );
+                                        })}
                                     </motion.div>
                                 </ScrollArea>
                             </div>
-
                         </div>
                     </div>
 
