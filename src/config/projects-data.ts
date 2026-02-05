@@ -112,7 +112,7 @@ export const PROJECTS: Project[] = [
     technologies: ["Vanilla JS (MVC)", "Node.js", "Express", "Tailwind CSS", "MySQL", "Multer"],
 
     cardImage: "/portada_lili_Admin.png", // Verde = Negocio/Dinero
-    mainImage: "/banner_lili_Admin.jpg", // Imagen tipo Dashboard
+    mainImage: "/banner_lili_admin.jpg", // Imagen tipo Dashboard
 
     features: [
       "CRUD completo de productos con gestión de imágenes (Multer)",
