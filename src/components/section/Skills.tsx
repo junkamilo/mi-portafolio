@@ -1,174 +1,213 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { motion, useMotionTemplate, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { containerVariants } from "@/src/config/hero-data";
-import { SKILL_CATEGORIES } from "@/src/config/skills-data";
+import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { SKILL_CATEGORIES, type SkillItem } from "@/src/config/skills-data";
+import { TiltCard } from "@/src/components/motion/TiltCard";
+import { RevealGroup, RevealItem, RevealTitle } from "@/src/components/motion/Reveal";
+import { SectionTransition } from "@/src/components/motion/SectionTransition";
+import { useFinePointer } from "@/src/hooks/use-media-query";
 import { cn } from "@/lib/utils";
 
-export default function Skills() {
+function SkillChip({
+  skill,
+  open,
+  onToggle,
+}: {
+  skill: SkillItem;
+  open: boolean;
+  onToggle: () => void;
+}) {
   return (
-    <section id="skills" className="py-32 bg-background relative overflow-hidden">
-
-      {/* Fondo Tecnológico (Malla) */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)]"></div>
-
-      <div className="container px-4 md:px-6 mx-auto relative z-10">
-
-        {/* --- INNOVACIÓN TÍTULO: Badge Animado + Texto Staggered --- */}
-        <div className="text-center mb-20 flex flex-col items-center">
-
-          {/* Título Principal CORREGIDO */}
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            // CAMBIOS AQUÍ: Agregué 'pb-2' y ajusté el gradiente para que se lea mejor
-            className="text-4xl md:text-6xl font-bold tracking-tight mb-4 bg-clip-text text-transparent bg-gradient-to-b from-foreground to-foreground/80 pb-2"
+    <div className="relative">
+      <motion.button
+        onClick={onToggle}
+        whileHover={{ y: -2 }}
+        whileTap={{ scale: 0.92 }}
+        aria-expanded={open}
+        className={cn(
+          "rounded-md px-2.5 py-1 text-xs uppercase tracking-wide transition-colors",
+          open
+            ? "bg-brand-500 text-white"
+            : "bg-white/5 text-white/75 hover:bg-white/10 focus-visible:bg-white/10",
+        )}
+      >
+        {skill.name}
+      </motion.button>
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, y: 8, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 6, scale: 0.95 }}
+            className="absolute left-0 top-full z-30 mt-2 w-56 rounded-xl glass bg-ink-900/95 p-3 text-xs shadow-xl"
           >
-            Arsenal Tecnológico
-          </motion.h2>
-
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            className="text-lg text-muted-foreground max-w-2xl mx-auto"
-          >
-            Priorizo herramientas que garantizan rendimiento, escalabilidad y código limpio.
-          </motion.p>
-        </div>
-
-        {/* --- GRID DE CARDS CON TILT 3D --- */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-        >
-          {SKILL_CATEGORIES.map((category, index) => (
-            <TiltCard
-              key={category.id}
-              className="h-full"
-            >
-              <div className="relative z-10 p-8 space-y-6 h-full flex flex-col">
-
-                {/* Icono (Sin número) */}
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary border border-primary/20 shadow-[0_0_15px_rgba(var(--primary-rgb),0.2)]">
-                  <category.icon size={24} />
-                </div>
-
-                <div>
-                  <h3 className="text-xl font-bold text-foreground mb-2 flex items-center gap-2">
-                    {category.label}
-                  </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {category.description}
-                  </p>
-                </div>
-
-                {/* Badges de Skills */}
-                <div className="flex flex-wrap gap-2 mt-auto pt-4">
-                  {category.skills.map((skill) => (
-                    <span
-                      key={skill}
-                      className="px-2.5 py-1 text-[11px] font-semibold tracking-wide uppercase rounded-md bg-secondary/50 text-secondary-foreground border border-border/50 transition-all duration-300 hover:border-primary/40 hover:bg-primary/10 hover:shadow-[0_0_10px_rgba(var(--primary-rgb),0.1)] cursor-default"
-                    >
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </TiltCard>
-          ))}
-        </motion.div>
-      </div>
-    </section>
+            <p className="mb-1.5 font-semibold text-brand-300">Dónde lo usé</p>
+            <ul className="space-y-1 text-white/70">
+              {skill.usedIn.map((u, i) => (
+                <motion.li
+                  key={u}
+                  initial={{ opacity: 0, x: -6 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.04 }}
+                >
+                  • {u}
+                </motion.li>
+              ))}
+            </ul>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
   );
 }
 
-// --- SUB-COMPONENTE: TILT CARD (INNOVACIÓN 3D) ---
-function TiltCard({ children, className = "" }: { children: React.ReactNode; className?: string }) {
-  const ref = useRef<HTMLDivElement>(null);
+export default function Skills() {
+  const fine = useFinePointer();
+  const [active, setActive] = useState(SKILL_CATEGORIES[0].id);
+  const [openSkill, setOpenSkill] = useState<string | null>(null);
 
-  // Valores de movimiento del mouse
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpenSkill(null);
+    const onClick = () => setOpenSkill(null);
+    window.addEventListener("keydown", onKey);
+    window.addEventListener("click", onClick);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      window.removeEventListener("click", onClick);
+    };
+  }, []);
 
-  // Transformaciones para el efecto Tilt (Inclinación)
-  // Mouse X -> Rota en eje Y
-  // Mouse Y -> Rota en eje X
-  const rotateX = useTransform(y, [0, 400], [5, -5]); // Rango de inclinación sutil
-  const rotateY = useTransform(x, [0, 400], [-5, 5]);
-
-  // Suavizado del movimiento (Spring physics) para que no sea rígido
-  const springX = useSpring(rotateX, { stiffness: 300, damping: 30 });
-  const springY = useSpring(rotateY, { stiffness: 300, damping: 30 });
-
-  function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
-    if (!ref.current) return;
-    const rect = ref.current.getBoundingClientRect();
-
-    // Calculamos la posición relativa del mouse dentro de la card
-    const mouseX = e.clientX - rect.left;
-    const mouseY = e.clientY - rect.top;
-
-    x.set(mouseX);
-    y.set(mouseY);
-  }
-
-  function handleMouseLeave() {
-    // Al salir, reseteamos la posición para que la card vuelva a estar plana
-    x.set(0);
-    y.set(0);
-    // Nota: como usamos spring, volverá suavemente al centro, no de golpe.
-  }
+  const activeCategory =
+    SKILL_CATEGORIES.find((c) => c.id === active) ?? SKILL_CATEGORIES[0];
 
   return (
-    <motion.div
-      ref={ref}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{
-        perspective: 1000, // Necesario para el efecto 3D
-      }}
-      variants={{
-        hidden: { opacity: 0, y: 20 },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
-      }}
-      className={cn("relative group", className)}
-    >
-      <motion.div
-        style={{
-          rotateX: springX,
-          rotateY: springY,
-          transformStyle: "preserve-3d", // Mantiene la profundidad 3D
-        }}
-        className="relative h-full rounded-2xl border border-border/50 bg-card p-[1px] overflow-hidden transition-colors hover:border-primary/30"
-      >
-        {/* --- 1. Spotlight (Luz de fondo) --- */}
-        <motion.div
-          className="pointer-events-none absolute -inset-px opacity-0 transition duration-300 group-hover:opacity-100 z-0"
-          style={{
-            background: useMotionTemplate`
-              radial-gradient(
-                650px circle at ${x}px ${y}px,
-                rgba(var(--primary-rgb), 0.1),
-                transparent 80%
-              )
-            `,
-          }}
-        />
-
-        {/* --- 2. Contenido --- */}
-        <div className="relative z-10 h-full bg-card/50 backdrop-blur-sm rounded-xl">
-          {children}
+    <SectionTransition id="skills" className="py-32">
+      <div className="container relative z-10 mx-auto px-4 md:px-6">
+        <div className="mb-16 flex flex-col items-center text-center">
+          <RevealTitle
+            text="Habilidades técnicas"
+            className="mb-4 text-4xl font-bold tracking-tight text-white md:text-6xl"
+          />
+          <p className="max-w-2xl text-lg text-white/60">
+            Las herramientas con las que trabajo a diario, en proyectos reales y en
+            producción. Haz clic en un chip para ver dónde lo usé.
+          </p>
         </div>
 
-      </motion.div>
-    </motion.div>
+        <div
+          role="tablist"
+          aria-label="Categorías de habilidades"
+          className="mb-10 flex snap-x gap-1 overflow-x-auto rounded-full glass p-1 md:mx-auto md:w-fit md:flex-wrap md:justify-center"
+        >
+          {SKILL_CATEGORIES.map((cat) => (
+            <button
+              key={cat.id}
+              role="tab"
+              aria-selected={active === cat.id}
+              onClick={() => {
+                setActive(cat.id);
+                setOpenSkill(null);
+              }}
+              className="relative snap-start whitespace-nowrap rounded-full px-4 py-1.5 text-sm text-white/70 transition-colors aria-selected:text-white"
+            >
+              {active === cat.id && (
+                <motion.span
+                  layoutId="skills-tab"
+                  className="absolute inset-0 rounded-full bg-brand-500 shadow-[0_0_24px_-4px_rgb(139_92_246/0.9)]"
+                  transition={{ type: "spring", stiffness: 400, damping: 32 }}
+                />
+              )}
+              <span className="relative z-10">{cat.label}</span>
+            </button>
+          ))}
+        </div>
+
+        {fine ? (
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {SKILL_CATEGORIES.map((category) => {
+              const isActive = category.id === active;
+              return (
+                <TiltCard
+                  key={category.id}
+                  className={cn(
+                    "h-full transition-opacity duration-300",
+                    isActive ? "border-glow opacity-100" : "opacity-40",
+                  )}
+                >
+                  <CategoryBody
+                    category={category}
+                    openSkill={openSkill}
+                    setOpenSkill={setOpenSkill}
+                  />
+                </TiltCard>
+              );
+            })}
+          </div>
+        ) : (
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeCategory.id}
+              initial={{ opacity: 0, x: 40 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -40 }}
+              transition={{ duration: 0.35 }}
+            >
+              <TiltCard className="border-glow">
+                <CategoryBody
+                  category={activeCategory}
+                  openSkill={openSkill}
+                  setOpenSkill={setOpenSkill}
+                />
+              </TiltCard>
+            </motion.div>
+          </AnimatePresence>
+        )}
+      </div>
+    </SectionTransition>
+  );
+}
+
+function CategoryBody({
+  category,
+  openSkill,
+  setOpenSkill,
+}: {
+  category: (typeof SKILL_CATEGORIES)[number];
+  openSkill: string | null;
+  setOpenSkill: (v: string | null) => void;
+}) {
+  return (
+    <div className="relative z-10 flex h-full flex-col space-y-6 p-8">
+      <div className="flex size-12 items-center justify-center rounded-lg border border-brand-500/30 bg-brand-500/10 text-brand-300">
+        <category.icon size={24} />
+      </div>
+      <div>
+        <h3 className="mb-2 text-xl font-bold text-white">{category.label}</h3>
+        <p className="text-sm leading-relaxed text-white/60">{category.description}</p>
+      </div>
+      <RevealGroup className="mt-auto flex flex-wrap gap-2 pt-4" stagger={0.04}>
+        {category.skills.map((skill) => (
+          <RevealItem key={skill.name}>
+            <div
+              onClick={(e) => e.stopPropagation()}
+              onKeyDown={(e) => e.stopPropagation()}
+            >
+              <SkillChip
+                skill={skill}
+                open={openSkill === `${category.id}-${skill.name}`}
+                onToggle={() =>
+                  setOpenSkill(
+                    openSkill === `${category.id}-${skill.name}`
+                      ? null
+                      : `${category.id}-${skill.name}`,
+                  )
+                }
+              />
+            </div>
+          </RevealItem>
+        ))}
+      </RevealGroup>
+    </div>
   );
 }

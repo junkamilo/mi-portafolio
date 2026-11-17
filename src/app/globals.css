@@ -3,6 +3,76 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@theme {
+  --color-ink-950: #07060d;
+  --color-ink-900: #0e0c17;
+  --color-brand-300: #c4b5fd;
+  --color-brand-400: #a78bfa;
+  --color-brand-500: #8b5cf6;
+  --color-brand-600: #7c3aed;
+  --color-neon-400: #22d3ee;
+  --color-live-500: #22c55e;
+  --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Cuadrícula animada del fondo */
+.bg-grid {
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.045) 1px, transparent 1px);
+  background-size: 56px 56px;
+  animation: grid-move 24s linear infinite;
+}
+@keyframes grid-move { to { background-position: 56px 56px; } }
+
+/* Tarjeta de cristal */
+.glass {
+  background: rgb(255 255 255 / 0.04);
+  border: 1px solid rgb(255 255 255 / 0.08);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+/* Borde con luz que gira */
+@property --angle { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
+.border-glow { position: relative; isolation: isolate; }
+.border-glow::before {
+  content: ""; position: absolute; inset: -1px; border-radius: inherit; padding: 1px; z-index: -1;
+  background: conic-gradient(from var(--angle), transparent 55%, #8b5cf6, #22d3ee, transparent 95%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  animation: spin-angle 4s linear infinite;
+}
+@keyframes spin-angle { to { --angle: 360deg; } }
+
+/* Pulso del punto verde */
+.live-dot { position: relative; }
+.live-dot::after {
+  content: ""; position: absolute; inset: 0; border-radius: 9999px; background: currentColor;
+  animation: ping-soft 1.8s var(--ease-out-expo) infinite;
+}
+@keyframes ping-soft { 0% { transform: scale(1); opacity: .7 } 100% { transform: scale(2.6); opacity: 0 } }
+
+/* Texto con gradiente */
+.text-gradient {
+  background: linear-gradient(90deg, #c4b5fd, #8b5cf6 45%, #22d3ee);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+
+/* Brillo que cruza el botón */
+.shine { position: relative; overflow: hidden; }
+.shine::after {
+  content: ""; position: absolute; inset: 0; transform: translateX(-120%);
+  background: linear-gradient(110deg, transparent 30%, rgb(255 255 255 / .35) 50%, transparent 70%);
+}
+.shine:hover::after { transition: transform .8s var(--ease-out-expo); transform: translateX(120%); }
+
+@media (prefers-reduced-motion: reduce) {
+  .bg-grid, .border-glow::before, .live-dot::after { animation: none; }
+  .shine::after { display: none; }
+}
+
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -126,7 +196,11 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-ink-950 text-white antialiased;
+  }
+
+  html {
+    scroll-behavior: auto;
   }
 }
 
@@ -150,19 +224,33 @@
 
 /* En src/app/globals.css */
 
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(139 92 246 / 0.45) transparent;
+}
 .custom-scrollbar::-webkit-scrollbar {
   width: 6px;
+  height: 6px;
 }
-
 .custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+  margin: 8px 0;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #8b5cf6, #22d3ee);
+  border-radius: 9999px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #a78bfa, #67e8f9);
+}
+.custom-scrollbar::-webkit-scrollbar-corner {
   background: transparent;
 }
 
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: hsl(var(--border));
-  border-radius: 20px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background-color: hsl(var(--muted-foreground) / 0.5);
+/* Cursor animado (BugCursor): bicho → código → ... Solo con mouse o trackpad */
+:root { --bug-cursor: auto; }
+@media (pointer: fine) {
+  html, body { cursor: var(--bug-cursor); }
+  /* Los campos de texto conservan el cursor de escritura */
+  input, textarea { cursor: text; }
 }

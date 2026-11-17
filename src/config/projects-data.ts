@@ -9,17 +9,63 @@ export interface ProjectImage {
 
 export interface ProjectLinks {
   github?: string;
-  demo?: string; // Este será el enlace a la "Página Real"
+  demo?: string;
+  // Texto que se muestra cuando el repositorio es privado (en lugar del botón de GitHub)
+  repoNote?: string;
 }
 
-// 👇 NUEVA INTERFAZ PARA LA INFRAESTRUCTURA
 export interface ProjectInfrastructure {
-  database?: string; // Ej: "TiDB Cloud"
-  backend?: string;  // Ej: "Render Web Service"
-  frontend?: string; // Ej: "Vercel"
-  payment?:string;
+  database?: string;
+  backend?: string;
+  frontend?: string;
+  payment?: string;
+  qa?: string;
   current?: string;
-  future?:string;
+  future?: string;
+}
+
+export interface ProjectChallenge {
+  title: string;
+  description: string;
+}
+
+export interface ProjectStackLayer {
+  layer: string;
+  items: string;
+}
+
+export type ProjectTag = "fullstack" | "qa" | "ecommerce" | "cloud";
+
+/** Parte de un sistema (Web / Cloud / Frontend / Backend) */
+export interface ProjectSystemPart {
+  id: "web" | "cloud" | "frontend" | "backend";
+  label: string;
+  subtitle: string;
+  stack: string[];
+  /** Descripción detallada al seleccionar esta parte en el modal */
+  description: string;
+  /** Capas técnicas propias de esta parte */
+  layers?: ProjectStackLayer[];
+  /** Características propias de esta parte */
+  features?: string[];
+  /** URL demo específica (ej. solo la tienda web) */
+  demoUrl?: string;
+  /** Repo específico de esta parte */
+  repoUrl?: string;
+  /** Banner de la card / modal (Web / Cloud) */
+  bannerImage?: string;
+}
+
+/**
+ * Arquitectura visible en la card.
+ * - dual: Web ↔ Cloud (Casa Verde, DYL Store)
+ * - single: un solo producto (Shamell)
+ */
+export interface ProjectArchitecture {
+  kind: "dual" | "single";
+  parts: ProjectSystemPart[];
+  /** Texto corto de la flecha / vínculo (ej. "Pedidos sincronizados") */
+  linkLabel?: string;
 }
 
 export interface Project {
@@ -30,246 +76,416 @@ export interface Project {
   category: string;
   date: string;
   role: string;
+  status?: string; // Ej: "En producción"
   duration?: string;
   technologies: string[];
+  stackByLayer?: ProjectStackLayer[];
   features?: string[];
-  challenges?: string;
+  challenges?: ProjectChallenge[];
+  tags: ProjectTag[];
+  architecture?: ProjectArchitecture;
 
   // Imágenes
   cardImage: string;
   mainImage: string;
+  /** Alias visual para tarjetas / modal del rediseño */
+  image: string;
   gallery?: ProjectImage[];
 
   // Enlaces e Infraestructura
   links: ProjectLinks;
-  infrastructure?: ProjectInfrastructure; // 👇 CAMPO NUEVO OPCIONAL
+  infrastructure?: ProjectInfrastructure;
 
   demoNote?: string;
 }
 
-// --- DATOS DE PROYECTOS ---
+export interface TrainingLink {
+  label: string;
+  url: string;
+}
+
+// Proyectos de formación: tarjetas pequeñas, sin página de detalle
+export interface TrainingProject {
+  title: string;
+  shortDescription: string;
+  technologies: string[];
+  links: TrainingLink[];
+  note?: string;
+}
+
+// --- DATOS COMPARTIDOS ---
+
+const CASA_VERDE_TECH = [
+  "Next.js",
+  "React",
+  "TypeScript",
+  "Tailwind CSS",
+  "Prisma",
+  "Java",
+  "Spring Boot",
+  "PostgreSQL",
+  "Docker",
+  "Jest",
+];
+
+const CASA_VERDE_LAYERS: ProjectStackLayer[] = [
+  { layer: "Web", items: "Next.js, React, Tailwind CSS (frontend) · Next.js API, Prisma (backend)" },
+  { layer: "Cloud", items: "React, TypeScript, Tailwind CSS (frontend) · Java, Spring Boot (backend)" },
+  { layer: "Base de datos", items: "PostgreSQL" },
+  { layer: "QA", items: "Jest, pruebas automatizadas" },
+];
+
+const CASA_VERDE_INFRA: ProjectInfrastructure = {
+  frontend: "Next.js (web) · VPS + Docker",
+  backend: "Spring Boot (cloud) · VPS + Docker",
+  database: "PostgreSQL",
+  qa: "Ambiente de QA",
+};
+
+const PRIVATE_REPO_NOTE = "Privado (proyecto de cliente). Disponible para revisión en entrevista.";
+
+const COLD_START_NOTE = "La demo usa servidores gratuitos. Si tarda en cargar, espera entre 30 y 60 segundos mientras el servidor se activa.";
+
+// --- PROYECTOS DESTACADOS (los que están en producción y aparecen en el CV) ---
 
 export const PROJECTS: Project[] = [
   {
-    slug: "music-streaming-platform",
-    title: "Music Streaming & Publishing",
-    shortDescription: "Plataforma de streaming y publicación de audio. Gestión de roles y arquitectura MVC con Vanilla JS.",
+    slug: "casa-verde",
+    title: "Casa Verde",
+    shortDescription: "Tienda en línea y sistema de gestión en la nube para una marca de ropa. Web en Next.js, cloud en Spring Boot y despliegue en VPS con Docker.",
 
-    fullDescription: `Una plataforma integral de distribución musical desarrollada inicialmente como proyecto de grado. El objetivo técnico fue implementar una arquitectura MVC robusta utilizando JavaScript puro (Vanilla), sin depender de frameworks frontend.
-    
-    El sistema permite a los usuarios consumir contenido, crear playlists y convertirse en 'Artistas' para subir sus propios álbumes. Actualmente, el proyecto se encuentra en una fase de refactorización y mejora continua, optimizando la persistencia de datos y la experiencia de usuario.`,
+    fullDescription: `Casa Verde tiene dos partes que trabajan juntas. La **web** es la tienda en línea, donde los clientes navegan el catálogo, arman su carrito y pagan con Bold o Addi. La **cloud** es el sistema de gestión del negocio, donde se registran ventas, gastos, costos e inventario. Reemplazó las hojas de Excel con las que el negocio trabajaba antes.
 
-    category: "Full Stack / Vanilla JS",
+    Conecté las dos partes para que cada pedido de la tienda quede registrado automáticamente en el sistema de gestión. Ambos sistemas corren en un servidor VPS con Docker y tienen un ambiente de QA con pruebas unitarias y automatizadas antes de pasar a producción.`,
 
+    category: "Full Stack · E-commerce + Cloud",
+    date: "2025 – actualidad",
+    role: "Desarrollador Full Stack",
+    status: "En producción",
 
-    date: "En desarrollo continuo",
-    role: "Full Stack Developer",
-    duration: "En desarrollo continuo",
-
-    technologies: ["Vanilla JS (MVC)", "Node.js", "Express", "MySQL", "CSS3", "Multer", "TiDB Cloud", "Render"],
-
-    cardImage: "/portada_music.png",
-    mainImage: "/Portada_Web_Music.png",
+    technologies: CASA_VERDE_TECH,
+    stackByLayer: CASA_VERDE_LAYERS,
 
     features: [
-      "Arquitectura MVC implementada manualmente en el Frontend",
-      "Sistema de Roles (Usuario vs. Artista)",
-      "Upload y streaming de archivos de audio",
-      "Despliegue en la nube (Render + TiDB)"
+      "Catálogo, carrito de compras y pagos en línea con Bold y Addi",
+      "Inicio de sesión con Google o con correo y contraseña",
+      "Gestión de ventas, gastos, costos e inventario por referencia, talla y color",
+      "Sincronización automática de pedidos entre la tienda y el sistema de gestión",
+      "Ambiente de QA con pruebas unitarias y automatizadas",
     ],
 
+    challenges: [
+      {
+        title: "Pasar de Excel a un sistema",
+        description: "Entender cómo funcionaba el negocio en sus hojas de cálculo y convertir esos procesos en módulos claros.",
+      },
+      {
+        title: "Que ningún pedido se registre dos veces",
+        description: "La sincronización entre la tienda y el sistema de gestión detecta los pedidos repetidos y los ignora.",
+      },
+      {
+        title: "Dos sistemas en un solo servidor",
+        description: "Organizar la web, la cloud y la base de datos en contenedores Docker dentro del mismo VPS, con un ambiente de QA separado.",
+      },
+    ],
+
+    tags: ["fullstack", "ecommerce", "cloud"],
+    architecture: {
+      kind: "dual",
+      linkLabel: "Pedidos sincronizados",
+      parts: [
+        {
+          id: "web",
+          label: "Casa Verde Web",
+          subtitle: "Tienda en línea · catálogo, carrito y pagos",
+          stack: ["Next.js", "React", "TypeScript", "Prisma", "PostgreSQL", "Docker"],
+          bannerImage: "/banner_casa_verde_web.png",
+          description:
+            "La tienda en línea donde los clientes navegan el catálogo, arman el carrito y pagan con Bold o Addi. Incluye inicio de sesión con Google o correo, y cada pedido se envía automáticamente a la Cloud.",
+          layers: [
+            { layer: "Frontend", items: "Next.js, React, TypeScript, Tailwind CSS" },
+            { layer: "Backend", items: "Next.js API Routes, Server Actions, Prisma" },
+            { layer: "Base de datos", items: "PostgreSQL" },
+            { layer: "Auth", items: "Auth.js (NextAuth), Google OAuth" },
+            { layer: "Pagos", items: "Bold, Addi" },
+            { layer: "Infra", items: "Docker, VPS" },
+            { layer: "QA", items: "Jest, Testing Library, k6" },
+          ],
+          features: [
+            "Catálogo, carrito de compras y checkout",
+            "Pagos en línea con Bold y Addi",
+            "Inicio de sesión con Google o correo y contraseña",
+            "Sincronización de pedidos hacia Casa Verde Cloud",
+          ],
+          demoUrl: "https://casaverdeoficial.com/",
+          repoUrl: "https://github.com/junkamilo/casa-ver-ecommerce",
+        },
+        {
+          id: "cloud",
+          label: "Casa Verde Cloud",
+          subtitle: "Gestión del negocio · ventas, inventario y costos",
+          stack: ["React", "Vite", "Java", "Spring Boot", "PostgreSQL", "Docker"],
+          bannerImage: "/banner_cloud_casa_verde.png",
+          description:
+            "El POS / cloud del negocio: ventas, gastos, costos e inventario. Frontend en React + Vite y backend en Spring Boot (Java), con API pública hacia la tienda web y despliegue en Docker.",
+          layers: [
+            { layer: "Frontend", items: "React, Vite, TypeScript, Tailwind CSS" },
+            { layer: "Estado / datos", items: "TanStack Query, Zustand" },
+            { layer: "Backend", items: "Java, Spring Boot, Spring Modulith" },
+            { layer: "Persistencia", items: "Spring Data JPA, Flyway, PostgreSQL" },
+            { layer: "Auth", items: "Spring Security, JWT" },
+            { layer: "Infra", items: "Docker, Docker Compose, VPS" },
+            { layer: "QA", items: "Vitest, Testing Library, Playwright, JUnit, Testcontainers" },
+          ],
+          features: [
+            "Gestión de ventas, gastos y costos",
+            "Inventario por referencia, talla y color",
+            "API pública e integración con la tienda web",
+            "Despliegue en Docker con ambiente de QA",
+          ],
+        },
+      ],
+    },
+    cardImage: "/casa-verde-card.png",
+    mainImage: "/casa-verde-main.png",
+    image: "/casa-verde-main.png",
+
     links: {
-      github: "https://github.com/junkamilo/MusicApp.git",
-      demo: "https://music-app-ecru-nine-86.vercel.app"
+      demo: "https://casaverdeoficial.com/",
+      github: "https://github.com/junkamilo/casa-ver-ecommerce",
     },
 
-    // CAMBIO IMPORTANTE: Agregamos este campo para la advertencia
-    demoNote: "Nota de Infraestructura: El backend y la base de datos están alojados en planes gratuitos (Render / TiDB). Estos servicios entran en suspensión por inactividad (Cold Start). Si la demo no carga datos inmediatamente, por favor espera unos 30-60 segundos mientras el servidor se reactiva.",
-
-    infrastructure: {
-      database: "TiDB Cloud (MySQL Compatible)",
-      backend: "Render (Node.js)",
-      frontend: "Vercel (Static)"
-    }
+    infrastructure: CASA_VERDE_INFRA,
   },
   {
-    slug: "variedades-lili-admin",
-    title: "Variedades lili E-commerce Admin Dashboard", // Título profesional
+    slug: "dyl-store",
+    title: "DYL Store",
+    shortDescription: "Tienda en línea y sistema de gestión en la nube, construidos sobre la base de Casa Verde y adaptados a un nuevo negocio. Despliegue en VPS con Docker.",
 
-    // Descripción corta: Directa al grano (Gestión + Arquitectura)
-    shortDescription: "Panel administrativo integral para la gestión de inventario, pedidos y usuarios. Arquitectura en capas sin dependencia de frameworks frontend.",
+    fullDescription: `DYL Store nace de Casa Verde. En lugar de empezar de cero, reutilicé la base que ya funcionaba en producción (tienda web y sistema de gestión) y la adapté a un nuevo negocio: ajusté los módulos existentes y creé los que este cliente necesitaba.
 
-    // Descripción larga: Vendemos la estructura MVC y la lógica de negocio
-    fullDescription: `Una solución Full Stack personalizada para la administración operativa del e-commerce 'Variedades Lili'. Diseñada para que los administradores gestionen el ciclo de vida completo de los productos y pedidos.
-    
-    En el Frontend, implementé una arquitectura MVC con JavaScript Vanilla y Tailwind CSS para una UI rápida y responsiva. En el Backend, utilicé una arquitectura por capas (Rutas -> Controladores -> Servicios -> Modelos) para asegurar un código mantenible y escalable, manejando subida de imágenes con Multer y consultas complejas a MySQL.`,
+    Usa el mismo stack que Casa Verde: Next.js en la web, Spring Boot en la cloud y PostgreSQL como base de datos. Corre en un servidor VPS con Docker y tiene su propio ambiente de QA con pruebas unitarias y automatizadas.`,
 
-    category: "Full Stack / Admin Tool",
-    date: "En desarrollo continuo",
-    role: "Full Stack Developer",
+    category: "Full Stack · E-commerce + Cloud",
+    date: "2025 – actualidad",
+    role: "Desarrollador Full Stack",
+    status: "En producción",
 
-    // 🚀 TAGS CORREGIDOS: Muestran tu stack real pero con nombres técnicos
-    technologies: ["Vanilla JS (MVC)", "Node.js", "Express", "Tailwind CSS", "MySQL", "Multer"],
-
-    cardImage: "/portada_lili_Admin.png", // Verde = Negocio/Dinero
-    mainImage: "/banner_lili_admin.jpg", // Imagen tipo Dashboard
+    technologies: CASA_VERDE_TECH,
+    stackByLayer: CASA_VERDE_LAYERS,
 
     features: [
-      "CRUD completo de productos con gestión de imágenes (Multer)",
-      "Gestión de estados de pedidos (Enviados/Recibidos)",
-      "Arquitectura Backend por Capas (Controller-Service-Model)",
-      "Interfaz responsiva construida con Tailwind CSS y Vanilla JS"
+      "Tienda en línea con catálogo, carrito y pagos",
+      "Sistema de gestión en la nube adaptado al nuevo negocio",
+      "Módulos ajustados y módulos nuevos sobre una base ya probada",
+      "Ambiente de QA con pruebas unitarias y automatizadas",
     ],
 
+    challenges: [
+      {
+        title: "Reutilizar sin romper",
+        description: "Separar lo común de lo que es propio de cada negocio para que un cambio en DYL Store no afecte a Casa Verde.",
+      },
+      {
+        title: "Despliegue independiente",
+        description: "Configurar su propio entorno en VPS con Docker, con base de datos y ambiente de QA separados.",
+      },
+    ],
+
+    tags: ["fullstack", "ecommerce", "cloud"],
+    architecture: {
+      kind: "dual",
+      linkLabel: "Misma base, nuevo negocio",
+      parts: [
+        {
+          id: "web",
+          label: "DYL Store Web",
+          subtitle: "Tienda en línea · catálogo, carrito y pagos",
+          stack: ["Next.js", "React", "TypeScript", "Prisma", "PostgreSQL", "Docker"],
+          description:
+            "Tienda en línea basada en la arquitectura de Casa Verde Web, adaptada al catálogo, carrito y flujo de pagos de DYL Store. Mismo stack: Next.js, Prisma y PostgreSQL.",
+          layers: [
+            { layer: "Frontend", items: "Next.js, React, TypeScript, Tailwind CSS" },
+            { layer: "Backend", items: "Next.js API Routes, Server Actions, Prisma" },
+            { layer: "Base de datos", items: "PostgreSQL" },
+            { layer: "Auth", items: "Auth.js (NextAuth), Google OAuth" },
+            { layer: "Pagos", items: "Bold, Addi" },
+            { layer: "Infra", items: "Docker, VPS" },
+            { layer: "QA", items: "Jest, Testing Library, k6" },
+          ],
+          features: [
+            "Catálogo, carrito y pagos en línea",
+            "Base reutilizada de Casa Verde Web",
+            "Sincronización de pedidos hacia DYL Store Cloud",
+          ],
+        },
+        {
+          id: "cloud",
+          label: "DYL Store Cloud",
+          subtitle: "Gestión en la nube · módulos adaptados al negocio",
+          stack: ["React", "Vite", "Java", "Spring Boot", "PostgreSQL", "Docker"],
+          description:
+            "Sistema de gestión en la nube sobre la base de Casa Verde Cloud: módulos ajustados y módulos nuevos según las necesidades de este negocio. Mismo stack React + Spring Boot.",
+          layers: [
+            { layer: "Frontend", items: "React, Vite, TypeScript, Tailwind CSS" },
+            { layer: "Estado / datos", items: "TanStack Query, Zustand" },
+            { layer: "Backend", items: "Java, Spring Boot, Spring Modulith" },
+            { layer: "Persistencia", items: "Spring Data JPA, Flyway, PostgreSQL" },
+            { layer: "Auth", items: "Spring Security, JWT" },
+            { layer: "Infra", items: "Docker, Docker Compose, VPS" },
+            { layer: "QA", items: "Vitest, Testing Library, Playwright, JUnit, Testcontainers" },
+          ],
+          features: [
+            "Gestión adaptada al nuevo negocio",
+            "Módulos reutilizados y módulos nuevos",
+            "Despliegue independiente con QA propio",
+          ],
+        },
+      ],
+    },
+    cardImage: "/dyl-store-card.png",
+    mainImage: "/dyl-store-main.png",
+    image: "/dyl-store-main.png",
+
     links: {
-      github: "https://github.com/junkamilo/Proyectos/tree/main/variedadesLili",
-      demo: "https://proyectos-5stx.vercel.app/"
+      // Pendiente: agregar la URL en vivo de DYL Store en `demo`
+      repoNote: PRIVATE_REPO_NOTE,
     },
 
-    demoNote: "Nota de Infraestructura: El backend y la base de datos están alojados en planes gratuitos (Render / TiDB). Estos servicios entran en suspensión por inactividad (Cold Start). Si la demo no carga datos inmediatamente, por favor espera unos 30-60 segundos mientras el servidor se reactiva.",
-
-    infrastructure: {
-      frontend: "Vercel",
-      backend: "Render",
-      database: "MySQL"
-    }
+    infrastructure: CASA_VERDE_INFRA,
   },
   {
-    slug: "variedades-lili-frontend",
-    title: "Variedades Lili: E-commerce Client", // Título claro y parejo al del Admin
-    
-    // Descripción corta: Destaca el Stack moderno y la UX
-    shortDescription: "Experiencia de compra completa (SPA). Gestión de estado asíncrono con TanStack Query y carrito global persistente.",
+    slug: "shamell-entertainment",
+    title: "Shamell Entertainment",
+    shortDescription: "Plataforma para publicar eventos, vender boletas, reservar puestos y pagar en línea. Frontend en Next.js, backend en NestJS y pruebas en todas las capas.",
 
-    // Descripción larga: Aquí vendemos la complejidad de la lógica del lado del cliente
-    fullDescription: `La interfaz pública del ecosistema 'Variedades Lili', diseñada para ofrecer una experiencia de compra fluida y segura. Desarrollada como una Single Page Application (SPA) utilizando React y TypeScript.
-    
-    El proyecto destaca por su gestión eficiente del estado: implementé **TanStack Query** para la sincronización de datos con el servidor (caching, revalidación de productos y pedidos) y **Zustand** para el manejo global del carrito de compras. Se integra con el mismo Backend monolítico del panel administrativo, permitiendo a los usuarios registrarse, gestionar su historial de pedidos y realizar compras en tiempo real.`,
+    fullDescription: `Shamell Entertainment es una plataforma de eventos y venta de boletas. Los usuarios ven los eventos, eligen su boleta o su puesto y pagan en línea. Los administradores gestionan los eventos y las ventas desde un panel.
 
-    category: "Frontend / React SPA",
-    date: "En desarrollo continuo",
-    role: "Frontend Developer", // O "Full Stack Developer" si prefieres unificar
+    Además de desarrollar las funciones, me encargué de la calidad. Escribí pruebas unitarias en el frontend y en el backend, y pruebas de extremo a extremo para los flujos más delicados: compra, reservas y pagos. También reorganicé el backend en módulos más pequeños para que fuera más fácil de mantener y de probar.`,
 
-    // 🚀 TAGS TÉCNICOS:
-    // "TanStack Query" es un gran plus para mostrar manejo de datos avanzado.
-    technologies: ["React", "TypeScript", "Tailwind CSS", "TanStack Query", "Zustand", "React Router"],
+    category: "Full Stack · QA · Plataforma de eventos",
+    date: "2025 – actualidad",
+    role: "Desarrollador Full Stack & QA",
+    status: "En producción",
 
-    // Asegúrate de que esta imagen sea distinta a la del Admin (quizás una captura del Home o del Carrito)
-    cardImage: "/portada_lili_Cliente.png", 
-    mainImage: "/banner_lili_cliente.jpg",
-
-    features: [
-      "Ciclo completo de compra (Carrito -> Checkout -> Pedido)",
-      "Gestión de Estado de Servidor (Server State) con TanStack Query",
-      "Panel de Usuario: Historial de pedidos y gestión de perfil",
-      "UI Componentizada y Tipado estricto con TypeScript"
+    technologies: ["Next.js", "React", "TypeScript", "NestJS", "Node.js", "PostgreSQL", "Jest", "Vitest", "Testing Library", "Playwright"],
+    stackByLayer: [
+      { layer: "Frontend", items: "Next.js, React, TypeScript" },
+      { layer: "Backend", items: "Node.js, NestJS" },
+      { layer: "Base de datos", items: "PostgreSQL" },
+      { layer: "QA", items: "Jest, Vitest, Testing Library, Playwright" },
     ],
 
+    features: [
+      "Publicación de eventos y venta de boletas",
+      "Reserva de puestos y pagos en línea",
+      "Panel de administración",
+      "Pruebas unitarias y E2E en los flujos de compra, reservas y pagos",
+    ],
+
+    challenges: [
+      {
+        title: "Probar los pagos con seguridad",
+        description: "Cubrir con pruebas los flujos de compra y de retorno del pago para detectar errores antes de producción.",
+      },
+      {
+        title: "Un backend difícil de mantener",
+        description: "Dividir un servicio muy grande en módulos con responsabilidades claras.",
+      },
+      {
+        title: "Ampliar la cobertura de pruebas",
+        description: "Subirla en el frontend y en el backend sin frenar el desarrollo.",
+      },
+    ],
+
+    tags: ["fullstack", "qa"],
+    architecture: {
+      kind: "single",
+      linkLabel: "Frontend · Backend · QA",
+      parts: [
+        {
+          id: "frontend",
+          label: "Frontend",
+          subtitle: "Eventos, boletas y reservas",
+          stack: ["Next.js", "React", "TypeScript"],
+          description:
+            "Interfaz de Shamell: publicación de eventos, venta de boletas, reserva de puestos y panel de administración.",
+          layers: [
+            { layer: "Frontend", items: "Next.js, React, TypeScript" },
+            { layer: "QA Frontend", items: "Jest, Vitest, Testing Library" },
+          ],
+          features: [
+            "Publicación de eventos y venta de boletas",
+            "Reserva de puestos",
+            "Panel de administración",
+          ],
+          demoUrl: "https://www.shamellentertainment.com/",
+        },
+        {
+          id: "backend",
+          label: "Backend + QA",
+          subtitle: "APIs NestJS y pruebas E2E",
+          stack: ["NestJS", "PostgreSQL", "Playwright"],
+          description:
+            "APIs en NestJS, base PostgreSQL y cobertura de pruebas unitarias y E2E en los flujos de compra, reservas y pagos.",
+          layers: [
+            { layer: "Backend", items: "Node.js, NestJS" },
+            { layer: "Base de datos", items: "PostgreSQL" },
+            { layer: "QA", items: "Jest, Playwright, CI/CD" },
+          ],
+          features: [
+            "APIs REST para eventos, boletas y pagos",
+            "Pruebas E2E en compra, reservas y pagos",
+            "Backend modularizado para mantenimiento",
+          ],
+        },
+      ],
+    },
+    cardImage: "/shamell-card.png",
+    mainImage: "/shamell-main.png",
+    image: "/shamell-main.png",
+
     links: {
-      github: "https://github.com/junkamilo/Proyectos/tree/main/VariedadesLiliCLientes/VariedadeLiliClientes_Frontend", // Asegúrate de que este link sea el correcto
-      demo: "https://proyecto-variedades-lili-cliente.vercel.app"
+      demo: "https://www.shamellentertainment.com/",
+      repoNote: "Privado. Disponible para revisión en entrevista.",
     },
 
-    // ⚠️ CRUCIAL: La misma nota, ya que consumen la misma API
-    demoNote: "Nota de Infraestructura: Esta aplicación consume una API alojada en servicios gratuitos (Render). Si los productos o el inicio de sesión no cargan de inmediato, es debido al 'Cold Start' del servidor. Por favor espera 30-60 segundos a que la API despierte.",
-
     infrastructure: {
-      frontend: "Vercel",
-      backend: "Render (Shared API)",
-      database: "MySQL (TiDB)"
-    }
+      frontend: "Next.js",
+      backend: "NestJS",
+      database: "PostgreSQL",
+      qa: "Pruebas en CI/CD",
+    },
+  },
+];
+
+/** Alias usado por el rediseño animado */
+export const featuredProjects = PROJECTS;
+
+// --- PROYECTOS DE FORMACIÓN (sección secundaria) ---
+
+export const TRAINING_PROJECTS: TrainingProject[] = [
+  {
+    title: "Variedades Lili",
+    shortDescription: "E-commerce con dos aplicaciones: una tienda para clientes en React y TypeScript, y un panel de administración para productos, inventario y pedidos. Backend en Node.js y Express con arquitectura por capas.",
+    technologies: ["React", "TypeScript", "Tailwind CSS", "TanStack Query", "Zustand", "Node.js", "Express", "MySQL"],
+    links: [
+      { label: "Demo tienda", url: "https://proyecto-variedades-lili-cliente.vercel.app" },
+      { label: "Demo admin", url: "https://proyectos-5stx.vercel.app/" },
+      { label: "Repo tienda", url: "https://github.com/junkamilo/Proyectos/tree/main/VariedadesLiliCLientes/VariedadeLiliClientes_Frontend" },
+      { label: "Repo admin", url: "https://github.com/junkamilo/Proyectos/tree/main/variedadesLili" },
+    ],
+    note: COLD_START_NOTE,
   },
   {
-    slug: "app-restaurante",
-    title: "Restaurant Management System", // Título sólido
-    
-    // Descripción corta: Mencionamos el origen (Java) y el destino (Web)
-    shortDescription: "Sistema de gestión de comandas y roles (Cocina/Meseros). Prototipo Java Desktop en proceso de migración a arquitectura Web (React + Laravel).",
-
-    // Descripción larga: Explicamos la lógica de negocio (que ya funciona) y el plan futuro
-    fullDescription: `Un sistema integral para la gestión operativa de restaurantes, desarrollado inicialmente como proyecto de grado (SENA) en Java. La aplicación orquesta el flujo de trabajo en tiempo real entre distintos roles:
-    
-    1. **Meseros:** Toma de pedidos y envío digital a cocina.
-    2. **Cocina:** Interfaz de visualización y despacho de comandas.
-    3. **Admin:** Control financiero, inventarios y gestión de empleados.
-    
-    **Estado Actual (Refactorización):** Aunque el núcleo lógico funciona perfectamente en escritorio (Java Swing + MySQL), actualmente estoy liderando la **migración del sistema** hacia una arquitectura Web moderna (SPA) utilizando **React/Vite** en el frontend y **Laravel** en el backend, para permitir el uso desde tablets y móviles en el local.`,
-
-    category: "Desktop / Migration", // Categoría honesta
-    date: "En desarrollo continuo", // "Presente" porque sigues trabajando en la migración
-    role: "System Architect", // Suena mejor porque estás rediseñando el sistema
-    
-    // 🚀 TAGS: Mezcla lo que hiciste (Java) con lo que estás haciendo (Migration)
-    technologies: ["Java", "Swing", "MySQL", "JasperReports", "POO", "System Migration"],
-
-    cardImage: "/portada_app_restaurante.png", // Asegúrate de tener una imagen (puede ser un screenshot del Java Swing)
-    mainImage: "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=1200&h=675&fit=crop", // Foto genérica de restaurante elegante
-
-    features: [
-      "Sistema multi-rol (Admin, Cocinero, Mesero, Auxiliar)",
-      "Sincronización de pedidos (Mesa ➔ Cocina ➔ Entrega)",
-      "Reportes contables automáticos en PDF (JasperReports)",
-      "En progreso: Migración a React + Laravel (Web)"
+    title: "Music Streaming App",
+    shortDescription: "Plataforma de música hecha como proyecto de grado: los usuarios escuchan y crean playlists, y los artistas suben sus álbumes. JavaScript sin frameworks con arquitectura MVC, Node.js, Express y MySQL.",
+    technologies: ["JavaScript (MVC)", "Node.js", "Express", "MySQL", "Multer"],
+    links: [
+      { label: "Demo", url: "https://music-app-ecru-nine-86.vercel.app" },
+      { label: "Repositorio", url: "https://github.com/junkamilo/MusicApp.git" },
     ],
-
-    links: {
-      github: "https://github.com/junkamilo/RestauranteApp/tree/main/Restaurante_app",
-      // ALERTA: No ponemos demo porque es local.
-      // El código del botón "Ver Demo" no se renderizará si este campo no existe, así que perfecto.
-    },
-
-    infrastructure: {
-      current: "Java Desktop (Local)",
-      database: "MySQL (Local)",
-      future: "Vite + Laravel (Cloud)" // Muestra tu visión
-    }
-  },
-  {
-    slug: "urban-shop-clothing",
-    title: "Urban Shop | Full Stack E-commerce",
-    
-    // Descripción Corta: Directa y técnica
-    shortDescription: "Plataforma de comercio electrónico con pasarela de pagos (PayPal) y panel de administración. Construida con Next.js, Prisma y PostgreSQL.",
-
-    // Descripción Larga: Vendemos el flujo completo y la tecnología
-    fullDescription: `Una tienda de ropa urbana moderna diseñada bajo una arquitectura Full Stack con Next.js. El proyecto abarca dos experiencias de usuario:
-    
-    1. **Cliente:** Navegación fluida, carrito de compras dinámico y checkout integrado con la API de PayPal (Entorno Sandbox) para simular transacciones reales.
-    2. **Administrador:** Un dashboard protegido para la gestión de inventario (CRUD de productos), control de stock y visualización de pedidos pagados.
-    
-    El manejo de datos se realiza a través de **Prisma ORM** conectado a una base de datos en la nube. *Nota: Los recursos gráficos de la tienda fueron generados mediante IA (Gemini).*`,
-
-    category: "E-commerce / Next.js",
-    date: "En desarrollo continuo", // Muestra que el proyecto está vivo
-    role: "Full Stack Developer",
-    
-    // 🚀 TAGS: "PayPal API" y "Prisma" son palabras clave fuertes
-    technologies: ["Next.js", "TypeScript", "Prisma ORM", "PayPal API", "Tailwind CSS", "PostgreSQL"],
-
-    cardImage: "/portada_ecommer.png", // Asegúrate de tener esta imagen
-    mainImage: "/banner_commer_cloting.jpg",
-
-    features: [
-      "Pasarela de Pagos funcional (PayPal Developer Sandbox)",
-      "Dashboard Administrativo para gestión de productos",
-      "Persistencia de datos con Prisma y TiDB/Postgres",
-      "Diseño UI/UX responsivo generado con Tailwind CSS"
-    ],
-
-    links: {
-      github: "https://github.com/junkamilo/urban-shop-repo", // PON AQUÍ TU LINK REAL
-      demo: "https://urban-shop-demo.vercel.app" // PON AQUÍ TU LINK REAL
-    },
-
-    // ⚠️ LA NOTA DE INFRAESTRUCTURA (Crucial por TiDB/Render)
-    demoNote: "Nota de Infraestructura: La base de datos está alojada en un servicio gratuito (TiDB/Render). Si los productos tardan en cargar o el inicio de sesión es lento, es debido al 'Cold Start'. Por favor espera unos segundos.",
-
-    infrastructure: {
-      frontend: "Next.js (App Router)",
-      backend: "Render (Node.js)",
-      database: "TiDB(SQL)",
-      payment: "PayPal Sandbox"
-    }
+    note: COLD_START_NOTE,
   },
 ];
 

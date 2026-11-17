@@ -1,60 +1,66 @@
 "use client";
 
 import { Variants } from "framer-motion";
-import { Code2, Globe, Cpu, Zap, BookOpen, Rocket, Bot } from "lucide-react";
+import { Code2, Globe, Server, ShieldCheck, BookOpen, Briefcase } from "lucide-react";
 
 export const ABOUT_DATA = {
-    title: "Trayectoria Profesional",
-    subtitle: "De la Lógica al Producto Escalable",
+    title: "Sobre mí",
+    subtitle: "Desarrollo software y lo pruebo antes de entregarlo",
     timeline: [
         {
             id: 1,
-            title: "Técnologo en Análisis y Desarrollo de Software (SENA)",
-            description: "Fundamentos sólidos en Java (POO) y bases de datos. Transición al desarrollo web moderno creando APIs RESTful.",
-            icon: BookOpen,
+            title: "Proyectos en producción · 2025 – actualidad",
+            description: "Desarrollo y mantengo Casa Verde, DYL Store y Shamell Entertainment: tiendas en línea, sistemas de gestión en la nube y una plataforma de venta de boletas. Los despliego en servidores VPS con Docker y les monto ambientes de QA con pruebas automatizadas.",
+            icon: Globe,
         },
         {
             id: 2,
-            title: "QA & Testing en Rappi",
-            description: "Inmersión en ciclos ágiles de alto nivel. Reporte de bugs críticos,testing y análisis de arquitectura de componentes de React en producción.",
-            icon: Rocket,
+            title: "Desarrollador Full Stack y QA Automation en Devitech · 2026",
+            description: "Trabajé en GENEXIS, una plataforma web y un sistema POS para estaciones de combustible. Desarrollé interfaces en React y Next.js, apoyé el backend en NestJS y automaticé pruebas de regresión con Cypress y Selenium.",
+            icon: Code2,
         },
         {
             id: 3,
-            title: "Especialización Full Stack Moderno",
-            description: "Dominio del stack Next.js/TypeScript y NestJS. Enfoque en Clean Architecture, Testing y Experiencia de Usuario.",
-            icon: Code2,
+            title: "Desarrollador Full Stack y QA en Rappi · 2025 – 2026",
+            description: "Mis prácticas profesionales. Construí componentes en React y Next.js, escribí pruebas unitarias y E2E, revisé código y trabajé con el equipo de desarrollo para corregir defectos.",
+            icon: ShieldCheck,
+        },
+        {
+            id: 4,
+            title: "Formación · 2023 – actualidad",
+            description: "Tecnólogo en Análisis y Desarrollo de Software (SENA), certificado IBM Full Stack Software Developer y programa de QA & Test Automation (Coursera). Hoy estudio Ingeniería de Sistemas en la UNAD.",
+            icon: BookOpen,
         },
     ],
     stats: [
         {
-            label: "Perfil Técnico",
-            value: "Full Stack",
-            icon: Code2,
+            label: "Experiencia",
+            value: "Rappi · Devitech",
+            icon: Briefcase,
             color: "text-blue-500",
             bg: "bg-blue-500/10",
             border: "group-hover:border-blue-500/50"
         },
         {
-            label: "Proyectos",
-            value: "3+ Apps",
+            label: "En producción",
+            value: "3 proyectos",
             icon: Globe,
             color: "text-purple-500",
             bg: "bg-purple-500/10",
             border: "group-hover:border-purple-500/50"
         },
         {
-            label: "Enfoque",
-            value: "AI Driven",
-            icon: Bot,
+            label: "Perfil",
+            value: "Full Stack + QA",
+            icon: Code2,
             color: "text-pink-500",
             bg: "bg-pink-500/10",
             border: "group-hover:border-pink-500/50"
         },
         {
-            label: "Stack",
-            value: "MERN+",
-            icon: Cpu,
+            label: "Despliegue",
+            value: "Docker · VPS",
+            icon: Server,
             color: "text-green-500",
             bg: "bg-green-500/10",
             border: "group-hover:border-green-500/50"
@@ -62,7 +68,7 @@ export const ABOUT_DATA = {
     ],
     conclusion: {
         cmd: "echo $PROPUESTA_VALOR",
-        output: "Código limpio, lógica sólida y enfoque en calidad. Listo para aportar valor real desde el primer commit."
+        output: "Frontend, backend y QA en un solo perfil. Escribo el código, lo pruebo y lo dejo listo para producción."
     }
 };
 

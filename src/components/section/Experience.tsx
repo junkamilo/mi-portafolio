@@ -1,219 +1,177 @@
 "use client";
 
-import { WORK_EXPERIENCE, EDUCATION } from "@/src/config/experience-data";
-import { containerVariants, itemVariants } from "@/src/config/hero-data";
-import { motion } from "framer-motion";
-import { GraduationCap, Briefcase, Award, MapPin, Calendar, ChevronRight, Sparkles } from "lucide-react";
+import { useState } from "react";
 import Link from "next/link";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { AnimatePresence, motion } from "framer-motion";
+import { Briefcase, Calendar } from "lucide-react";
+import { WORK_EXPERIENCE, EDUCATION } from "@/src/config/experience-data";
+import { NeonTimeline } from "@/src/components/motion/NeonTimeline";
+import { RevealTitle } from "@/src/components/motion/Reveal";
+import { SectionTransition } from "@/src/components/motion/SectionTransition";
+import { fadeSide, EASE } from "@/lib/motion";
+
+const BORDER_BY_TYPE: Record<string, string> = {
+  degree: "border-brand-500",
+  certificate: "border-live-500",
+  course: "border-amber-400",
+};
+
+const LABEL_BORDER: Record<string, string> = {
+  Pregrado: "border-brand-500",
+  Tecnología: "border-neon-400",
+  Certificado: "border-live-500",
+  Curso: "border-amber-400",
+};
 
 export default function Experience() {
-    return (
-        <section id="experiencia" className="py-24 bg-background relative overflow-hidden">
+  const [openId, setOpenId] = useState<number | null>(null);
 
-            {/* --- 1. FONDO CONSISTENTE (Restaurado) --- */}
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
-            <div className="absolute left-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-primary/20 opacity-20 blur-[100px]"></div>
+  return (
+    <SectionTransition id="experiencia" className="py-24">
+      <div className="container relative z-10 mx-auto px-4 md:px-6">
+        <div className="mb-16 flex flex-col items-center text-center md:mb-24">
+          <RevealTitle
+            text="Experiencia y formación"
+            className="mb-6 text-3xl font-bold tracking-tight text-white md:text-5xl"
+          />
+          <p className="max-w-2xl text-lg leading-relaxed text-white/60">
+            Mi experiencia en empresas, los proyectos que tengo en producción y la
+            formación que los respalda.
+          </p>
+        </div>
 
-            <div className="container px-4 md:px-6 mx-auto relative z-10">
-
-                {/* --- 3. HEADER INNOVADOR CON BADGE Y ANIMACIÓN --- */}
-                <div className="flex flex-col items-center text-center mb-16 md:mb-24">
-
-                    {/* --- 2. TÍTULO Y DESCRIPCIÓN --- */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.5 }}
-                    >
-                        <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-b from-foreground to-foreground/70 pb-2">
-                            Trayectoria <span className="text-primary">Profesional</span>
-                        </h2>
-                        <p className="text-muted-foreground text-lg max-w-2xl mx-auto leading-relaxed">
-                            Un recorrido a través de mi experiencia práctica en la industria y mi constante evolución académica para construir software de valor.
-                        </p>
-                    </motion.div>
-                </div>
-
-                <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-
-                    {/* --- COLUMNA IZQUIERDA (7/12): EXPERIENCIA LABORAL --- */}
-                    <div className="lg:col-span-7">
-                        <motion.div
-                            initial={{ opacity: 0, x: -20 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                            className="flex items-center gap-3 mb-10"
-                        >
-                            <div className="p-2.5 bg-primary/10 rounded-xl text-primary ring-1 ring-primary/20 shadow-lg shadow-primary/5">
-                                <Briefcase size={24} />
-                            </div>
-                            <h3 className="text-2xl font-bold">Experiencia Laboral</h3>
-                        </motion.div>
-
-                        {/* Timeline Container */}
-                        <motion.div
-                            variants={containerVariants}
-                            initial="hidden"
-                            whileInView="visible"
-                            viewport={{ once: true, margin: "-50px" }}
-                            className="relative border-l-2 border-border/40 ml-3 md:ml-4 space-y-12 pb-4"
-                        >
-                            {WORK_EXPERIENCE.map((job) => (
-                                <motion.div key={job.id} variants={itemVariants} className="relative pl-8 md:pl-12 group">
-
-                                    {/* Timeline Dot Interactivo */}
-                                    <span className="absolute -left-[9px] top-2 h-[18px] w-[18px] rounded-full border-[3px] border-background bg-muted-foreground/30 group-hover:bg-primary group-hover:scale-125 transition-all duration-300 shadow-sm z-10"></span>
-
-                                    {/* Card de Experiencia */}
-                                    <div className="relative bg-card/40 backdrop-blur-sm border border-border/50 p-6 md:p-7 rounded-2xl hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/5 group-hover:bg-card">
-
-                                        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
-                                            <div>
-                                                <h4 className="text-xl font-bold text-foreground mb-1 group-hover:text-primary transition-colors">
-                                                    {job.role}
-                                                </h4>
-                                                <div className="flex items-center gap-2 text-sm font-medium text-foreground/80">
-                                                    <span className="flex items-center gap-1.5">
-                                                        <Briefcase size={14} className="text-primary/70" />
-                                                        {job.company}
-                                                    </span>
-                                                    <span className="text-muted-foreground">•</span>
-                                                    <span className="text-muted-foreground">{job.location}</span>
-                                                </div>
-                                            </div>
-
-                                            <div className="shrink-0">
-                                                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-primary/10 text-primary border border-primary/20">
-                                                    <Calendar size={12} />
-                                                    {job.period}
-                                                </span>
-                                            </div>
-                                        </div>
-
-                                        <p className="text-muted-foreground leading-relaxed text-sm md:text-base mb-6">
-                                            {job.description}
-                                        </p>
-
-                                        {/* Skills Tags */}
-                                        <div className="flex flex-wrap gap-2 pt-4 border-t border-border/40">
-                                            {job.skills.map((skill) => (
-                                                <span key={skill} className="text-xs font-medium px-2.5 py-1 rounded-md bg-secondary/60 text-secondary-foreground border border-border/40 hover:border-primary/30 transition-colors">
-                                                    {skill}
-                                                </span>
-                                            ))}
-                                        </div>
-                                    </div>
-                                </motion.div>
-                            ))}
-                        </motion.div>
-                    </div>
-
-                    {/* --- COLUMNA DERECHA (5/12): EDUCACIÓN (Sticky & ScrollArea) --- */}
-                    {/* --- COLUMNA DERECHA (5/12): EDUCACIÓN --- */}
-                    <div className="lg:col-span-5 relative">
-                        <div className="sticky top-24">
-
-                            <motion.div
-                                initial={{ opacity: 0, x: 20 }}
-                                whileInView={{ opacity: 1, x: 0 }}
-                                viewport={{ once: true }}
-                                className="flex items-center gap-3 mb-8"
-                            >
-                                <div className="p-2.5 bg-green-500/10 rounded-xl text-green-600 ring-1 ring-green-500/20 dark:text-green-400 shadow-lg shadow-green-500/5">
-                                    <GraduationCap size={24} />
-                                </div>
-                                <h3 className="text-2xl font-bold">Educación & Certificaciones</h3>
-                            </motion.div>
-
-                            {/* CONTENEDOR DECORATIVO */}
-                            <div className="relative rounded-2xl border border-border/50 bg-background/50 backdrop-blur-sm shadow-sm overflow-hidden">
-
-                                {/* Gradientes decorativos */}
-                                <div className="absolute top-0 left-0 right-0 h-6 bg-gradient-to-b from-background to-transparent z-10 pointer-events-none" />
-                                <div className="absolute bottom-0 left-0 right-0 h-6 bg-gradient-to-t from-background to-transparent z-10 pointer-events-none" />
-
-                                <ScrollArea className="h-[600px] w-full px-4 py-4">
-                                    <motion.div
-                                        variants={containerVariants}
-                                        initial="hidden"
-                                        whileInView="visible"
-                                        viewport={{ once: true }}
-                                        className="space-y-3 pr-3 pb-2 pt-2"
-                                    >
-                                        {EDUCATION.map((edu) => {
-
-                                            // 1. Definimos las clases comunes para ambos casos (Link y Div)
-                                            const cardClasses = `
-                group relative flex justify-between items-start gap-4 overflow-hidden rounded-xl border bg-card p-4 transition-all 
-                hover:shadow-md hover:-translate-y-0.5 
-                ${edu.slug ? 'cursor-pointer' : ''} 
-                ${edu.type === 'degree'
-                                                    ? 'border-l-4 border-l-blue-500 border-y-border/50 border-r-border/50 bg-blue-50/5 dark:bg-blue-900/10'
-                                                    : 'border-border/50 hover:border-green-500/30'
-                                                }
-            `;
-
-                                            // 2. Definimos el contenido interno para no repetirlo
-                                            const CardContent = (
-                                                <>
-                                                    <div className="space-y-1.5 flex-1">
-                                                        <div className="flex items-center gap-2 mb-1">
-                                                            {edu.type === 'degree'
-                                                                ? <span className="text-[10px] font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 bg-blue-100 dark:bg-blue-900/30 px-2 py-0.5 rounded-sm">Grado</span>
-                                                                : <span className="text-[10px] font-bold uppercase tracking-wider text-green-600 dark:text-green-400 bg-green-100 dark:bg-green-900/30 px-2 py-0.5 rounded-sm">Certificado</span>
-                                                            }
-                                                            <span className="text-[11px] text-muted-foreground font-mono">{edu.period}</span>
-                                                        </div>
-
-                                                        <h4 className="font-bold text-foreground text-sm leading-tight group-hover:text-black transition-colors">
-                                                            {edu.title}
-                                                        </h4>
-
-                                                        <p className="text-xs text-muted-foreground font-medium">
-                                                            {edu.institution}
-                                                        </p>
-                                                    </div>
-
-                                                    {/* Flecha con colores forzados para arreglar el bug de producción */}
-                                                    {edu.slug && (
-                                                        <div className="shrink-0 mt-1">
-                                                            <div className="h-8 w-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 group-hover:bg-black group-hover:text-white transition-all shadow-sm">
-                                                                <ChevronRight size={16} />
-                                                            </div>
-                                                        </div>
-                                                    )}
-                                                </>
-                                            );
-
-                                            // 3. Renderizado Condicional Seguro (Adiós error de TS)
-                                            if (edu.slug) {
-                                                return (
-                                                    <motion.div key={edu.id} variants={itemVariants}>
-                                                        <Link href={`/experience/${edu.slug}`} className={cardClasses}>
-                                                            {CardContent}
-                                                        </Link>
-                                                    </motion.div>
-                                                );
-                                            }
-
-                                            return (
-                                                <motion.div key={edu.id} variants={itemVariants}>
-                                                    <div className={cardClasses}>
-                                                        {CardContent}
-                                                    </div>
-                                                </motion.div>
-                                            );
-                                        })}
-                                    </motion.div>
-                                </ScrollArea>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
+        <div className="grid items-start gap-12 lg:grid-cols-12 lg:gap-16">
+          <div className="lg:col-span-7">
+            <div className="mb-10 flex items-center gap-3">
+              <div className="rounded-xl bg-brand-500/15 p-2.5 text-brand-300 ring-1 ring-brand-500/30">
+                <Briefcase size={24} />
+              </div>
+              <h3 className="text-2xl font-bold text-white">Experiencia laboral</h3>
             </div>
-        </section>
-    );
+
+            <NeonTimeline>
+              {WORK_EXPERIENCE.map((job, i) => (
+                <motion.div
+                  key={job.id}
+                  variants={fadeSide("left")}
+                  initial="hidden"
+                  whileInView="show"
+                  viewport={{ once: true, amount: 0.3 }}
+                  custom={i * 0.08}
+                  className="group"
+                >
+                  <div className="rounded-2xl glass p-6 transition-transform duration-300 hover:-translate-y-1 md:p-7">
+                    <div className="mb-4 flex flex-col justify-between gap-4 sm:flex-row sm:items-start">
+                      <div>
+                        <h4 className="mb-1 text-xl font-bold text-white transition-colors group-hover:text-brand-300">
+                          {job.role}
+                        </h4>
+                        <p className="text-sm font-medium text-white/75">
+                          {job.company}
+                          {job.location ? ` · ${job.location}` : ""}
+                        </p>
+                      </div>
+                      <span className="inline-flex items-center gap-1.5 rounded-full border border-brand-500/30 bg-brand-500/10 px-3 py-1 text-xs font-semibold text-brand-300">
+                        <Calendar size={12} />
+                        {job.period}
+                      </span>
+                    </div>
+                    <p className="mb-6 text-sm leading-relaxed text-white/60 md:text-base">
+                      {job.description}
+                    </p>
+                    <div className="flex flex-wrap gap-2 border-t border-white/10 pt-4">
+                      {job.skills.map((skill, j) => (
+                        <motion.span
+                          key={skill}
+                          initial={{ opacity: 0, y: 8 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: 0.2 + j * 0.04, ease: EASE }}
+                          className="rounded-md bg-white/5 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-white/70"
+                        >
+                          {skill}
+                        </motion.span>
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </NeonTimeline>
+          </div>
+
+          <div className="lg:col-span-5">
+            <h3 className="mb-8 text-2xl font-bold text-white">
+              Educación y certificaciones
+            </h3>
+            <div className="space-y-3">
+              {EDUCATION.map((item, i) => {
+                const open = openId === item.id;
+                const border =
+                  LABEL_BORDER[item.label] ||
+                  BORDER_BY_TYPE[item.type] ||
+                  "border-brand-500";
+                return (
+                  <motion.div
+                    key={item.id}
+                    variants={fadeSide("right")}
+                    initial="hidden"
+                    whileInView="show"
+                    viewport={{ once: true, amount: 0.2 }}
+                    custom={i * 0.06}
+                    layout
+                    className={`glass rounded-xl border-l-2 p-4 ${border}`}
+                  >
+                    <button
+                      onClick={() => setOpenId(open ? null : item.id)}
+                      className="flex w-full items-center justify-between gap-3 text-left"
+                      aria-expanded={open}
+                    >
+                      <div>
+                        <p className="text-xs font-semibold uppercase tracking-wide text-white/45">
+                          {item.label} · {item.period}
+                        </p>
+                        <p className="mt-1 font-semibold text-white">{item.title}</p>
+                        <p className="text-sm text-white/55">{item.institution}</p>
+                      </div>
+                      <motion.span
+                        animate={{ rotate: open ? 90 : 0 }}
+                        className="text-2xl text-white/50"
+                      >
+                        ›
+                      </motion.span>
+                    </button>
+                    <AnimatePresence initial={false}>
+                      {open && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.35, ease: EASE }}
+                          className="overflow-hidden"
+                        >
+                          <div className="mt-3 space-y-3 border-t border-white/10 pt-3 text-sm text-white/60">
+                            <p>
+                              Formación que respalda mi perfil Full Stack y QA.
+                              Revisa el detalle completo con habilidades y
+                              proyectos relacionados.
+                            </p>
+                            <Link
+                              href={`/experience/${item.slug}`}
+                              className="inline-flex text-brand-300 hover:text-brand-400"
+                            >
+                              Ver detalle completo →
+                            </Link>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </div>
+    </SectionTransition>
+  );
 }

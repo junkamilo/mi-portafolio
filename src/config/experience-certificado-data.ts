@@ -25,15 +25,27 @@ export interface ExperienceItem {
 }
 export const experienceData: ExperienceItem[] = [
     {
+        slug: "ingenieria-sistemas-unad",
+        type: "education",
+        title: "Ingeniería de Sistemas (en curso)",
+        organization: "UNAD",
+        period: "2026 – actualidad",
+        shortDescription:
+            "Pregrado en curso en la Universidad Nacional Abierta y a Distancia, con créditos homologados desde la tecnología del SENA.",
+        fullDescription:
+            "Pregrado en curso en la Universidad Nacional Abierta y a Distancia, con créditos homologados desde la tecnología del SENA.",
+        skills: ["Ingeniería de software", "Bases de datos", "Redes", "Matemáticas aplicadas"],
+    },
+    {
         slug: "tecnologia-analisis-desarrollo-software",
         type: "education",
         title: "Tecnólogo en Análisis y Desarrollo de Software",
         organization: "SENA",
-        period: "2024 - 2026",
+        period: "2023 - 2026",
         shortDescription:
             "Formación integral en desarrollo de software, bases de datos, metodologías ágiles y buenas prácticas de programación.",
         fullDescription: `El programa de Tecnología en Análisis y Desarrollo de Software del SENA me proporcionó una formación completa y práctica en el desarrollo de aplicaciones.
-Durante los dos años de formación, adquirí conocimientos sólidos en:
+Durante la formación, adquirí conocimientos sólidos en:
 - Programación orientada a objetos
 - Desarrollo web frontend y backend
 - Bases de datos relacionales y NoSQL
@@ -45,32 +57,58 @@ El programa incluyó múltiples proyectos prácticos que me permitieron aplicar 
         skills: ["Java", "JavaScript", "Python", "PostgreSQL", "MySQL", "Git", "Scrum", "HTML/CSS"],
         projects: [
             {
-            title: "Music Streaming App",
-            description: "Plataforma de distribución de audio con arquitectura MVC. Gestión de roles (Artista/Oyente), creación de playlists y reproducción multimedia.",
-            repoUrl: "https://github.com/junkamilo/MusicApp"
-        },
-        {
-            title: "Restaurant Management System",
-            description: "Sistema integral de escritorio (Java Swing + MySQL) para el control de pedidos, despacho de comandas a cocina y facturación.",
-            repoUrl: "https://github.com/junkamilo/RestauranteApp"
-        }
+                title: "Music Streaming App",
+                description: "Plataforma de distribución de audio con arquitectura MVC. Gestión de roles (Artista/Oyente), creación de playlists y reproducción multimedia.",
+                repoUrl: "https://github.com/junkamilo/MusicApp"
+            },
         ],
         repoUrl: "https://github.com/junkamilo",
         //certificateUrl: "https://certificados.sena.edu.co/verificar/123456"
     },
     {
+        slug: "ibm-full-stack-software-developer",
+        type: "course",
+        title: "IBM Full Stack Software Developer (Professional Certificate)",
+        organization: "IBM",
+        period: "oct. 2026",
+        shortDescription:
+            "Certificado profesional de IBM en desarrollo Full Stack: frontend, backend, bases de datos, contenedores y despliegue en la nube.",
+        fullDescription:
+            "Certificado profesional de IBM en desarrollo Full Stack: frontend, backend, bases de datos, contenedores y despliegue en la nube.",
+        projects: [
+            {
+                title: "Biblioteca técnica",
+                description: "11 guías en PDF que documentan lo aprendido en el programa.",
+                demoUrl: "https://dev-biblioteca-online.vercel.app/",
+            },
+        ],
+        // Pendiente: URL de verificación de la credencial de IBM (certificateUrl)
+    },
+    {
+        slug: "coursera-qa-test-automation",
+        type: "course",
+        title: "Software QA & Test Automation Engineering",
+        organization: "Coursera",
+        period: "⟨Año⟩", // Pendiente: año del certificado
+        shortDescription:
+            "Programa especializado en aseguramiento de calidad: tipos de pruebas, diseño de casos, automatización y su integración en el ciclo de desarrollo.",
+        fullDescription:
+            "Programa especializado en aseguramiento de calidad: tipos de pruebas, diseño de casos, automatización y su integración en el ciclo de desarrollo.",
+        // Pendiente: URL de verificación de la credencial de Coursera (certificateUrl)
+    },
+    {
         slug: "nextjs-fullstack-guide",
-        type: "course", // 👈 Lo definimos como curso/certificación
+        type: "course",
         title: "Next.js: El Framework de React para Producción",
-        organization: "Udemy", // O la plataforma que corresponda
-        period: "2025",
+        organization: "Udemy",
+        period: "2026",
 
         shortDescription:
             "Especialización en desarrollo Full Stack moderno: App Router, Server Actions, SSR y conexión a bases de datos.",
 
         fullDescription: `Curso avanzado enfocado en la arquitectura de última generación de Next.js. Aprendí a construir aplicaciones robustas eliminando la necesidad de una API externa separada, utilizando las capacidades Full Stack del framework.
 
-Temas dominados:
+Temas del curso:
 - App Router & File-system Routing
 - React Server Components (RSC) vs Client Components
 - Server Actions (Mutaciones de datos sin API endpoints)
@@ -88,13 +126,11 @@ Temas dominados:
         projects: [
             {
                 title: "First Steps",
-                // Enfocado en la estructura base: App Router y Layouts
                 description: "Fundamentos de arquitectura. Implementación del App Router, manejo de rutas anidadas, Layouts persistentes y diferenciación entre Server/Client Components.",
                 repoUrl: "https://github.com/junkamilo/Next.js/tree/main/Next/first-steps"
             },
             {
                 title: "Dashboard UI",
-                // Enfocado en datos y UI: Fetching y Componentes
                 description: "Panel de administración modular. Práctica intensiva de Data Fetching con la API de Pokemon",
                 repoUrl: "https://github.com/junkamilo/Next.js/tree/main/Next/my-dashboard"
             }
@@ -128,13 +164,11 @@ El curso incluyó múltiples proyectos prácticos que me ayudaron a consolidar c
         projects: [
             {
                 title: "Artista App",
-                // "Ejercicio práctico" baja la expectativa de "Producto Real" pero mantiene el valor técnico.
                 description: "Ejercicio de introducción a React. Interfaz sencilla para visualizar un catálogo de artistas, enfocada en la estructura de componentes.",
                 repoUrl: "https://github.com/junkamilo/AprendiendoReact.js/tree/main/proyectosReact/ArtistasApp/ArtistaApp",
             },
             {
                 title: "React Calendar",
-                // "Lógica de renderizado" suena bien técnicamente, sin prometer un Google Calendar.
                 description: "Práctica de lógica de programación. Implementación manual de una grilla de fechas para reforzar el manejo de props y renderizado de listas.",
                 repoUrl: "https://github.com/junkamilo/AprendiendoReact.js/tree/main/proyectosReact/calendar/Calendar"
             }
@@ -168,13 +202,12 @@ Cada tema incluyó ejercicios prácticos y proyectos que me permitieron aplicar 
         skills: ["JavaScript", "ES6+", "Async/Await", "Fetch API", "Patrones de Diseño"],
         projects: [
             {
-                title: "Proverbios Gen", // Le agregué "Gen" para que suene a herramienta
+                title: "Proverbios Gen",
                 description: "Generador de citas aleatorias. Ejercicio básico de manipulación del DOM y manejo de arrays con JavaScript Vanilla.",
                 repoUrl: "https://github.com/junkamilo/AprendiendoJs/tree/main/Proyectos/Proverbios",
             },
             {
                 title: "Vanilla JS CRUD",
-                // "Persistencia de datos" y "Ciclo CRUD" son los términos técnicos correctos.
                 description: "Implementación del ciclo de vida de datos (Crear, Leer, Actualizar, Eliminar). Práctica enfocada en la persistencia con LocalStorage y lógica de estado en el cliente.",
                 repoUrl: "https://github.com/junkamilo/AprendiendoJs/tree/main/NivelPro",
             },
@@ -185,15 +218,15 @@ Cada tema incluyó ejercicios prácticos y proyectos que me permitieron aplicar 
     },
     {
         slug: "qa-testing-fundamentals",
-        type: "course", // Mantiene consistencia con el de JS
+        type: "course",
         title: "Software Testing & Quality Assurance",
         organization: "Udemy",
-        period: "2025",
+        period: "2026",
         shortDescription:
             "Dominio de metodologías de prueba (Manual/Automated), ciclo de vida del defecto y automatización con Cypress y Jest.",
         fullDescription: `Curso integral enfocado en garantizar la fiabilidad del software mediante estrategias de prueba modernas. Aprendí a diferenciar y aplicar distintos niveles de testing dentro del ciclo de desarrollo.
 
-Temas cubiertos:
+Temas del curso:
 - Fundamentos de QA (Caja Negra vs Caja Blanca)
 - Ciclo de vida del Bug y Reporte de incidencias
 - Diseño y ejecución de Casos de Prueba (Test Cases)
@@ -209,8 +242,7 @@ Temas cubiertos:
 
         projects: [
             {
-                title: "QA Case Study: Rappi", // Suena mucho más analítico y profesional
-                // Palabras clave: "Documentación visual", "Matrices de prueba", "Lógica de negocio"
+                title: "QA Case Study: Rappi",
                 description: "Plataforma web desarrollada para documentar y visualizar estrategias de QA. Presentación interactiva de matrices de prueba y flujos de error basados en la lógica de negocio de Rappi.",
                 repoUrl: "https://github.com/junkamilo/Proyectos/tree/main/CasosPruebasRappi/CasosPruebasRappi",
             },

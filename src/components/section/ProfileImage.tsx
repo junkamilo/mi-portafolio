@@ -44,7 +44,7 @@ export const ProfileImage = () => {
         <div className="relative h-full w-full rounded-full overflow-hidden border-4 border-background shadow-2xl">
            <Image
              src={HERO_CONTENT.image} 
-             alt={`Foto de perfil de ${HERO_CONTENT.name}`}
+             alt={HERO_CONTENT.imageAlt}
              fill
              className="object-cover object-center transition-transform duration-500 group-hover:scale-110"
              priority
