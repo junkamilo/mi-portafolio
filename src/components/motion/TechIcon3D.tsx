@@ -1,6 +1,7 @@
 "use client";
 
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { useRef } from "react";
+import { motion, useInView, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { resolveTechIcon } from "@/lib/tech-icons";
 import { useFinePointer } from "@/src/hooks/use-media-query";
 import { cn } from "@/lib/utils";
@@ -30,7 +31,7 @@ const VARIANT_STYLES: Record<Variant, string> = {
  * Icono tech con look 3D editable:
  * - material: glass | neon | metal
  * - tilt 3D al pasar el mouse
- * - flotación suave
+ * - flotación suave (solo mientras el icono está cerca de la pantalla)
  * - glow del color de marca
  *
  * Usa SVG de marca (simple-icons) o fallback tipográfico.
@@ -46,6 +47,11 @@ export function TechIcon3D({
 }: Props) {
   const icon = resolveTechIcon(name);
   const fine = useFinePointer();
+  const ref = useRef<HTMLDivElement>(null);
+  // La flotación infinita solo corre cuando el icono está cerca de la pantalla.
+  // Con decenas de iconos en la página, animarlos todos a la vez costaba en cada frame.
+  const inView = useInView(ref, { margin: "120px" });
+  const floating = animate && inView;
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
   const rotX = useSpring(useTransform(my, [-0.5, 0.5], [12, -12]), {
@@ -62,6 +68,7 @@ export function TechIcon3D({
 
   return (
     <motion.div
+      ref={ref}
       className={cn(
         "group relative flex flex-col items-center gap-1.5",
         showLabel && "w-[4.75rem]",
@@ -75,7 +82,7 @@ export function TechIcon3D({
     >
       <motion.div
         className={cn(
-          "relative grid place-items-center rounded-2xl border backdrop-blur-md transition-colors",
+          "relative grid place-items-center rounded-2xl border transition-colors",
           VARIANT_STYLES[variant],
         )}
         style={{
@@ -85,15 +92,9 @@ export function TechIcon3D({
           rotateY: fine ? rotY : 0,
           transformStyle: "preserve-3d",
         }}
-        animate={
-          animate
-            ? { y: [0, -4, 0], rotateZ: [0, 1.5, 0] }
-            : undefined
-        }
+        animate={floating ? { y: [0, -4, 0], rotateZ: [0, 1.5, 0] } : undefined}
         transition={
-          animate
-            ? { duration: 3.2, repeat: Infinity, ease: "easeInOut" }
-            : undefined
+          floating ? { duration: 3.2, repeat: Infinity, ease: "easeInOut" } : undefined
         }
         whileHover={{ scale: 1.08 }}
         whileTap={{ scale: 0.96 }}
@@ -108,11 +109,14 @@ export function TechIcon3D({
           my.set(0);
         }}
       >
-        {/* Glow de marca (capa 3D atrás) */}
+        {/* Glow de marca (capa 3D atrás), con gradiente radial en vez de blur */}
         <span
           aria-hidden
-          className="pointer-events-none absolute inset-1 rounded-xl opacity-50 blur-md transition-opacity group-hover:opacity-80"
-          style={{ background: color, transform: "translateZ(-12px)" }}
+          className="pointer-events-none absolute -inset-1 rounded-full opacity-60 transition-opacity group-hover:opacity-90"
+          style={{
+            background: `radial-gradient(closest-side, ${color}, transparent)`,
+            transform: "translateZ(-12px)",
+          }}
         />
 
         {/* Cara superior brillante */}

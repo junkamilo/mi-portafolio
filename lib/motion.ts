@@ -2,12 +2,13 @@ import type { Variants } from "framer-motion";
 
 export const EASE = [0.22, 1, 0.36, 1] as const;
 
+// Entrada con opacidad y desplazamiento. Sin `filter: blur`: animarlo en cada elemento
+// de la página obligaba a repintar todo al entrar en pantalla.
 export const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 40, filter: "blur(8px)" },
+  hidden: { opacity: 0, y: 40 },
   show: (delay: number = 0) => ({
     opacity: 1,
     y: 0,
-    filter: "blur(0px)",
     transition: { duration: 0.75, ease: EASE, delay },
   }),
 };

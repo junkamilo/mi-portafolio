@@ -3,10 +3,10 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { SKILL_CATEGORIES, type SkillItem } from "@/src/config/skills-data";
+import { TechIcon3D } from "@/src/components/motion/TechIcon3D";
 import { TiltCard } from "@/src/components/motion/TiltCard";
 import { RevealGroup, RevealItem, RevealTitle } from "@/src/components/motion/Reveal";
 import { SectionTransition } from "@/src/components/motion/SectionTransition";
-import { useFinePointer } from "@/src/hooks/use-media-query";
 import { cn } from "@/lib/utils";
 
 function SkillChip({
@@ -21,18 +21,24 @@ function SkillChip({
   return (
     <div className="relative">
       <motion.button
+        type="button"
         onClick={onToggle}
         whileHover={{ y: -2 }}
-        whileTap={{ scale: 0.92 }}
+        whileTap={{ scale: 0.94 }}
         aria-expanded={open}
+        aria-label={skill.name}
         className={cn(
-          "rounded-md px-2.5 py-1 text-xs uppercase tracking-wide transition-colors",
-          open
-            ? "bg-brand-500 text-white"
-            : "bg-white/5 text-white/75 hover:bg-white/10 focus-visible:bg-white/10",
+          "rounded-2xl p-1 transition-shadow",
+          open && "ring-2 ring-brand-400/70 shadow-[0_0_20px_-4px_rgb(139_92_246/0.7)]",
         )}
       >
-        {skill.name}
+        <TechIcon3D
+          name={skill.name}
+          size={52}
+          showLabel
+          animate
+          variant={open ? "neon" : "glass"}
+        />
       </motion.button>
       <AnimatePresence>
         {open && (
@@ -40,7 +46,7 @@ function SkillChip({
             initial={{ opacity: 0, y: 8, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 6, scale: 0.95 }}
-            className="absolute left-0 top-full z-30 mt-2 w-56 rounded-xl glass bg-ink-900/95 p-3 text-xs shadow-xl"
+            className="absolute left-1/2 top-full z-30 mt-2 w-56 -translate-x-1/2 rounded-xl glass bg-ink-900/95 p-3 text-xs shadow-xl"
           >
             <p className="mb-1.5 font-semibold text-brand-300">Dónde lo usé</p>
             <ul className="space-y-1 text-white/70">
@@ -63,8 +69,6 @@ function SkillChip({
 }
 
 export default function Skills() {
-  const fine = useFinePointer();
-  const [active, setActive] = useState(SKILL_CATEGORIES[0].id);
   const [openSkill, setOpenSkill] = useState<string | null>(null);
 
   useEffect(() => {
@@ -78,9 +82,6 @@ export default function Skills() {
     };
   }, []);
 
-  const activeCategory =
-    SKILL_CATEGORIES.find((c) => c.id === active) ?? SKILL_CATEGORIES[0];
-
   return (
     <SectionTransition id="skills" className="py-32">
       <div className="container relative z-10 mx-auto px-4 md:px-6">
@@ -91,78 +92,21 @@ export default function Skills() {
           />
           <p className="max-w-2xl text-lg text-white/60">
             Las herramientas con las que trabajo a diario, en proyectos reales y en
-            producción. Haz clic en un chip para ver dónde lo usé.
+            producción. Haz clic en un icono para ver dónde lo usé.
           </p>
         </div>
 
-        <div
-          role="tablist"
-          aria-label="Categorías de habilidades"
-          className="mb-10 flex snap-x gap-1 overflow-x-auto rounded-full glass p-1 md:mx-auto md:w-fit md:flex-wrap md:justify-center"
-        >
-          {SKILL_CATEGORIES.map((cat) => (
-            <button
-              key={cat.id}
-              role="tab"
-              aria-selected={active === cat.id}
-              onClick={() => {
-                setActive(cat.id);
-                setOpenSkill(null);
-              }}
-              className="relative snap-start whitespace-nowrap rounded-full px-4 py-1.5 text-sm text-white/70 transition-colors aria-selected:text-white"
-            >
-              {active === cat.id && (
-                <motion.span
-                  layoutId="skills-tab"
-                  className="absolute inset-0 rounded-full bg-brand-500 shadow-[0_0_24px_-4px_rgb(139_92_246/0.9)]"
-                  transition={{ type: "spring", stiffness: 400, damping: 32 }}
-                />
-              )}
-              <span className="relative z-10">{cat.label}</span>
-            </button>
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {SKILL_CATEGORIES.map((category) => (
+            <TiltCard key={category.id} className="h-full border-glow">
+              <CategoryBody
+                category={category}
+                openSkill={openSkill}
+                setOpenSkill={setOpenSkill}
+              />
+            </TiltCard>
           ))}
         </div>
-
-        {fine ? (
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {SKILL_CATEGORIES.map((category) => {
-              const isActive = category.id === active;
-              return (
-                <TiltCard
-                  key={category.id}
-                  className={cn(
-                    "h-full transition-opacity duration-300",
-                    isActive ? "border-glow opacity-100" : "opacity-40",
-                  )}
-                >
-                  <CategoryBody
-                    category={category}
-                    openSkill={openSkill}
-                    setOpenSkill={setOpenSkill}
-                  />
-                </TiltCard>
-              );
-            })}
-          </div>
-        ) : (
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeCategory.id}
-              initial={{ opacity: 0, x: 40 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -40 }}
-              transition={{ duration: 0.35 }}
-            >
-              <TiltCard className="border-glow">
-                <CategoryBody
-                  category={activeCategory}
-                  openSkill={openSkill}
-                  setOpenSkill={setOpenSkill}
-                />
-              </TiltCard>
-            </motion.div>
-          </AnimatePresence>
-        )}
       </div>
     </SectionTransition>
   );
@@ -186,7 +130,7 @@ function CategoryBody({
         <h3 className="mb-2 text-xl font-bold text-white">{category.label}</h3>
         <p className="text-sm leading-relaxed text-white/60">{category.description}</p>
       </div>
-      <RevealGroup className="mt-auto flex flex-wrap gap-2 pt-4" stagger={0.04}>
+      <RevealGroup className="mt-auto flex flex-wrap gap-x-1 gap-y-3 pt-4" stagger={0.04}>
         {category.skills.map((skill) => (
           <RevealItem key={skill.name}>
             <div

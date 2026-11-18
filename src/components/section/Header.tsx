@@ -51,7 +51,7 @@ export default function Header() {
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: hidden ? -110 : 0, opacity: 1 }}
         transition={{ duration: 0.45, ease: EASE }}
-        className="fixed inset-x-0 top-4 z-50 mx-auto flex w-[calc(100%-2rem)] max-w-5xl items-center justify-between rounded-full glass px-3 py-2"
+        className="fixed inset-x-0 top-4 z-50 mx-auto flex w-[calc(100%-2rem)] max-w-5xl items-center justify-between rounded-full glass-blur px-3 py-2"
       >
         <button
           onClick={() => go("inicio")}
@@ -117,7 +117,7 @@ export default function Header() {
           <AnimatePresence>
             {open && (
               <motion.div
-                className="fixed inset-0 z-[80] flex flex-col items-center justify-center gap-6 bg-ink-950/80 backdrop-blur-xl"
+                className="fixed inset-0 z-[80] flex flex-col items-center justify-center gap-6 bg-ink-950/92"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}

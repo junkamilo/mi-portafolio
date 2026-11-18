@@ -25,6 +25,12 @@ const ICONS = [
   { Icon: TerminalSquare, top: "6%", left: "64%", size: 48, dur: 12.5 },
 ];
 
+// Resplandores con gradiente radial en vez de `blur`: se ven igual de suaves,
+// pero un blur grande en un elemento que se mueve obliga a repintarlo en cada frame.
+const ORB_BRAND = "radial-gradient(closest-side, rgba(124,58,237,0.30), transparent)";
+const ORB_NEON = "radial-gradient(closest-side, rgba(34,211,238,0.14), transparent)";
+const CURSOR_GLOW = "radial-gradient(closest-side, rgba(139,92,246,0.16), transparent)";
+
 function CursorGlow() {
   const fine = useFinePointer();
   const x = useMotionValue(-600);
@@ -46,8 +52,8 @@ function CursorGlow() {
 
   return (
     <motion.div
-      style={{ x: sx, y: sy }}
-      className="absolute left-0 top-0 -ml-[220px] -mt-[220px] size-[440px] rounded-full bg-brand-500/12 blur-3xl"
+      style={{ x: sx, y: sy, background: CURSOR_GLOW, willChange: "transform" }}
+      className="absolute left-0 top-0 -ml-[220px] -mt-[220px] size-[440px] rounded-full"
     />
   );
 }
@@ -60,14 +66,16 @@ export function AnimatedBackground() {
 
   return (
     <div aria-hidden className="pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-ink-950">
-      <div className="bg-grid absolute inset-0 [mask-image:radial-gradient(ellipse_at_center,black_35%,transparent_80%)]" />
+      <div className="absolute inset-0 overflow-hidden [mask-image:radial-gradient(ellipse_at_center,black_35%,transparent_80%)]">
+        <div className="grid-drift bg-grid" />
+      </div>
       <motion.div
-        style={{ y: orbA }}
-        className="absolute -left-40 top-16 size-[520px] rounded-full bg-brand-600/25 blur-[130px]"
+        style={{ y: orbA, background: ORB_BRAND, willChange: "transform" }}
+        className="absolute -left-40 top-16 size-[520px] rounded-full"
       />
       <motion.div
-        style={{ y: orbB }}
-        className="absolute -right-40 top-[45%] size-[480px] rounded-full bg-neon-400/12 blur-[130px]"
+        style={{ y: orbB, background: ORB_NEON, willChange: "transform" }}
+        className="absolute -right-40 top-[45%] size-[480px] rounded-full"
       />
       <motion.div style={{ y: icons }} className="absolute inset-0">
         {ICONS.map(({ Icon, top, left, size, dur }, i) => (

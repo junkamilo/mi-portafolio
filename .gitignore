@@ -39,3 +39,21 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# sistema operativo (Windows)
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# editores e IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Claude Code (configuracion local de cada usuario)
+.claude/settings.local.json
+
+# logs y temporales
+*.log
+*.tmp

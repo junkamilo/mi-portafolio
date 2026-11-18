@@ -11,31 +11,11 @@ import { RevealTitle } from "@/src/components/motion/Reveal";
 import { SectionTransition } from "@/src/components/motion/SectionTransition";
 import { Magnetic } from "@/src/components/motion/Magnetic";
 import { ShineButton } from "@/src/components/motion/ShineButton";
-import {
-  featuredProjects,
-  type Project,
-  type ProjectTag,
-} from "@/src/config/projects-data";
+import { featuredProjects, type Project } from "@/src/config/projects-data";
 import { CV_FILENAME, CV_URL, SOCIAL_LINKS } from "@/src/config/contact-data";
 
-const FILTERS = [
-  { id: "all", label: "Todos" },
-  { id: "fullstack", label: "Full Stack" },
-  { id: "qa", label: "QA Automation" },
-  { id: "ecommerce", label: "E-commerce" },
-  { id: "cloud", label: "Cloud / Docker" },
-] as const;
-
-type FilterId = (typeof FILTERS)[number]["id"];
-
 export default function Projects() {
-  const [filter, setFilter] = useState<FilterId>("all");
   const [selected, setSelected] = useState<Project | null>(null);
-  const list =
-    filter === "all"
-      ? featuredProjects
-      : featuredProjects.filter((p) => p.tags.includes(filter as ProjectTag));
-
   const github = SOCIAL_LINKS.find((l) => l.name === "github")?.href ?? "#";
 
   return (
@@ -55,34 +35,9 @@ export default function Projects() {
         </div>
 
         <LayoutGroup>
-          <div
-            role="tablist"
-            aria-label="Filtrar proyectos"
-            className="mx-auto mb-10 flex w-fit flex-wrap justify-center gap-1 rounded-full glass p-1"
-          >
-            {FILTERS.map((f) => (
-              <button
-                key={f.id}
-                role="tab"
-                aria-selected={filter === f.id}
-                onClick={() => setFilter(f.id)}
-                className="relative rounded-full px-4 py-1.5 text-sm text-white/70 transition-colors aria-selected:text-white"
-              >
-                {filter === f.id && (
-                  <motion.span
-                    layoutId="filter-pill"
-                    className="absolute inset-0 rounded-full bg-brand-500 shadow-[0_0_24px_-4px_rgb(139_92_246/0.9)]"
-                    transition={{ type: "spring", stiffness: 400, damping: 32 }}
-                  />
-                )}
-                <span className="relative z-10">{f.label}</span>
-              </button>
-            ))}
-          </div>
-
           <motion.div layout className="mx-auto grid max-w-7xl gap-8 md:grid-cols-2 xl:grid-cols-3">
             <AnimatePresence mode="popLayout">
-              {list.map((p, i) => (
+              {featuredProjects.map((p, i) => (
                 <FeaturedProjectCard
                   key={p.slug}
                   project={p}
@@ -109,11 +64,13 @@ export default function Projects() {
               {/* Orbes de ambiente */}
               <div
                 aria-hidden
-                className="pointer-events-none absolute -left-16 -top-16 size-44 rounded-full bg-brand-500/25 blur-3xl"
+                className="pointer-events-none absolute -left-16 -top-16 size-44 rounded-full"
+                style={{ background: "radial-gradient(closest-side, rgba(139,92,246,0.3), transparent)" }}
               />
               <div
                 aria-hidden
-                className="pointer-events-none absolute -bottom-20 -right-12 size-48 rounded-full bg-neon-400/15 blur-3xl"
+                className="pointer-events-none absolute -bottom-20 -right-12 size-48 rounded-full"
+                style={{ background: "radial-gradient(closest-side, rgba(34,211,238,0.18), transparent)" }}
               />
               <div
                 aria-hidden

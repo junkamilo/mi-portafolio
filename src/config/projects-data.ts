@@ -129,7 +129,7 @@ const CASA_VERDE_TECH = [
 ];
 
 const CASA_VERDE_LAYERS: ProjectStackLayer[] = [
-  { layer: "Web", items: "Next.js, React, Tailwind CSS (frontend) · Next.js API, Prisma (backend)" },
+  { layer: "Web", items: "Next.js, React, Tailwind CSS (frontend) · NestJS, Prisma (backend)" },
   { layer: "Cloud", items: "React, TypeScript, Tailwind CSS (frontend) · Java, Spring Boot (backend)" },
   { layer: "Base de datos", items: "PostgreSQL" },
   { layer: "QA", items: "Jest, pruebas automatizadas" },
@@ -198,13 +198,13 @@ export const PROJECTS: Project[] = [
           id: "web",
           label: "Casa Verde Web",
           subtitle: "Tienda en línea · catálogo, carrito y pagos",
-          stack: ["Next.js", "React", "TypeScript", "Prisma", "PostgreSQL", "Docker"],
-          bannerImage: "/banner_casa_verde_web.png",
+          stack: ["Next.js", "React", "TypeScript", "NestJS", "Prisma", "PostgreSQL", "Docker"],
+          bannerImage: "/banner_casa_verde_web.webp",
           description:
             "La tienda en línea donde los clientes navegan el catálogo, arman el carrito y pagan con Bold o Addi. Incluye inicio de sesión con Google o correo, y cada pedido se envía automáticamente a la Cloud.",
           layers: [
             { layer: "Frontend", items: "Next.js, React, TypeScript, Tailwind CSS" },
-            { layer: "Backend", items: "Next.js API Routes, Server Actions, Prisma" },
+            { layer: "Backend", items: "NestJS, Prisma" },
             { layer: "Base de datos", items: "PostgreSQL" },
             { layer: "Auth", items: "Auth.js (NextAuth), Google OAuth" },
             { layer: "Pagos", items: "Bold, Addi" },
@@ -225,7 +225,7 @@ export const PROJECTS: Project[] = [
           label: "Casa Verde Cloud",
           subtitle: "Gestión del negocio · ventas, inventario y costos",
           stack: ["React", "Vite", "Java", "Spring Boot", "PostgreSQL", "Docker"],
-          bannerImage: "/banner_cloud_casa_verde.png",
+          bannerImage: "/banner_cloud_casa_verde.webp",
           description:
             "El POS / cloud del negocio: ventas, gastos, costos e inventario. Frontend en React + Vite y backend en Spring Boot (Java), con API pública hacia la tienda web y despliegue en Docker.",
           layers: [
@@ -243,6 +243,8 @@ export const PROJECTS: Project[] = [
             "API pública e integración con la tienda web",
             "Despliegue en Docker con ambiente de QA",
           ],
+          demoUrl: "https://pos.casaverdeoficial.com/login",
+          repoUrl: "https://github.com/junkamilo/Pos-Cloud",
         },
       ],
     },
@@ -301,12 +303,13 @@ export const PROJECTS: Project[] = [
           id: "web",
           label: "DYL Store Web",
           subtitle: "Tienda en línea · catálogo, carrito y pagos",
-          stack: ["Next.js", "React", "TypeScript", "Prisma", "PostgreSQL", "Docker"],
+          stack: ["Next.js", "React", "TypeScript", "NestJS", "Prisma", "PostgreSQL", "Docker"],
+          bannerImage: "/Banner_dyl_store_web.webp",
           description:
             "Tienda en línea basada en la arquitectura de Casa Verde Web, adaptada al catálogo, carrito y flujo de pagos de DYL Store. Mismo stack: Next.js, Prisma y PostgreSQL.",
           layers: [
             { layer: "Frontend", items: "Next.js, React, TypeScript, Tailwind CSS" },
-            { layer: "Backend", items: "Next.js API Routes, Server Actions, Prisma" },
+            { layer: "Backend", items: "NestJS, Prisma" },
             { layer: "Base de datos", items: "PostgreSQL" },
             { layer: "Auth", items: "Auth.js (NextAuth), Google OAuth" },
             { layer: "Pagos", items: "Bold, Addi" },
@@ -318,12 +321,15 @@ export const PROJECTS: Project[] = [
             "Base reutilizada de Casa Verde Web",
             "Sincronización de pedidos hacia DYL Store Cloud",
           ],
+          demoUrl: "https://www.dylstore.com/",
+          repoUrl: "https://github.com/junkamilo/D-L-STORE-WEB",
         },
         {
           id: "cloud",
           label: "DYL Store Cloud",
           subtitle: "Gestión en la nube · módulos adaptados al negocio",
           stack: ["React", "Vite", "Java", "Spring Boot", "PostgreSQL", "Docker"],
+          bannerImage: "/Banner_dyl_store_cloud.webp",
           description:
             "Sistema de gestión en la nube sobre la base de Casa Verde Cloud: módulos ajustados y módulos nuevos según las necesidades de este negocio. Mismo stack React + Spring Boot.",
           layers: [
@@ -340,6 +346,8 @@ export const PROJECTS: Project[] = [
             "Módulos reutilizados y módulos nuevos",
             "Despliegue independiente con QA propio",
           ],
+          demoUrl: "https://cloud.dylstore.com/",
+          repoUrl: "https://github.com/junkamilo/D-L-STORE-CONTABLE",
         },
       ],
     },
@@ -348,8 +356,8 @@ export const PROJECTS: Project[] = [
     image: "/dyl-store-main.png",
 
     links: {
-      // Pendiente: agregar la URL en vivo de DYL Store en `demo`
-      repoNote: PRIVATE_REPO_NOTE,
+      demo: "https://www.dylstore.com/",
+      github: "https://github.com/junkamilo/D-L-STORE-WEB",
     },
 
     infrastructure: CASA_VERDE_INFRA,
@@ -368,19 +376,32 @@ export const PROJECTS: Project[] = [
     role: "Desarrollador Full Stack & QA",
     status: "En producción",
 
-    technologies: ["Next.js", "React", "TypeScript", "NestJS", "Node.js", "PostgreSQL", "Jest", "Vitest", "Testing Library", "Playwright"],
+    technologies: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "NestJS",
+      "Prisma",
+      "PostgreSQL",
+      "Stripe",
+      "Vitest",
+      "Jest",
+      "Playwright",
+    ],
     stackByLayer: [
-      { layer: "Frontend", items: "Next.js, React, TypeScript" },
-      { layer: "Backend", items: "Node.js, NestJS" },
+      { layer: "Frontend", items: "Next.js, React, TypeScript, Tailwind CSS" },
+      { layer: "Backend", items: "NestJS, Node.js, Prisma" },
       { layer: "Base de datos", items: "PostgreSQL" },
-      { layer: "QA", items: "Jest, Vitest, Testing Library, Playwright" },
+      { layer: "Pagos", items: "Stripe" },
+      { layer: "QA", items: "Vitest, Jest, Playwright, k6" },
     ],
 
     features: [
-      "Publicación de eventos y venta de boletas",
-      "Reserva de puestos y pagos en línea",
-      "Panel de administración",
-      "Pruebas unitarias y E2E en los flujos de compra, reservas y pagos",
+      "Publicación de eventos, boletas y reservas de venue",
+      "Pagos en línea con Stripe (clases, cotizaciones y asientos)",
+      "Panel de administración con agenda, inbox y pagos",
+      "Pruebas unitarias, E2E y de carga en frontend y backend",
     ],
 
     challenges: [
@@ -401,43 +422,58 @@ export const PROJECTS: Project[] = [
     tags: ["fullstack", "qa"],
     architecture: {
       kind: "single",
-      linkLabel: "Frontend · Backend · QA",
+      linkLabel: "Sitio · Admin · QA",
       parts: [
         {
           id: "frontend",
-          label: "Frontend",
-          subtitle: "Eventos, boletas y reservas",
-          stack: ["Next.js", "React", "TypeScript"],
+          label: "Shamell Web",
+          subtitle: "Sitio público · eventos, boletas y reservas",
+          stack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Stripe", "Three.js"],
+          bannerImage: "/banner_shamell_home.webp",
           description:
-            "Interfaz de Shamell: publicación de eventos, venta de boletas, reserva de puestos y panel de administración.",
+            "Sitio público en Next.js App Router: eventos, galería, reservas y pagos con Stripe. UI con Tailwind, shadcn y escenas 3D con Three.js.",
           layers: [
-            { layer: "Frontend", items: "Next.js, React, TypeScript" },
-            { layer: "QA Frontend", items: "Jest, Vitest, Testing Library" },
+            { layer: "Frontend", items: "Next.js, React, TypeScript, Tailwind CSS" },
+            { layer: "UI", items: "shadcn, Base UI, Radix" },
+            { layer: "Animación / 3D", items: "Motion, Three.js, React Three Fiber" },
+            { layer: "Pagos", items: "Stripe" },
+            { layer: "Infra", items: "Vercel" },
+            { layer: "QA", items: "Vitest, Testing Library, MSW, Playwright, Cypress" },
           ],
           features: [
-            "Publicación de eventos y venta de boletas",
-            "Reserva de puestos",
-            "Panel de administración",
+            "Eventos, galería y catálogo de servicios",
+            "Reservas de venue y flujos de pago",
+            "Animaciones Motion y escenas 3D",
+            "Vitest, Playwright y smoke en CI",
           ],
           demoUrl: "https://www.shamellentertainment.com/",
+          repoUrl: "https://github.com/junkamilo/shamell-entertainment-web",
         },
         {
           id: "backend",
-          label: "Backend + QA",
-          subtitle: "APIs NestJS y pruebas E2E",
-          stack: ["NestJS", "PostgreSQL", "Playwright"],
+          label: "Shamell Admin",
+          subtitle: "Panel admin · NestJS, Stripe y QA",
+          stack: ["NestJS", "Prisma", "PostgreSQL", "Stripe", "Jest", "Playwright"],
+          bannerImage: "/banner_shamell_admin.webp",
           description:
-            "APIs en NestJS, base PostgreSQL y cobertura de pruebas unitarias y E2E en los flujos de compra, reservas y pagos.",
+            "Panel admin y API NestJS: agenda, taquilla, disponibilidad, inbox, webhooks de Stripe, Prisma sobre PostgreSQL y batería de pruebas (Jest, E2E, k6).",
           layers: [
-            { layer: "Backend", items: "Node.js, NestJS" },
-            { layer: "Base de datos", items: "PostgreSQL" },
-            { layer: "QA", items: "Jest, Playwright, CI/CD" },
+            { layer: "Backend", items: "NestJS, Node.js, Express" },
+            { layer: "ORM / Base de datos", items: "Prisma, PostgreSQL" },
+            { layer: "Auth", items: "JWT, bcrypt, Google" },
+            { layer: "Pagos", items: "Stripe" },
+            { layer: "Integraciones", items: "MailerSend, Cloudinary" },
+            { layer: "Infra", items: "Render, GitHub Actions" },
+            { layer: "QA", items: "Jest, Supertest, Playwright, k6, Stryker" },
           ],
           features: [
-            "APIs REST para eventos, boletas y pagos",
-            "Pruebas E2E en compra, reservas y pagos",
-            "Backend modularizado para mantenimiento",
+            "Agenda, box office, disponibilidad e inbox",
+            "Webhooks e historial de pagos Stripe",
+            "Auth JWT, Google y reCAPTCHA",
+            "Unitarias, E2E, mutación y carga (k6)",
           ],
+          demoUrl: "https://www.shamellentertainment.com/",
+          repoUrl: "https://github.com/junkamilo/shamell-entertainment-web",
         },
       ],
     },
@@ -447,14 +483,15 @@ export const PROJECTS: Project[] = [
 
     links: {
       demo: "https://www.shamellentertainment.com/",
-      repoNote: "Privado. Disponible para revisión en entrevista.",
+      github: "https://github.com/junkamilo/shamell-entertainment-web",
     },
 
     infrastructure: {
-      frontend: "Next.js",
-      backend: "NestJS",
-      database: "PostgreSQL",
-      qa: "Pruebas en CI/CD",
+      frontend: "Next.js en Vercel",
+      backend: "NestJS en Render",
+      database: "PostgreSQL (Neon / Supabase)",
+      payment: "Stripe",
+      qa: "Vitest, Jest, Playwright, k6 · GitHub Actions",
     },
   },
 ];

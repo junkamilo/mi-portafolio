@@ -3,7 +3,7 @@ import { Linkedin, Github } from "lucide-react";
 export const CONTACT_EMAIL = "juancamilo.campobarrios@gmail.com";
 
 // CV: el archivo PDF debe estar en /public con este nombre exacto.
-export const CV_FILENAME = "Juan_Beltran_Campo_CV_FullStack_QA.pdf";
+export const CV_FILENAME = "Hoja_Vida_Juan_Beltran_Campo.pdf";
 export const CV_URL = `/${CV_FILENAME}`;
 
 export const SOCIAL_LINKS = [

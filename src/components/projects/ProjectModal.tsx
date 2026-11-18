@@ -65,7 +65,7 @@ function ModalSystemPart({
         )}
       >
         <Icon size={12} />
-        {isWeb ? "Web" : part.id === "cloud" ? "Cloud" : "API / QA"}
+        {isWeb ? "Web" : part.id === "cloud" ? "Cloud" : "Admin"}
         {active && (
           <span className="ml-0.5 rounded-full bg-white/15 px-1.5 py-px text-[9px] normal-case tracking-normal text-white/80">
             activo
@@ -119,7 +119,7 @@ export function ProjectModal({
       aria-label={project.title}
     >
       <motion.div
-        className="absolute inset-0 bg-ink-950/70 backdrop-blur-md"
+        className="absolute inset-0 bg-ink-950/92"
         onClick={onClose}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -146,11 +146,13 @@ export function ProjectModal({
           <div className="relative overflow-hidden border-b border-white/10 bg-ink-950/50 px-5 pb-5 pt-12 md:px-8">
             <div
               aria-hidden
-              className="pointer-events-none absolute -left-10 top-0 size-40 rounded-full bg-brand-500/20 blur-3xl"
+              className="pointer-events-none absolute -left-10 top-0 size-40 rounded-full"
+              style={{ background: "radial-gradient(closest-side, rgba(139,92,246,0.22), transparent)" }}
             />
             <div
               aria-hidden
-              className="pointer-events-none absolute -right-8 bottom-0 size-36 rounded-full bg-neon-400/15 blur-3xl"
+              className="pointer-events-none absolute -right-8 bottom-0 size-36 rounded-full"
+              style={{ background: "radial-gradient(closest-side, rgba(34,211,238,0.15), transparent)" }}
             />
 
             {parts.length >= 2 && (
@@ -265,7 +267,6 @@ export function ProjectModal({
                       height={900}
                       className="h-auto w-full object-contain"
                       sizes="(max-width: 768px) 100vw, 720px"
-                      priority
                     />
                   </motion.div>
                 )}

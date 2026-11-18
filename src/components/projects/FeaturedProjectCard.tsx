@@ -14,6 +14,13 @@ import { TiltCard } from "@/src/components/motion/TiltCard";
 import type { Project, ProjectSystemPart } from "@/src/config/projects-data";
 import { cn } from "@/lib/utils";
 
+// Resplandores con gradiente radial (sin `blur`): igual de suaves, pero sin un filtro
+// por frame cuando la tarjeta se mueve con el mouse o con el scroll.
+const GLOW_BRAND = "radial-gradient(closest-side, rgba(139,92,246,0.35), transparent)";
+const GLOW_NEON = "radial-gradient(closest-side, rgba(34,211,238,0.28), transparent)";
+const HEAD_BRAND = "radial-gradient(closest-side, rgba(139,92,246,0.22), transparent)";
+const HEAD_NEON = "radial-gradient(closest-side, rgba(34,211,238,0.15), transparent)";
+
 const PART_META: Record<
   ProjectSystemPart["id"],
   { Icon: typeof Globe2; accent: string; chip: string; glow: string }
@@ -22,31 +29,32 @@ const PART_META: Record<
     Icon: Globe2,
     accent: "from-brand-500/30 to-fuchsia-500/10",
     chip: "bg-brand-500/15 text-brand-300 ring-brand-500/30",
-    glow: "bg-brand-500/25",
+    glow: GLOW_BRAND,
   },
   cloud: {
     Icon: Cloud,
     accent: "from-neon-400/25 to-brand-500/10",
     chip: "bg-neon-400/15 text-neon-400 ring-neon-400/30",
-    glow: "bg-neon-400/20",
+    glow: GLOW_NEON,
   },
   frontend: {
     Icon: Layout,
     accent: "from-brand-500/30 to-fuchsia-500/10",
     chip: "bg-brand-500/15 text-brand-300 ring-brand-500/30",
-    glow: "bg-brand-500/25",
+    glow: GLOW_BRAND,
   },
   backend: {
     Icon: Server,
     accent: "from-neon-400/25 to-brand-500/10",
     chip: "bg-neon-400/15 text-neon-400 ring-neon-400/30",
-    glow: "bg-neon-400/20",
+    glow: GLOW_NEON,
   },
 };
 
 function partBadgeLabel(id: ProjectSystemPart["id"]) {
   if (id === "web" || id === "frontend") return "Web";
   if (id === "cloud") return "Cloud";
+  if (id === "backend") return "Admin";
   return "API";
 }
 
@@ -77,10 +85,8 @@ function SystemNode({ part }: { part: ProjectSystemPart }) {
       ) : (
         <div
           aria-hidden
-          className={cn(
-            "pointer-events-none absolute -right-4 -top-4 size-16 rounded-full blur-2xl",
-            meta.glow,
-          )}
+          className="pointer-events-none absolute -right-4 -top-4 size-16 rounded-full"
+          style={{ background: meta.glow }}
         />
       )}
 
@@ -89,7 +95,7 @@ function SystemNode({ part }: { part: ProjectSystemPart }) {
           className={cn(
             "inline-flex w-fit items-center gap-1.5 rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider ring-1 shadow-sm",
             meta.chip,
-            hasBanner && "bg-ink-950/75 backdrop-blur-sm",
+            hasBanner && "bg-ink-950/75",
           )}
         >
           <Icon size={11} />
@@ -168,7 +174,6 @@ export function FeaturedProjectCard({
 
   return (
     <motion.article
-      layout
       layoutId={`card-${project.slug}`}
       initial={{ opacity: 0, y: 40, scale: 0.92 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -190,11 +195,13 @@ export function FeaturedProjectCard({
           />
           <div
             aria-hidden
-            className="pointer-events-none absolute -left-10 top-0 size-32 rounded-full bg-brand-500/20 blur-3xl"
+            className="pointer-events-none absolute -left-10 top-0 size-32 rounded-full"
+            style={{ background: HEAD_BRAND }}
           />
           <div
             aria-hidden
-            className="pointer-events-none absolute -right-8 bottom-0 size-28 rounded-full bg-neon-400/15 blur-3xl"
+            className="pointer-events-none absolute -right-8 bottom-0 size-28 rounded-full"
+            style={{ background: HEAD_NEON }}
           />
 
           <ArchitectureDiagram project={project} />

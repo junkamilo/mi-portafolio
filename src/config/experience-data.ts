@@ -33,12 +33,10 @@ export const WORK_EXPERIENCE = [
 ];
 
 // --- DATOS: EDUCACIÓN Y CERTIFICACIONES (lista de la sección) ---
-// El slug enlaza a la página de detalle en /experience/[slug] (ver experience-certificado-data.ts).
-// label es el texto del badge; type define el color (degree = resaltado azul).
+// label es el texto del badge; type define el color del borde.
 export const EDUCATION = [
   {
     id: 1,
-    slug: "ingenieria-sistemas-unad",
     title: "Ingeniería de Sistemas (en curso)",
     institution: "UNAD",
     period: "2026 – actualidad",
@@ -47,7 +45,6 @@ export const EDUCATION = [
   },
   {
     id: 2,
-    slug: "tecnologia-analisis-desarrollo-software",
     title: "Tecnólogo en Análisis y Desarrollo de Software",
     institution: "SENA",
     period: "2023 – 2026",
@@ -56,7 +53,6 @@ export const EDUCATION = [
   },
   {
     id: 3,
-    slug: "ibm-full-stack-software-developer",
     title: "IBM Full Stack Software Developer (Professional Certificate)",
     institution: "IBM",
     period: "oct. 2026",
@@ -65,7 +61,6 @@ export const EDUCATION = [
   },
   {
     id: 4,
-    slug: "coursera-qa-test-automation",
     title: "Software QA & Test Automation Engineering",
     institution: "Coursera",
     period: "⟨Año⟩", // Pendiente: año del certificado de Coursera
@@ -74,7 +69,6 @@ export const EDUCATION = [
   },
   {
     id: 5,
-    slug: "nextjs-fullstack-guide",
     title: "Next.js: El Framework de React para Producción",
     institution: "Udemy",
     period: "2026",
@@ -83,7 +77,6 @@ export const EDUCATION = [
   },
   {
     id: 6,
-    slug: "react-guia-completa",
     title: "React - La Guía Completa",
     institution: "Udemy",
     period: "2025",
@@ -92,7 +85,6 @@ export const EDUCATION = [
   },
   {
     id: 7,
-    slug: "qa-testing-fundamentals",
     title: "Software Testing & Quality Assurance",
     institution: "Udemy",
     period: "2026",
@@ -101,7 +93,6 @@ export const EDUCATION = [
   },
   {
     id: 8,
-    slug: "javascript-moderno",
     title: "JavaScript Moderno",
     institution: "Udemy",
     period: "2025",

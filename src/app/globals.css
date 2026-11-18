@@ -15,22 +15,37 @@
   --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Cuadrícula animada del fondo */
+/* Cuadrícula de fondo (estática) */
 .bg-grid {
   background-image:
     linear-gradient(to right, rgb(255 255 255 / 0.045) 1px, transparent 1px),
     linear-gradient(to bottom, rgb(255 255 255 / 0.045) 1px, transparent 1px);
   background-size: 56px 56px;
-  animation: grid-move 24s linear infinite;
 }
-@keyframes grid-move { to { background-position: 56px 56px; } }
 
-/* Tarjeta de cristal */
+/* Cuadrícula que se desplaza: solo cambia transform, así la GPU la mueve sin repintarla.
+   Va combinada con .bg-grid. */
+.grid-drift {
+  position: absolute;
+  inset: -56px;
+  animation: grid-drift 24s linear infinite;
+  will-change: transform;
+}
+@keyframes grid-drift { to { transform: translate3d(56px, 56px, 0); } }
+
+/* Tarjeta de cristal. Sin backdrop-filter: se repetía en muchos elementos y era lo que
+   hacía lento el scroll. */
 .glass {
-  background: rgb(255 255 255 / 0.04);
+  background: linear-gradient(145deg, rgb(255 255 255 / 0.08), rgb(255 255 255 / 0.025));
+  border: 1px solid rgb(255 255 255 / 0.09);
+}
+
+/* Cristal con desenfoque: solo para el header, que es pequeño y fijo */
+.glass-blur {
+  background: rgb(255 255 255 / 0.05);
   border: 1px solid rgb(255 255 255 / 0.08);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 /* Borde con luz que gira */
@@ -42,7 +57,9 @@
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor; mask-composite: exclude;
   animation: spin-angle 4s linear infinite;
+  animation-play-state: paused; /* el borde gira solo al pasar el mouse */
 }
+.border-glow:hover::before { animation-play-state: running; }
 @keyframes spin-angle { to { --angle: 360deg; } }
 
 /* Pulso del punto verde */
@@ -68,7 +85,7 @@
 .shine:hover::after { transition: transform .8s var(--ease-out-expo); transform: translateX(120%); }
 
 @media (prefers-reduced-motion: reduce) {
-  .bg-grid, .border-glow::before, .live-dot::after { animation: none; }
+  .grid-drift, .border-glow::before, .live-dot::after { animation: none; }
   .shine::after { display: none; }
 }
 

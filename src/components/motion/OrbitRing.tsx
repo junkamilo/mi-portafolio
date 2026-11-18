@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import { useInView } from "framer-motion";
 
 // Anillo orbital decorativo. Siempre animado (ignora prefers-reduced-motion).
-// Solo se pausa cuando sale de pantalla, para no gastar CPU.
+// Cuando sale de pantalla deja de pedir frames, y los reanuda al volver a aparecer.
 export function OrbitRing({
   size = 440,
   layer,
@@ -16,6 +16,7 @@ export function OrbitRing({
   const inView = useInView(ref, { amount: 0.05, margin: "100px" });
   const inViewRef = useRef(inView);
   inViewRef.current = inView;
+  const startRef = useRef<(() => void) | null>(null);
 
   useEffect(() => {
     const c = ref.current;
@@ -46,14 +47,13 @@ export function OrbitRing({
     const tilt = -0.35;
     let t = 0;
     let raf = 0;
-    let running = true;
+    let looping = false;
 
     const draw = () => {
-      if (!running) return;
-
-      // Pausar fuera de pantalla, pero no destruir el loop
+      // Fuera de pantalla no se pide otro frame: el loop se detiene y no gasta CPU
       if (!inViewRef.current) {
-        raf = requestAnimationFrame(draw);
+        looping = false;
+        raf = 0;
         return;
       }
 
@@ -100,13 +100,25 @@ export function OrbitRing({
       raf = requestAnimationFrame(draw);
     };
 
-    draw();
+    const start = () => {
+      if (looping || !inViewRef.current) return;
+      looping = true;
+      raf = requestAnimationFrame(draw);
+    };
+    startRef.current = start;
+    start();
 
     return () => {
-      running = false;
+      looping = false;
       cancelAnimationFrame(raf);
+      startRef.current = null;
     };
   }, [size, layer]);
+
+  // Al volver a estar en pantalla, reanuda la animación
+  useEffect(() => {
+    if (inView) startRef.current?.();
+  }, [inView]);
 
   return (
     <canvas

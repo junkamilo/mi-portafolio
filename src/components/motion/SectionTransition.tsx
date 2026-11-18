@@ -1,8 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useMotionTemplate, useScroll, useTransform } from "framer-motion";
-import { useFinePointer } from "@/src/hooks/use-media-query";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 export function SectionTransition({
   children,
@@ -14,21 +13,20 @@ export function SectionTransition({
   className?: string;
 }) {
   const ref = useRef<HTMLElement>(null);
-  const fine = useFinePointer();
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "start 35%"],
   });
+  // Solo transform y opacidad, que la GPU resuelve sin repintar la sección.
+  // (Antes se animaba un blur sobre toda la sección en cada frame del scroll.)
   const scale = useTransform(scrollYProgress, [0, 1], [0.94, 1]);
   const opacity = useTransform(scrollYProgress, [0, 1], [0.3, 1]);
-  const blur = useTransform(scrollYProgress, [0, 1], [fine ? 6 : 0, 0]);
-  const filter = useMotionTemplate`blur(${blur}px)`;
 
   return (
     <motion.section
       ref={ref}
       id={id}
-      style={{ scale, opacity, filter }}
+      style={{ scale, opacity, willChange: "transform" }}
       className={`relative scroll-mt-24 ${className ?? ""}`}
     >
       {children}
