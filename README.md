@@ -17,7 +17,7 @@
 
 <br />
 
-[GitHub](https://github.com/junkamilo) · [LinkedIn](https://www.linkedin.com/in/juan-camilo-beltrán-campo-4aa1b3202/) · [Email](mailto:juancamilo.campobarrios@gmail.com) · [Descargar CV (PDF)](./public/Hoja_Vida_Juan_Beltran_Campo.pdf)
+[GitHub](https://github.com/junkamilo) · [LinkedIn](https://www.linkedin.com/in/juan-camilo-beltrán-campo-4aa1b3202/) · [Email](mailto:juancamilo.campobarrios@gmail.com) · [Descargar CV (PDF)](./public/Hoja_Vida_Juan_Beltran_Campo_Full_Stack_QA.pdf)
 
 </div>
 
@@ -27,11 +27,11 @@
 
 Este repositorio es mi **hoja de vida en formato web**: un portafolio oscuro, animado y orientado a producción. No es solo una landing genérica; resume mi perfil profesional, experiencia, formación, habilidades y los proyectos que tengo **en producción**.
 
-La misma información que está en mi CV en PDF (`Hoja_Vida_Juan_Beltran_Campo.pdf`) vive aquí de forma interactiva: puedes explorar el stack, abrir el detalle de cada sistema (Web ↔ Cloud / Admin) y descargar la hoja de vida desde cualquier botón **Descargar CV**.
+La misma información que está en mi CV en PDF (`Hoja_Vida_Juan_Beltran_Campo_Full_Stack_QA.pdf`) vive aquí de forma interactiva: puedes explorar el stack, abrir el detalle de cada sistema (Web ↔ Cloud / Admin) y descargar la hoja de vida desde cualquier botón **Descargar CV**.
 
 | Formato | Archivo / sitio | Para qué sirve |
 |---|---|---|
-| **CV PDF** | [`public/Hoja_Vida_Juan_Beltran_Campo.pdf`](./public/Hoja_Vida_Juan_Beltran_Campo.pdf) | Entrevistas, postulaciones, ATS |
+| **CV PDF** | [`public/Hoja_Vida_Juan_Beltran_Campo_Full_Stack_QA.pdf`](./public/Hoja_Vida_Juan_Beltran_Campo_Full_Stack_QA.pdf) | Entrevistas, postulaciones, ATS |
 | **Portafolio web** | Este proyecto (Next.js) | Demo visual, casos reales, stack vivo |
 
 ---
@@ -91,7 +91,7 @@ Cada card abre un modal con descripción, características, banner, stack por ca
 El CV oficial está en:
 
 ```text
-public/Hoja_Vida_Juan_Beltran_Campo.pdf
+public/Hoja_Vida_Juan_Beltran_Campo_Full_Stack_QA.pdf
 ```
 
 Se descarga desde:
@@ -126,7 +126,7 @@ src/
   config/         # Datos editables: hero, proyectos, skills, experiencia, contacto
   app/            # App Router
 public/
-  Hoja_Vida_Juan_Beltran_Campo.pdf
+  Hoja_Vida_Juan_Beltran_Campo_Full_Stack_QA.pdf
   banner_*.png    # Capturas de Casa Verde, DYL, Shamell
 ```
 
@@ -156,7 +156,7 @@ npm run lint    # ESLint
 - **Email:** [juancamilo.campobarrios@gmail.com](mailto:juancamilo.campobarrios@gmail.com)
 - **GitHub:** [junkamilo](https://github.com/junkamilo)
 - **LinkedIn:** [Juan Camilo Beltrán Campo](https://www.linkedin.com/in/juan-camilo-beltrán-campo-4aa1b3202/)
-- **CV PDF:** [Hoja_Vida_Juan_Beltran_Campo.pdf](./public/Hoja_Vida_Juan_Beltran_Campo.pdf)
+- **CV PDF:** [Hoja_Vida_Juan_Beltran_Campo_Full_Stack_QA.pdf](./public/Hoja_Vida_Juan_Beltran_Campo_Full_Stack_QA.pdf)
 
 ---
 
